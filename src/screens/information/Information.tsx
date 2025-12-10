@@ -92,13 +92,11 @@ const Information = () => {
               },
             ]}
             onPress={() => {
-              if(!name){
-                return Toast.show(
-                  {
-                    type:'error',
-                    text1:'Enter Your Name'
-                  }
-                )
+              if (!name) {
+                return Toast.show({
+                  type: 'error',
+                  text1: 'Enter Your Name',
+                });
               }
               navigation.navigate('KycVerification');
             }}
@@ -118,12 +116,7 @@ const Information = () => {
               marginTop: hp(20),
               marginBottom: hp(10),
             }}
-          >
-            <Text style={[styles.terms, { fontSize: fp(14) }]}>
-              By continuing, you agree to our{' '}
-              <Text style={styles.link}>Terms of Service.</Text>
-            </Text>
-          </TouchableOpacity>
+          ></TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>

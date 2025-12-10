@@ -53,11 +53,14 @@ const OtpScreen = () => {
             { paddingHorizontal: wp(24), paddingTop: hp(52) },
           ]}
         >
-          <Text style={[styles.title,{fontSize: fp(28)}]}>Enter OTP</Text>
+          <Text style={[styles.title, { fontSize: fp(28) }]}>Enter OTP</Text>
           <Text style={styles.subtitle}>OTP sent to +91 {phone}</Text>
 
           <TextInput
-            style={[styles.otpInput, { width: wp(345), height: hp(53),fontSize:fp(16) }]}
+            style={[
+              styles.otpInput,
+              { width: wp(345), height: hp(53), fontSize: fp(16) },
+            ]}
             placeholder="Enter 6 digit OTP"
             keyboardType="number-pad"
             maxLength={6}
@@ -66,7 +69,7 @@ const OtpScreen = () => {
           />
 
           <TouchableOpacity
-            style={[styles.btn, { width: wp(345), height: hp(54),}]}
+            style={[styles.btn, { width: wp(345), height: hp(54) }]}
             onPress={() => {
               if (!otp) {
                 return Toast.show({ type: 'error', text1: 'Enter the OTP' });
@@ -89,7 +92,9 @@ const OtpScreen = () => {
               navigation.navigate('Information');
             }}
           >
-            <Text style={[styles.btnText,{fontSize:fp(16)}]}>Verify & Login →</Text>
+            <Text style={[styles.btnText, { fontSize: fp(16) }]}>
+              Verify & Login →
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => setAgree(!agree)}
@@ -126,11 +131,6 @@ const OtpScreen = () => {
                 </Text>
               )}
             </View> */}
-
-            <Text style={[styles.terms, { fontSize: fp(14) }]}>
-              By continuing, you agree to our{' '}
-              <Text style={styles.link}>Terms of Service.</Text>
-            </Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Text style={styles.changeText}>Change Number</Text>
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: '#FFF' },
   container: { flex: 1 },
   title: { fontWeight: '700', color: '#1A1A1A' },
-  subtitle: { color: '#6A6A6A', marginTop: 8,fontSize:16 },
+  subtitle: { color: '#6A6A6A', marginTop: 8, fontSize: 16 },
   otpInput: {
     borderWidth: 1,
     borderColor: '#D9D9D9',
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     alignSelf: 'center',
     marginTop: 26,
-    textAlign:'center'
+    textAlign: 'center',
   },
   btn: {
     backgroundColor: '#FC156A',

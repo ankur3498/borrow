@@ -36,20 +36,28 @@ const OtpScreen = () => {
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         style={{ flex: 1 }}
       >
-         <TouchableOpacity style={{marginTop:hp(24),marginLeft:wp(24),height:hp(24),width:wp(20)}} onPress={()=>navigation.goBack()}>
-            <Image source={require("../../assets/images/backIcon.png")}/>
-          </TouchableOpacity>
-          <View
+        <TouchableOpacity
+          style={{
+            marginTop: hp(24),
+            marginLeft: wp(24),
+            height: hp(24),
+            width: wp(20),
+          }}
+          onPress={() => navigation.goBack()}
+        >
+          <Image source={require('../../assets/images/backIcon.png')} />
+        </TouchableOpacity>
+        <View
           style={[
             styles.container,
             { paddingHorizontal: wp(24), paddingTop: hp(52) },
           ]}
         >
-          <Text style={styles.title}>Enter OTP</Text>
+          <Text style={[styles.title,{fontSize: fp(28)}]}>Enter OTP</Text>
           <Text style={styles.subtitle}>OTP sent to +91 {phone}</Text>
 
           <TextInput
-            style={[styles.otpInput, { width: wp(345), height: hp(53) }]}
+            style={[styles.otpInput, { width: wp(345), height: hp(53),fontSize:fp(16) }]}
             placeholder="Enter 6 digit OTP"
             keyboardType="number-pad"
             maxLength={6}
@@ -58,26 +66,30 @@ const OtpScreen = () => {
           />
 
           <TouchableOpacity
-            style={[styles.btn, { width: wp(345), height: hp(54) }]}
+            style={[styles.btn, { width: wp(345), height: hp(54),}]}
             onPress={() => {
-              if(!otp){
-                return Toast.show(
-                  {
-                    type: 'error',
-                    text1: 'enter the otp'
-                  }
-                )
+              if (!otp) {
+                return Toast.show({ type: 'error', text1: 'Enter the OTP' });
               }
-              if (!agree) {
+
+              if (!/^\d{6}$/.test(otp)) {
                 return Toast.show({
                   type: 'error',
-                  text1: 'Confirm the Terms of Service',
+                  text1: 'Enter a valid 6-digit OTP',
                 });
               }
+
+              // if (!agree) {
+              //   return Toast.show({
+              //     type: 'error',
+              //     text1: 'Confirm the Terms of Service',
+              //   });
+              // }
+
               navigation.navigate('Information');
             }}
           >
-            <Text style={styles.btnText}>Verify & Login →</Text>
+            <Text style={[styles.btnText,{fontSize:fp(16)}]}>Verify & Login →</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => setAgree(!agree)}
@@ -89,7 +101,7 @@ const OtpScreen = () => {
               marginBottom: hp(10),
             }}
           >
-            <View
+            {/* <View
               style={{
                 width: wp(18),
                 height: wp(18),
@@ -113,7 +125,7 @@ const OtpScreen = () => {
                   {'\u2713'}
                 </Text>
               )}
-            </View>
+            </View> */}
 
             <Text style={[styles.terms, { fontSize: fp(14) }]}>
               By continuing, you agree to our{' '}
@@ -134,8 +146,8 @@ export default OtpScreen;
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: '#FFF' },
   container: { flex: 1 },
-  title: { fontSize: 28, fontWeight: '700', color: '#1A1A1A' },
-  subtitle: { color: '#6A6A6A', marginTop: 8 },
+  title: { fontWeight: '700', color: '#1A1A1A' },
+  subtitle: { color: '#6A6A6A', marginTop: 8,fontSize:16 },
   otpInput: {
     borderWidth: 1,
     borderColor: '#D9D9D9',
@@ -143,6 +155,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     alignSelf: 'center',
     marginTop: 26,
+    textAlign:'center'
   },
   btn: {
     backgroundColor: '#FC156A',

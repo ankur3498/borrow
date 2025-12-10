@@ -1,63 +1,94 @@
-import React from "react";
+import React from 'react';
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
   Modal,
-  Image
-} from "react-native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../navigation/types";
-import { useNavigation } from "@react-navigation/native";
+  Image,
+  useWindowDimensions,
+  FlatList,
+} from 'react-native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../navigation/types';
+import { useNavigation } from '@react-navigation/native';
 
 type NavProp = NativeStackNavigationProp<
   RootStackParamList,
-  "PreferredShopsScreen"
+  'PreferredShopsScreen'
 >;
 
 interface Props {
   visible: boolean;
   onClose: () => void;
 }
-
+type PointItem = {
+  id: number;
+  text: string;
+};
+const Points: PointItem[] = [
+  {
+    id: 1,
+    text: 'Find shops nearest to you',
+  },
+  {
+    id: 2,
+    text: 'Accurate delivery location',
+  },
+  {
+    id: 3,
+    text: 'Better service recommendations',
+  },
+];
 const LocationModal: React.FC<Props> = ({ visible, onClose }) => {
   const navigation = useNavigation<NavProp>();
-
+  const { width, height } = useWindowDimensions();
+  const wp = (px: number) => (px / 390) * width;
+  const hp = (px: number) => (px / 812) * height;
+  const fp = (px: number) => (px / 390) * width;
   const handleGrantAccess = () => {
     onClose();
     setTimeout(() => {
-      navigation.navigate("PreferredShopsScreen");
+      navigation.navigate('PreferredShopsScreen');
     }, 200);
   };
 
   return (
     <Modal visible={visible} transparent animationType="fade">
       <View style={styles.overlay}>
-        <View style={styles.card}>
+        <View style={[styles.card, { height: hp(579), width: wp(360) }]}>
           <View style={styles.iconBox}>
-            <Image source={require('../assets/images/locationIcon.png')}/>
+            <Image
+              source={require('../assets/images/locationIcon.png')}
+              style={{ height: hp(32), width: wp(32) }}
+            />
           </View>
 
-          <Text style={styles.title}>Enable Location Access</Text>
-          <Text style={styles.subtitle}>
+          <Text style={[styles.title, { fontSize: fp(17) }]}>
+            Enable Location Access
+          </Text>
+          <Text style={[styles.subtitle, { fontSize: fp(16) }]}>
             We need your location to find nearby shops and deliver items to you
           </Text>
 
-          <View style={styles.row}>
-            <Text style={styles.dot}>•</Text>
-            <Text style={styles.point}>Find shops nearest to you</Text>
-          </View>
-
-          <View style={styles.row}>
-            <Text style={styles.dot}>•</Text>
-            <Text style={styles.point}>Accurate delivery location</Text>
-          </View>
-
-          <View style={styles.row}>
-            <Text style={styles.dot}>•</Text>
-            <Text style={styles.point}>Better service recommendations</Text>
-          </View>
+          <FlatList
+            data={Points}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={item => item.id.toString()}
+            contentContainerStyle={{ paddingBottom: 120, gap: hp(12) }}
+            style={{
+              marginTop: hp(24),
+              width: wp(297),
+            }}
+            renderItem={({ item }) => (
+              <View style={[styles.rowC,{height: hp(58)}]}>
+                <View style={styles.bullet} />
+                <Text style={{ fontSize: fp(16), color: '#333' }}>
+                  {item.text}
+                </Text>
+              </View>
+            )}
+          />
 
           <TouchableOpacity style={styles.btn} onPress={handleGrantAccess}>
             <Text style={styles.btnText}>Grant Location Access →</Text>
@@ -77,57 +108,73 @@ export default LocationModal;
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.45)",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 20,
+    backgroundColor: 'rgba(0,0,0,0.45)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 16,
   },
   card: {
-    backgroundColor: "#fff",
-    width: "100%",
+    backgroundColor: '#fff',
+    width: '100%',
     borderRadius: 20,
-    padding: 25,
+    padding: 32,
   },
   iconBox: {
-    width: 65,
-    height: 65,
+    width: 64,
+    height: 64,
     borderRadius: 40,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#ffe7f3",
-    alignSelf: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FFE7F0',
+    alignSelf: 'center',
   },
   title: {
-    fontSize: 22,
-    fontWeight: "700",
-    textAlign: "center",
-    marginTop: 15,
+    fontWeight: '400',
+    textAlign: 'center',
+    marginTop: 16,
+    color: '#101828',
+    lineHeight: 24,
   },
   subtitle: {
-    textAlign: "center",
-    color: "#777",
-    marginTop: 6,
+    textAlign: 'center',
+    color: '#4A5565',
+    marginTop: 8,
     marginBottom: 20,
+    lineHeight: 24,
   },
-  row: { flexDirection: "row", alignItems: "center", marginVertical: 4 },
-  dot: { fontSize: 24, color: "#ff2d87", marginRight: 6 },
-  point: { fontSize: 15, color: "#333" },
+  row: { flexDirection: 'row', alignItems: 'center', marginVertical: 4 },
+  bullet: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: '#FC156A', // pink bullet
+    marginRight: 10,
+  },
+  point: { fontSize: 15, color: '#333' },
   btn: {
-    backgroundColor: "#ff2d87",
+    backgroundColor: '#FC156A',
     paddingVertical: 14,
     borderRadius: 12,
     marginTop: 20,
   },
   btnText: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 16,
-    textAlign: "center",
-    fontWeight: "600",
+    textAlign: 'center',
+    fontWeight: '600',
   },
   privacyText: {
     fontSize: 12,
-    textAlign: "center",
+    textAlign: 'center',
     marginTop: 12,
-    color: "#777",
+    color: '#777',
+  },
+  rowC: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    backgroundColor: '#F9FAFB',
+    paddingHorizontal:24,
+    borderRadius:24
   },
 });

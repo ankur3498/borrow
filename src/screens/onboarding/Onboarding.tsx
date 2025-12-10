@@ -106,6 +106,12 @@ const Onboarding = () => {
                   text2: 'Number must start with 6, 7, 8 or 9',
                 });
               }
+              if (!/^\d{10}$/.test(phone)) {
+                return Toast.show({
+                  type: 'error',
+                  text1: 'Enter valid Phone number',
+                });
+              }
               if (!agree) {
                 return Toast.show({
                   type: 'error',

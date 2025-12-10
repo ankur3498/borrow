@@ -50,12 +50,14 @@ const PreferredShopsScreen = () => {
       </Text>
 
       {/* LOCATION CARD */}
-      <View style={[styles.locationCard,{marginBottom:20}]}>
-        <View>
-          <Text style={styles.locationText}>Koramangala,</Text>
-          <Text style={styles.locationText}>Bangalore, Karnataka</Text>
+      <View style={[styles.locationCard, { marginBottom: 20 }]}>
+        <View style={{ flex: 1, flexDirection: 'row', gap: 15 }}>
+          <Image source={require('../assets/images/locationIcon.png')} />
+          <View>
+            <Text style={styles.locationText}>Koramangala,</Text>
+            <Text style={styles.locationText}>Bangalore, Karnataka</Text>
+          </View>
         </View>
-
         <TouchableOpacity style={styles.changeBtn}>
           <Text style={styles.changeBtnText}>Change</Text>
         </TouchableOpacity>
@@ -66,7 +68,7 @@ const PreferredShopsScreen = () => {
         data={shops}
         showsVerticalScrollIndicator={false}
         keyExtractor={item => item.id}
-        contentContainerStyle={{ paddingBottom: 120,gap:5}}
+        contentContainerStyle={{ paddingBottom: 120, gap: 5 }}
         renderItem={({ item }) => {
           const isSelected = selectedId === item.id;
 
@@ -85,16 +87,13 @@ const PreferredShopsScreen = () => {
                   source={require('../assets/images/Adhaar.png')}
                   style={[
                     styles.shopIcon,
-                    isSelected && { tintColor: '#ff2d87' },
+                    isSelected && { tintColor: '#ffff' },
                   ]}
                 />
               </View>
 
               <View style={{ flex: 1 }}>
-                <Text
-                  numberOfLines={1}
-                  style={[styles.shopName, isSelected && { color: '#ff2d87' }]}
-                >
+                <Text numberOfLines={1} style={[styles.shopName]}>
                   {item.name}
                 </Text>
                 <Text style={styles.shopArea}>{item.area}</Text>
@@ -132,7 +131,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingHorizontal: 22,
+    paddingHorizontal: 24,
     paddingTop: 52,
   },
 
@@ -216,7 +215,7 @@ const styles = StyleSheet.create({
   },
 
   iconWrapperSelected: {
-    backgroundColor: '#ff2d87',
+    backgroundColor: '#FC156A',
   },
 
   shopIcon: {
@@ -259,7 +258,7 @@ const styles = StyleSheet.create({
   },
 
   bottomBtnActive: {
-    backgroundColor: '#ff2d87',
+    backgroundColor: '#FC156A',
   },
 
   bottomBtnText: {

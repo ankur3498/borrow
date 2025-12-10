@@ -92,6 +92,14 @@ const Information = () => {
               },
             ]}
             onPress={() => {
+              if(!name){
+                return Toast.show(
+                  {
+                    type:'error',
+                    text1:'Enter Your Name'
+                  }
+                )
+              }
               navigation.navigate('KycVerification');
             }}
           >

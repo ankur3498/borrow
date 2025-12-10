@@ -18,7 +18,7 @@ const Stack = createNativeStackNavigator<{
   OtpScreen: undefined;
   Information: undefined;
   KycVerification: undefined;
-  AdharCardVerification: undefined;
+  AdharCardVerification:undefined;
   PreferredShopsScreen: undefined;
 }>();
 
@@ -34,14 +34,8 @@ export default function App() {
           <Stack.Screen name="OtpScreen" component={OtpScreen} />
           <Stack.Screen name="Information" component={Information} />
           <Stack.Screen name="KycVerification" component={KycVerification} />
-          <Stack.Screen
-            name="AdharCardVerification"
-            component={AdharCardVerification}
-          />
-          <Stack.Screen
-            name="PreferredShopsScreen"
-            component={PreferredShopsScreen}
-          />
+          <Stack.Screen name="AdharCardVerification" component={AdharCardVerification} />
+          <Stack.Screen name="PreferredShopsScreen" component={PreferredShopsScreen} />
         </Stack.Navigator>
         <Toast />
       </NavigationContainer>

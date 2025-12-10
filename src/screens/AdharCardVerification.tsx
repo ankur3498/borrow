@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
-  ScrollView,
   useWindowDimensions,
 } from 'react-native';
 import { Image } from 'react-native';
@@ -139,7 +138,8 @@ const AdharCardVerification = () => {
                 marginBottom: hp(196),
               },
             ]}
-            onPress={() => setShowLocationModal(true)} // <-- FIXED
+            onPress={() =>
+              setShowLocationModal(true)}
           >
             <Text style={[styles.buttonText, { fontSize: fp(16) }]}>
               Verify & Login →

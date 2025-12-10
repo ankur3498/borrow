@@ -56,7 +56,7 @@ const LocationModal: React.FC<Props> = ({ visible, onClose }) => {
   return (
     <Modal visible={visible} transparent animationType="fade">
       <View style={styles.overlay}>
-        <View style={[styles.card, { height: hp(579), width: wp(360) }]}>
+        <View style={[styles.card, { height: hp(565), width: wp(360) }]}>
           <View style={styles.iconBox}>
             <Image
               source={require('../assets/images/locationIcon.png')}
@@ -91,10 +91,10 @@ const LocationModal: React.FC<Props> = ({ visible, onClose }) => {
           />
 
           <TouchableOpacity style={styles.btn} onPress={handleGrantAccess}>
-            <Text style={styles.btnText}>Grant Location Access →</Text>
+            <Text style={[styles.btnText,{ fontSize: fp(16),}]}>Grant Location Access →</Text>
           </TouchableOpacity>
 
-          <Text style={styles.privacyText}>
+          <Text style={[styles.privacyText,{fontSize:fp(14)}]}>
             Your location data is secure and never shared with third parties
           </Text>
         </View>
@@ -108,7 +108,7 @@ export default LocationModal;
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.45)',
+    backgroundColor: 'rgba(5, 4, 4, 0.45)',
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 16,
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: '#fff',
     width: '100%',
-    borderRadius: 20,
+    borderRadius: 16,
     padding: 32,
   },
   iconBox: {
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     lineHeight: 24,
   },
-  row: { flexDirection: 'row', alignItems: 'center', marginVertical: 4 },
+
   bullet: {
     width: 8,
     height: 8,
@@ -155,16 +155,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#FC156A',
     paddingVertical: 14,
     borderRadius: 12,
-    marginTop: 20,
+    height:55
   },
   btnText: {
     color: '#fff',
-    fontSize: 16,
     textAlign: 'center',
-    fontWeight: '600',
+    fontWeight: '700',
   },
   privacyText: {
-    fontSize: 12,
     textAlign: 'center',
     marginTop: 12,
     color: '#777',
@@ -172,9 +170,9 @@ const styles = StyleSheet.create({
   rowC: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: 12,
     backgroundColor: '#F9FAFB',
     paddingHorizontal:24,
-    borderRadius:24
+    borderRadius:12
   },
 });

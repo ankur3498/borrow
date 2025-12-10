@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   FlatList,
   Image,
+  useWindowDimensions,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -32,7 +33,10 @@ const shops = [
 
 const PreferredShopsScreen = () => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
-
+  const { width, height } = useWindowDimensions();
+  const wp = (px: number) => (px / 390) * width;
+  const hp = (px: number) => (px / 812) * height;
+  const fp = (px: number) => (px / 390) * width;
   return (
     <SafeAreaView style={styles.container}>
       {/* HEADER ICON */}

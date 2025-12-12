@@ -19,7 +19,9 @@ const HomeScreen = () => {
           borderBottomRightRadius: wp(16),
         }}
       >
-        <Text>jnxjkfjkn</Text>
+        <View>
+            
+        </View>
       </View>
     </ScrollView>
   );

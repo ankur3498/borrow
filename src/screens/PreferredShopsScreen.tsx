@@ -9,6 +9,7 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
 // API call for retrieving data via response
 const shops = [
   {
@@ -32,15 +33,23 @@ const shops = [
 ];
 
 const PreferredShopsScreen = () => {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+
   const { width, height } = useWindowDimensions();
   const wp = (px: number) => (px / 390) * width;
   const hp = (px: number) => (px / 812) * height;
   const fp = (px: number) => (px / 390) * width;
+
+  const toggleSelect = (id: string) => {
+    if (selectedIds.includes(id)) {
+      setSelectedIds(selectedIds.filter(item => item !== id));
+    } else {
+      setSelectedIds([...selectedIds, id]);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-
-      {/* HEADER ICON */}
       <View style={styles.headerIconBox}>
         <Image
           source={require('../assets/images/ShopsIcon.png')}
@@ -61,25 +70,25 @@ const PreferredShopsScreen = () => {
             <Text style={styles.locationText}>Bangalore Karnataka</Text>
           </View>
         </View>
-        <TouchableOpacity
-          style={styles.changeBtn}
-        >
+
+        <TouchableOpacity style={styles.changeBtn}>
           <Text style={styles.changeBtnText}>Change</Text>
         </TouchableOpacity>
       </View>
 
+      {/* SHOP LIST */}
       <FlatList
         data={shops}
         showsVerticalScrollIndicator={false}
         keyExtractor={item => item.id}
         contentContainerStyle={{ paddingBottom: 120, gap: 5 }}
         renderItem={({ item }) => {
-          const isSelected = selectedId === item.id;
+          const isSelected = selectedIds.includes(item.id);
 
           return (
             <TouchableOpacity
               style={[styles.shopCard, isSelected && styles.shopCardSelected]}
-              onPress={() => setSelectedId(item.id)}
+              onPress={() => toggleSelect(item.id)}
             >
               <View
                 style={[
@@ -118,8 +127,11 @@ const PreferredShopsScreen = () => {
 
       <View style={styles.bottomBtnWrapper}>
         <TouchableOpacity
-          disabled={!selectedId}
-          style={[styles.bottomBtn, selectedId && styles.bottomBtnActive]}
+          disabled={selectedIds.length === 0}
+          style={[
+            styles.bottomBtn,
+            selectedIds.length > 0 && styles.bottomBtnActive,
+          ]}
         >
           <Text style={styles.bottomBtnText}>Verify & Login →</Text>
         </TouchableOpacity>
@@ -178,7 +190,7 @@ const styles = StyleSheet.create({
   },
 
   changeBtn: {
-    backgroundColor: '#fff',
+    backgroundColor: '#FC156A',
     paddingVertical: 8,
     paddingHorizontal: 18,
     borderRadius: 10,
@@ -186,7 +198,7 @@ const styles = StyleSheet.create({
   },
 
   changeBtnText: {
-    color: '#ff2d87',
+    color: '#ffff',
     fontWeight: '600',
   },
 
@@ -240,7 +252,7 @@ const styles = StyleSheet.create({
   },
 
   distanceText: {
-    color: '#7b7b7b',
+    color: '#FC156A',
     fontSize: 15,
     fontWeight: '600',
   },

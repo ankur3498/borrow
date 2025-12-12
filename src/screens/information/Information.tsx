@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
-  ScrollView,
   useWindowDimensions,
   Image,
 } from 'react-native';
@@ -45,7 +44,7 @@ const Information = () => {
         <View
           style={[
             styles.container,
-            { paddingHorizontal: wp(24), marginTop: hp(52) },
+            { paddingHorizontal: wp(24), marginTop: hp(34) },
           ]}
         >
           <Text style={[styles.title, { fontSize: fp(28) }]}>

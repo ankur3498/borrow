@@ -9,7 +9,7 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
+// API call for retrieving data via response
 const shops = [
   {
     id: '1',
@@ -39,35 +39,35 @@ const PreferredShopsScreen = () => {
   const fp = (px: number) => (px / 390) * width;
   return (
     <SafeAreaView style={styles.container}>
+
       {/* HEADER ICON */}
       <View style={styles.headerIconBox}>
         <Image
-          source={require('../assets/images/Adhaar.png')}
-          style={{ width: 32, height: 32, tintColor: '#ff2d87' }}
+          source={require('../assets/images/ShopsIcon.png')}
+          style={{ width: wp(32), height: hp(32), tintColor: '#ff2d87' }}
         />
       </View>
 
-      {/* TITLE */}
       <Text style={styles.title}>Select Preferred Shops</Text>
       <Text style={styles.subtitle}>
         Choose shops you want to borrow items from
       </Text>
 
-      {/* LOCATION CARD */}
-      <View style={[styles.locationCard, { marginBottom: 20 }]}>
+      <View style={[styles.locationCard, { marginBottom: hp(20) }]}>
         <View style={{ flex: 1, flexDirection: 'row', gap: 15 }}>
           <Image source={require('../assets/images/locationIcon.png')} />
           <View>
-            <Text style={styles.locationText}>Koramangala,</Text>
-            <Text style={styles.locationText}>Bangalore, Karnataka</Text>
+            <Text style={styles.locationText}>Koramangala</Text>
+            <Text style={styles.locationText}>Bangalore Karnataka</Text>
           </View>
         </View>
-        <TouchableOpacity style={styles.changeBtn}>
+        <TouchableOpacity
+          style={styles.changeBtn}
+        >
           <Text style={styles.changeBtnText}>Change</Text>
         </TouchableOpacity>
       </View>
 
-      {/* SHOP LIST */}
       <FlatList
         data={shops}
         showsVerticalScrollIndicator={false}
@@ -88,7 +88,7 @@ const PreferredShopsScreen = () => {
                 ]}
               >
                 <Image
-                  source={require('../assets/images/Adhaar.png')}
+                  source={require('../assets/images/ShopsIcon.png')}
                   style={[
                     styles.shopIcon,
                     isSelected && { tintColor: '#ffff' },
@@ -116,7 +116,6 @@ const PreferredShopsScreen = () => {
         }}
       />
 
-      {/* BOTTOM BUTTON */}
       <View style={styles.bottomBtnWrapper}>
         <TouchableOpacity
           disabled={!selectedId}

@@ -128,6 +128,7 @@ const KycVerification = () => {
               placeholderTextColor="#0A0A0A80"
               style={[styles.input, { fontSize: fp(16) }]}
               value={pan}
+              maxLength={10}
               onChangeText={setPan}
             />
           </View>

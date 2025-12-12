@@ -12,7 +12,7 @@ import {
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
 import { useNavigation } from '@react-navigation/native';
-
+import { PERMISSIONS, request, RESULTS } from "react-native-permissions";
 type NavProp = NativeStackNavigationProp<
   RootStackParamList,
   'PreferredShopsScreen'
@@ -46,12 +46,24 @@ const LocationModal: React.FC<Props> = ({ visible, onClose }) => {
   const wp = (px: number) => (px / 390) * width;
   const hp = (px: number) => (px / 812) * height;
   const fp = (px: number) => (px / 390) * width;
-  const handleGrantAccess = () => {
+  
+const handleGrantAccess = async () => {
+  const result = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+
+  if (result === RESULTS.GRANTED) {
+    // Permission mil gayi → Close modal + Navigate
     onClose();
     setTimeout(() => {
-      navigation.navigate('PreferredShopsScreen');
+      navigation.navigate("PreferredShopsScreen");
     }, 200);
-  };
+  } else if (result === RESULTS.DENIED) {
+    // User ne deny kiya
+    console.log("Please allow location permission to continue.");
+  } else if (result === RESULTS.BLOCKED) {
+    // User ne 'Don't Allow' permanently select kiya
+    console.log("Permission blocked. Please enable it from Settings.");
+  }
+};
 
   return (
     <Modal visible={visible} transparent animationType="fade">

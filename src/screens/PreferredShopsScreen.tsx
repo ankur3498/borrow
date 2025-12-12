@@ -9,6 +9,13 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../navigation/types';
+import { useNavigation } from '@react-navigation/native';
+type NavProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'HomeScreen'
+>;
 
 // API call for retrieving data via response
 const shops = [
@@ -34,7 +41,7 @@ const shops = [
 
 const PreferredShopsScreen = () => {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
-
+  const navigation = useNavigation<NavProp>();
   const { width, height } = useWindowDimensions();
   const wp = (px: number) => (px / 390) * width;
   const hp = (px: number) => (px / 812) * height;
@@ -132,6 +139,7 @@ const PreferredShopsScreen = () => {
             styles.bottomBtn,
             selectedIds.length > 0 && styles.bottomBtnActive,
           ]}
+          onPress={()=>navigation.navigate('HomeScreen')}
         >
           <Text style={styles.bottomBtnText}>Verify & Login →</Text>
         </TouchableOpacity>

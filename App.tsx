@@ -2,7 +2,6 @@ import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import SplashScreen from './src/screens/splash/SplashScreen';
 import Onboarding from './src/screens/onboarding/Onboarding';
 import OtpScreen from './src/screens/otp/OtpScreen';
@@ -11,6 +10,7 @@ import KycVerification from './src/screens/KycVerification';
 import AdharCardVerification from './src/screens/AdharCardVerification';
 import PreferredShopsScreen from './src/screens/PreferredShopsScreen';
 import Toast from 'react-native-toast-message';
+import HomeScreen from './src/screens/homescreen/HomeScreen';
 
 const Stack = createNativeStackNavigator<{
   Splash: undefined;
@@ -20,6 +20,7 @@ const Stack = createNativeStackNavigator<{
   KycVerification: undefined;
   AdharCardVerification:undefined;
   PreferredShopsScreen: undefined;
+  HomeScreen: undefined;
 }>();
 
 export default function App() {
@@ -36,6 +37,7 @@ export default function App() {
           <Stack.Screen name="KycVerification" component={KycVerification} />
           <Stack.Screen name="AdharCardVerification" component={AdharCardVerification} />
           <Stack.Screen name="PreferredShopsScreen" component={PreferredShopsScreen} />
+          <Stack.Screen name="HomeScreen" component={HomeScreen} />
         </Stack.Navigator>
         <Toast />
       </NavigationContainer>

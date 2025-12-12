@@ -27,7 +27,7 @@ const OtpScreen = () => {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const inputs = useRef<Array<TextInput | null>>([]);
 
-  const { width,height } = useWindowDimensions();
+  const { width, height } = useWindowDimensions();
   const hp = (px: number) => (px / 390) * height;
   const wp = (px: number) => (px / 390) * width;
   const fp = (px: number) => (px / 390) * width;
@@ -86,7 +86,7 @@ const OtpScreen = () => {
           <Text style={styles.subtitle}>OTP sent to +91 {phone}</Text>
 
           {/* OTP BOXES */}
-          <View style={[styles.otpRow,{paddingTop: hp(35)}]}>
+          <View style={[styles.otpRow, { paddingTop: hp(35) }]}>
             {otp.map((digit, index) => (
               <TextInput
                 key={index}
@@ -100,7 +100,7 @@ const OtpScreen = () => {
                     height: wp(55),
                     fontSize: fp(22),
                     borderColor: digit ? '#FC156A' : '#D9D9D9',
-                    backgroundColor:digit?'#FC156A14':'#ffff'
+                    backgroundColor: digit ? '#FC156A14' : '#ffff',
                   },
                 ]}
                 keyboardType="number-pad"
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   otpRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    
+
     marginBottom: 20,
   },
 

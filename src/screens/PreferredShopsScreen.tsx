@@ -90,9 +90,9 @@ const PreferredShopsScreen = () => {
               style={[
                 styles.shopCard,
                 {
-                  padding: wp(18),
+                  padding: wp(12),
                   marginTop: hp(16),
-                  borderRadius: wp(14),
+                  borderRadius: wp(10),
                 },
                 isSelected && styles.shopCardSelected,
               ]}

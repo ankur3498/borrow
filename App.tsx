@@ -43,6 +43,10 @@ export default function App() {
             name="PreferredShopsScreen"
             component={PreferredShopsScreen}
           />
+          <Stack.Screen
+            name="HomeScreen"
+            component={HomeScreen}
+          />
         </Stack.Navigator>
         <Toast />
       </NavigationContainer>

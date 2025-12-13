@@ -127,7 +127,7 @@ const PreferredShopsScreen = () => {
                 </Text>
               </View>
 
-              <Text style={[styles.distanceText, { fontSize: fp(14) }]}>
+              <Text style={[styles.distanceText, { fontSize: fp(14),marginBottom:hp(15) }]}>
                 {item.distance}
               </Text>
             </TouchableOpacity>

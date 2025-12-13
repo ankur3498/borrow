@@ -12,119 +12,122 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
 import { useNavigation } from '@react-navigation/native';
+
 type NavProp = NativeStackNavigationProp<
   RootStackParamList,
   'HomeScreen'
 >;
 
-// API call for retrieving data via response
 const shops = [
-  {
-    id: '1',
-    name: 'Reddy Kirana & General Stores',
-    area: 'Jayanagar, Bangalore',
-    distance: '3.5 km',
-  },
-  {
-    id: '2',
-    name: 'Reddy Kirana & General Stores',
-    area: 'Jayanagar, Bangalore',
-    distance: '3.5 km',
-  },
-  {
-    id: '3',
-    name: 'Reddy Kirana & General Stores',
-    area: 'Jayanagar, Bangalore',
-    distance: '3.5 km',
-  },
+  { id: '1', name: 'Reddy Kirana & General Stores', area: 'Jayanagar, Bangalore', distance: '3.5 km' },
+  { id: '2', name: 'Reddy Kirana & General Stores', area: 'Jayanagar, Bangalore', distance: '3.5 km' },
+  { id: '3', name: 'Reddy Kirana & General Stores', area: 'Jayanagar, Bangalore', distance: '3.5 km' },
 ];
 
 const PreferredShopsScreen = () => {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const navigation = useNavigation<NavProp>();
+
   const { width, height } = useWindowDimensions();
-  const wp = (px: number) => (px / 390) * width;
-  const hp = (px: number) => (px / 812) * height;
-  const fp = (px: number) => (px / 390) * width;
+  const wp = (v: number) => (v / 390) * width;
+  const hp = (v: number) => (v / 812) * height;
+  const fp = (v: number) => (v / 390) * width;
 
   const toggleSelect = (id: string) => {
-    if (selectedIds.includes(id)) {
-      setSelectedIds(selectedIds.filter(item => item !== id));
-    } else {
-      setSelectedIds([...selectedIds, id]);
-    }
+    setSelectedIds(prev =>
+      prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+    );
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.headerIconBox}>
+    <SafeAreaView style={[styles.container, { paddingHorizontal: wp(24), paddingTop: hp(52) }]}>
+
+      {/* HEADER ICON */}
+      <View style={[styles.headerIconBox, { width: wp(72), height: wp(72), borderRadius: wp(36) }]}>
         <Image
           source={require('../assets/images/ShopsIcon.png')}
-          style={{ width: wp(32), height: hp(32), tintColor: '#ff2d87' }}
+          style={{ width: wp(32), height: wp(32), tintColor: '#ff2d87' }}
         />
       </View>
 
-      <Text style={styles.title}>Select Preferred Shops</Text>
-      <Text style={styles.subtitle}>
+      <Text style={[styles.title, { fontSize: fp(26), marginTop: hp(20) }]}>
+        Select Preferred Shops
+      </Text>
+
+      <Text style={[styles.subtitle, { fontSize: fp(15), marginTop: hp(4) }]}>
         Choose shops you want to borrow items from
       </Text>
 
-      <View style={[styles.locationCard, { marginBottom: hp(20) }]}>
-        <View style={{ flex: 1, flexDirection: 'row', gap: 15 }}>
-          <Image source={require('../assets/images/locationIcon.png')} />
+      {/* LOCATION CARD */}
+      <View style={[styles.locationCard, { marginTop: hp(25), marginBottom: hp(20), padding: wp(18) }]}>
+        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+          <Image
+            source={require('../assets/images/locationIcon.png')}
+            style={{ width: wp(20), height: wp(20), marginRight: wp(15) }}
+          />
           <View>
-            <Text style={styles.locationText}>Koramangala</Text>
-            <Text style={styles.locationText}>Bangalore Karnataka</Text>
+            <Text style={[styles.locationText, { fontSize: fp(15) }]}>Koramangala</Text>
+            <Text style={[styles.locationText, { fontSize: fp(15) }]}>Bangalore Karnataka</Text>
           </View>
         </View>
 
-        <TouchableOpacity style={styles.changeBtn}>
-          <Text style={styles.changeBtnText}>Change</Text>
+        <TouchableOpacity style={[styles.changeBtn, { paddingHorizontal: wp(18), paddingVertical: hp(8) }]}>
+          <Text style={[styles.changeBtnText, { fontSize: fp(14) }]}>Change</Text>
         </TouchableOpacity>
       </View>
 
       {/* SHOP LIST */}
       <FlatList
         data={shops}
-        showsVerticalScrollIndicator={false}
         keyExtractor={item => item.id}
-        contentContainerStyle={{ paddingBottom: 120, gap: 5 }}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: hp(140) }}
         renderItem={({ item }) => {
           const isSelected = selectedIds.includes(item.id);
-
           return (
             <TouchableOpacity
-              style={[styles.shopCard, isSelected && styles.shopCardSelected]}
               onPress={() => toggleSelect(item.id)}
+              style={[
+                styles.shopCard,
+                {
+                  padding: wp(18),
+                  marginTop: hp(16),
+                  borderRadius: wp(14),
+                },
+                isSelected && styles.shopCardSelected,
+              ]}
             >
               <View
                 style={[
                   styles.iconWrapper,
+                  {
+                    width: wp(40),
+                    height: wp(40),
+                    borderRadius: wp(20),
+                  },
                   isSelected && styles.iconWrapperSelected,
                 ]}
               >
                 <Image
                   source={require('../assets/images/ShopsIcon.png')}
-                  style={[
-                    styles.shopIcon,
-                    isSelected && { tintColor: '#ffff' },
-                  ]}
+                  style={{
+                    width: wp(28),
+                    height: wp(28),
+                    tintColor: isSelected ? '#fff' : '#7b7b7b',
+                  }}
                 />
               </View>
 
               <View style={{ flex: 1 }}>
-                <Text numberOfLines={1} style={[styles.shopName]}>
+                <Text numberOfLines={1} style={[styles.shopName, { fontSize: fp(15) }]}>
                   {item.name}
                 </Text>
-                <Text style={styles.shopArea}>{item.area}</Text>
+                <Text style={[styles.shopArea, { fontSize: fp(13), marginTop: hp(2) }]}>
+                  {item.area}
+                </Text>
               </View>
 
-              <Text
-                style={[
-                  styles.distanceText,
-                  isSelected && { color: '#ff2d87' },
-                ]}
-              >
+              <Text style={[styles.distanceText, { fontSize: fp(14) }]}>
                 {item.distance}
               </Text>
             </TouchableOpacity>
@@ -132,16 +135,20 @@ const PreferredShopsScreen = () => {
         }}
       />
 
-      <View style={styles.bottomBtnWrapper}>
+      {/* BOTTOM BUTTON */}
+      <View style={[styles.bottomBtnWrapper, { bottom: hp(34), paddingHorizontal: wp(22) }]}>
         <TouchableOpacity
           disabled={selectedIds.length === 0}
+          onPress={() => navigation.navigate('HomeScreen')}
           style={[
             styles.bottomBtn,
+            { paddingVertical: hp(16), borderRadius: wp(14) },
             selectedIds.length > 0 && styles.bottomBtnActive,
           ]}
-          onPress={()=>navigation.navigate('HomeScreen')}
         >
-          <Text style={styles.bottomBtnText}>Verify & Login →</Text>
+          <Text style={[styles.bottomBtnText, { fontSize: fp(17) }]}>
+            Verify & Login →
+          </Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -151,74 +158,36 @@ const PreferredShopsScreen = () => {
 export default PreferredShopsScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    paddingHorizontal: 24,
-    paddingTop: 52,
-  },
+  container: { flex: 1, backgroundColor: '#fff' },
 
   headerIconBox: {
-    width: 72,
-    height: 72,
-    borderRadius: 40,
     backgroundColor: '#ffe7f3',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 10,
   },
 
-  title: {
-    fontSize: 26,
-    fontWeight: '700',
-    color: '#000',
-    marginTop: 20,
-  },
-
-  subtitle: {
-    fontSize: 15,
-    color: '#6b6b6b',
-    marginTop: 4,
-  },
+  title: { fontWeight: '700', color: '#000' },
+  subtitle: { color: '#6b6b6b' },
 
   locationCard: {
     backgroundColor: '#f7f7f7',
-    borderRadius: 14,
-    padding: 18,
-    marginTop: 25,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    borderRadius: 14,
   },
 
-  locationText: {
-    color: '#333',
-    fontSize: 15,
-    fontWeight: '500',
-  },
+  locationText: { color: '#333', fontWeight: '500' },
 
-  changeBtn: {
-    backgroundColor: '#FC156A',
-    paddingVertical: 8,
-    paddingHorizontal: 18,
-    borderRadius: 10,
-    elevation: 2,
-  },
-
-  changeBtnText: {
-    color: '#ffff',
-    fontWeight: '600',
-  },
+  changeBtn: { backgroundColor: '#FC156A', borderRadius: 10 },
+  changeBtnText: { color: '#fff', fontWeight: '600' },
 
   shopCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#fff',
-    padding: 18,
-    borderRadius: 14,
-    marginTop: 16,
     borderWidth: 1,
     borderColor: '#eee',
+    backgroundColor: '#fff',
   },
 
   shopCardSelected: {
@@ -228,65 +197,25 @@ const styles = StyleSheet.create({
   },
 
   iconWrapper: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: '#f2f2f2',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 15,
+    backgroundColor: '#f2f2f2',
   },
 
-  iconWrapperSelected: {
-    backgroundColor: '#FC156A',
-  },
+  iconWrapperSelected: { backgroundColor: '#FC156A' },
 
-  shopIcon: {
-    width: 28,
-    height: 28,
-    tintColor: '#7b7b7b',
-  },
-
-  shopName: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#000',
-  },
-
-  shopArea: {
-    fontSize: 13,
-    color: '#606060',
-    marginTop: 2,
-  },
-
-  distanceText: {
-    color: '#FC156A',
-    fontSize: 15,
-    fontWeight: '600',
-  },
+  shopName: { fontWeight: '600', color: '#000' },
+  shopArea: { color: '#606060' },
+  distanceText: { color: '#FC156A', fontWeight: '600' },
 
   bottomBtnWrapper: {
     position: 'absolute',
-    bottom: 34,
     left: 0,
     right: 0,
-    paddingHorizontal: 22,
   },
 
-  bottomBtn: {
-    backgroundColor: '#d5d5d5',
-    paddingVertical: 16,
-    borderRadius: 14,
-    alignItems: 'center',
-  },
-
-  bottomBtnActive: {
-    backgroundColor: '#FC156A',
-  },
-
-  bottomBtnText: {
-    color: '#fff',
-    fontSize: 17,
-    fontWeight: '700',
-  },
+  bottomBtn: { backgroundColor: '#d5d5d5', alignItems: 'center' },
+  bottomBtnActive: { backgroundColor: '#FC156A' },
+  bottomBtnText: { color: '#fff', fontWeight: '700' },
 });

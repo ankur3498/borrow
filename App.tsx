@@ -18,7 +18,7 @@ const Stack = createNativeStackNavigator<{
   OtpScreen: undefined;
   Information: undefined;
   KycVerification: undefined;
-  AdharCardVerification:undefined;
+  AdharCardVerification: undefined;
   PreferredShopsScreen: undefined;
   HomeScreen: undefined;
 }>();
@@ -29,15 +29,20 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           {/* Splash MUST be first */}
-          {/* <Stack.Screen name="Splash" component={SplashScreen} /> */}
+          <Stack.Screen name="Splash" component={SplashScreen} />
 
           <Stack.Screen name="Onboarding" component={Onboarding} />
           <Stack.Screen name="OtpScreen" component={OtpScreen} />
           <Stack.Screen name="Information" component={Information} />
           <Stack.Screen name="KycVerification" component={KycVerification} />
-          <Stack.Screen name="AdharCardVerification" component={AdharCardVerification} />
-          <Stack.Screen name="PreferredShopsScreen" component={PreferredShopsScreen} />
-          <Stack.Screen name="HomeScreen" component={HomeScreen} />
+          <Stack.Screen
+            name="AdharCardVerification"
+            component={AdharCardVerification}
+          />
+          <Stack.Screen
+            name="PreferredShopsScreen"
+            component={PreferredShopsScreen}
+          />
         </Stack.Navigator>
         <Toast />
       </NavigationContainer>

@@ -23,9 +23,9 @@ const KycVerification = () => {
   const [pan, setPan] = useState('');
   const navigation = useNavigation<NavProp>();
   const { width, height } = useWindowDimensions();
-  const wp = (px: number) => (px / 390) * width; // responsive width
-  const hp = (px: number) => (px / 812) * height; // responsive height
-  const fp = (px: number) => (px / 390) * width; // responsive font
+  const wp = (px: number) => (px / 390) * width;
+  const hp = (px: number) => (px / 812) * height;
+  const fp = (px: number) => (px / 390) * width;
 
   return (
     <SafeAreaView style={styles.screen}>

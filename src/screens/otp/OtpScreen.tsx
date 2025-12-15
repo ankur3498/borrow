@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -11,13 +11,15 @@ import {
   Image,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRoute, useNavigation } from '@react-navigation/native';
-import { RouteProp } from '@react-navigation/native';
+import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../navigation/types';
 import Toast from 'react-native-toast-message';
+import { RootStackParamList } from '../../navigation/types';
+
 type OtpRouteProp = RouteProp<RootStackParamList, 'OtpScreen'>;
 type NavProp = NativeStackNavigationProp<RootStackParamList, 'Information'>;
+
+const RESEND_TIME = 30;
 
 const OtpScreen = () => {
   const route = useRoute<OtpRouteProp>();
@@ -27,14 +29,30 @@ const OtpScreen = () => {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const inputs = useRef<Array<TextInput | null>>([]);
 
+  const [timer, setTimer] = useState(RESEND_TIME);
+  const [canResend, setCanResend] = useState(false);
+
   const { width, height } = useWindowDimensions();
   const hp = (px: number) => (px / 390) * height;
   const wp = (px: number) => (px / 390) * width;
   const fp = (px: number) => (px / 390) * width;
 
+  useEffect(() => {
+    if (timer === 0) {
+      setCanResend(true);
+      return;
+    }
+
+    const interval = setInterval(() => {
+      setTimer(prev => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [timer]);
+
   const handleChange = (text: string, index: number) => {
     const newOtp = [...otp];
-    newOtp[index] = text;
+    newOtp[index] = text.replace(/[^0-9]/g, '');
     setOtp(newOtp);
 
     if (text && index < 5) {
@@ -52,13 +70,31 @@ const OtpScreen = () => {
     const fullOtp = otp.join('');
 
     if (fullOtp.length !== 6) {
-      return Toast.show({
+      Toast.show({
         type: 'error',
         text1: 'Enter a valid 6-digit OTP',
       });
+      return;
     }
 
     navigation.navigate('Information');
+  };
+
+  const handleResendOtp = () => {
+    if (!canResend) return;
+
+    // 🔹 Call resend OTP API here
+
+    Toast.show({
+      type: 'success',
+      text1: 'OTP resent successfully',
+    });
+
+    setOtp(['', '', '', '', '', '']);
+    inputs.current[0]?.focus();
+
+    setTimer(RESEND_TIME);
+    setCanResend(false);
   };
 
   return (
@@ -69,12 +105,7 @@ const OtpScreen = () => {
       >
         {/* Back Button */}
         <TouchableOpacity
-          style={{
-            marginTop: 20,
-            marginLeft: 24,
-            height: 24,
-            width: 20,
-          }}
+          style={{ marginTop: 20, marginLeft: 24, height: 24, width: 20 }}
           onPress={() => navigation.goBack()}
         >
           <Image source={require('../../assets/images/backIcon.png')} />
@@ -85,14 +116,12 @@ const OtpScreen = () => {
           <Text style={[styles.title, { fontSize: fp(28) }]}>Enter OTP</Text>
           <Text style={styles.subtitle}>OTP sent to +91 {phone}</Text>
 
-          {/* OTP BOXES */}
+          {/* OTP Boxes */}
           <View style={[styles.otpRow, { paddingTop: hp(35) }]}>
             {otp.map((digit, index) => (
               <TextInput
                 key={index}
-                ref={ref => {
-                  inputs.current[index] = ref;
-                }}
+                ref={ref => (inputs.current[index] = ref)}
                 style={[
                   styles.otpBox,
                   {
@@ -100,7 +129,7 @@ const OtpScreen = () => {
                     height: wp(55),
                     fontSize: fp(22),
                     borderColor: digit ? '#FC156A' : '#D9D9D9',
-                    backgroundColor: digit ? '#FC156A14' : '#ffff',
+                    backgroundColor: digit ? '#FC156A14' : '#FFF',
                   },
                 ]}
                 keyboardType="number-pad"
@@ -115,7 +144,7 @@ const OtpScreen = () => {
             ))}
           </View>
 
-          {/* BUTTON */}
+          {/* Verify Button */}
           <TouchableOpacity
             style={[styles.btn, { width: wp(345), height: 54 }]}
             onPress={handleVerify}
@@ -125,9 +154,11 @@ const OtpScreen = () => {
             </Text>
           </TouchableOpacity>
 
-          {/* Change Number */}
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Text style={styles.changeText}>Change Number</Text>
+          {/* Resend OTP */}
+          <TouchableOpacity disabled={!canResend} onPress={handleResendOtp}>
+            <Text style={[styles.changeText, { opacity: canResend ? 1 : 0.5 }]}>
+              {canResend ? 'Resend OTP' : `Resend OTP in ${timer}s`}
+            </Text>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
@@ -138,33 +169,30 @@ const OtpScreen = () => {
 export default OtpScreen;
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: '#FFF' },
-
+  screen: {
+    flex: 1,
+    backgroundColor: '#FFF',
+  },
   title: {
     fontWeight: '700',
     color: '#1A1A1A',
   },
-
   subtitle: {
     color: '#6A6A6A',
     marginTop: 8,
     fontSize: 16,
   },
-
   otpRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-
     marginBottom: 20,
   },
-
   otpBox: {
     borderWidth: 1,
     borderRadius: 12,
     textAlign: 'center',
     color: '#000',
   },
-
   btn: {
     backgroundColor: '#FC156A',
     justifyContent: 'center',
@@ -173,11 +201,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 20,
   },
-
-  btnText: { color: '#FFF', fontWeight: '700' },
-
+  btnText: {
+    color: '#FFF',
+    fontWeight: '700',
+  },
   changeText: {
-    color: '#FC156A',
+    color: '#B7B8B9',
     fontWeight: '600',
     textAlign: 'center',
     marginTop: 40,

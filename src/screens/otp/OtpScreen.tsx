@@ -115,13 +115,13 @@ const OtpScreen = () => {
         <View style={{ paddingHorizontal: wp(24), paddingTop: hp(22) }}>
           <Text style={[styles.title, { fontSize: fp(28) }]}>Enter OTP</Text>
           <Text style={styles.subtitle}>OTP sent to +91 {phone}</Text>
-
-          {/* OTP Boxes */}
           <View style={[styles.otpRow, { paddingTop: hp(35) }]}>
             {otp.map((digit, index) => (
               <TextInput
                 key={index}
-                ref={ref => (inputs.current[index] = ref)}
+                ref={ref => {
+                  inputs.current[index] = ref;
+                }}
                 style={[
                   styles.otpBox,
                   {

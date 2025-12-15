@@ -78,7 +78,7 @@ const HomeScreen2 = () => {
           >
             <Image
               source={require('../../assets/Icons/Images/HealthCare.png')}
-              style={{ height: hp(68), width: wp(80) }}
+              style={{ height: hp(64), width: wp(82) }}
             />
             <Text
               style={{
@@ -111,7 +111,7 @@ const HomeScreen2 = () => {
           >
             <Image
               source={require('../../assets/Icons/Images/Stationary.png')}
-              style={{ height: hp(68), width: wp(80) }}
+              style={{ height: hp(64), width: wp(82) }}
             />
             <Text
               style={{
@@ -144,7 +144,7 @@ const HomeScreen2 = () => {
           >
             <Image
               source={require('../../assets/Icons/Images/Snackss.png')}
-              style={{ height: hp(64), width: wp(88) }}
+              style={{ height: hp(64), width: wp(90) }}
             />
             <Text
               style={{

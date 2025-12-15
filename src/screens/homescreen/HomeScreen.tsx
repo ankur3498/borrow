@@ -89,8 +89,8 @@ const HomeScreen = () => {
             }}
           >
             <Image
-              source={require('../../assets/Icons/backIcon.png')}
-              style={{ width: wp(16), height: wp(16), tintColor: '#fff' }}
+              source={require('../../assets/Icons/dotsIcon.png')}
+              style={{ width: wp(20), height: wp(20), tintColor: '#fff' }}
             />
           </TouchableOpacity>
         </View>

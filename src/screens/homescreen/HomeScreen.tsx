@@ -190,11 +190,11 @@ const HomeScreen = () => {
                 <View
                   key={index}
                   style={{
-                    width: activeIndex === index ? 8 : 6,
+                    width: activeIndex === index ? 6 : 6,
                     height: 6,
                     borderRadius: 3,
                     backgroundColor:
-                      activeIndex === index ? '#202735' : '#D9D9D9',
+                      activeIndex === index ? '#202735' : '#00000033',
                     marginHorizontal: 2,
                   }}
                 />

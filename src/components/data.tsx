@@ -20,41 +20,51 @@ export const category =[
     {
         id:'1',
         name:'All',
-        image: require('../assets/Icons/allIcon.png')
+        image: require('../assets/Icons/all.png')
     },
     {
         id:'2',
         name:'Groceries',
-        image: require('../assets/Icons/groceriesIcon.png')
+        image: require('../assets/Icons/groceries.png')
     },
     {
         id:'3',
         name:'Spices',
-        image: require('../assets/Icons/spicesIcon.png')
+        image: require('../assets/Icons/spices.png')
     },
     {
         id:'4',
         name:'Self care',
-        image: require('../assets/Icons/SelfCareIcon.png')
+        image: require('../assets/Icons/selfcare.png')
     },
     {
         id:'5',
         name:'Snacks',
-        image: require('../assets/Icons/SnacksIcon.png')
+        image: require('../assets/Icons/snacks.png')
     },
     {
         id:'6',
         name:'Beverages',
-        image: require('../assets/Icons/beveragesIcon.png')
+        image: require('../assets/Icons/beverages.png')
     },
     {
         id:'7',
-        name:'All',
-        image: require('../assets/Icons/backIcon.png')
+        name:'Breakfast',
+        image: require('../assets/Icons/breakfast.png')
     },
     {
         id:'8',
-        name:'All',
-        image: require('../assets/Icons/backIcon.png')
-    }
+        name:'Dairy',
+        image: require('../assets/Icons/dairy.png')
+    },
+    {
+        id:'9',
+        name:'Essentials',
+        image: require('../assets/Icons/clothes.png')
+    },
+    {
+        id:'10',
+        name:'Homecare',
+        image: require('../assets/Icons/homecare.png')
+    },
 ]

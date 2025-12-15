@@ -89,7 +89,7 @@ const HomeScreen = () => {
             }}
           >
             <Image
-              source={require('../../assets/images/backIcon.png')}
+              source={require('../../assets/Icons/backIcon.png')}
               style={{ width: wp(16), height: wp(16), tintColor: '#fff' }}
             />
           </TouchableOpacity>
@@ -114,7 +114,7 @@ const HomeScreen = () => {
             }}
           >
             <Image
-              source={require('../../assets/images/SearchIcon.png')}
+              source={require('../../assets/Icons/SearchIcon.png')}
               style={{ width: wp(18), height: wp(18), marginRight: wp(10) }}
             />
             <TextInput

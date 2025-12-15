@@ -39,7 +39,7 @@ const Information = () => {
           }}
           onPress={() => navigation.goBack()}
         >
-          <Image source={require('../../assets/images/backIcon.png')} />
+          <Image source={require('../../assets/Icons/backIcon.png')} />
         </TouchableOpacity>
         <View
           style={[

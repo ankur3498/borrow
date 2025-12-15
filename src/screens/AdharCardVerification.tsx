@@ -42,7 +42,7 @@ const AdharCardVerification = () => {
           }}
           onPress={() => navigation.goBack()}
         >
-          <Image source={require('../assets/images/backIcon.png')} />
+          <Image source={require('../assets/Icons/backIcon.png')} />
         </TouchableOpacity>
         <View
           style={[
@@ -62,7 +62,7 @@ const AdharCardVerification = () => {
             ]}
           >
             <Image
-              source={require('../assets/images/KycIcon.png')}
+              source={require('../assets/Icons/KycIcon.png')}
               style={{
                 width: wp(32),
                 height: wp(32),
@@ -93,7 +93,7 @@ const AdharCardVerification = () => {
           >
             <View>
               <Image
-                source={require('../assets/images/Adhaar.png')}
+                source={require('../assets/Icons/Adhaar.png')}
                 style={{ height: hp(20), width: wp(20), resizeMode: 'contain' }}
               />
             </View>

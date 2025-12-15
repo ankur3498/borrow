@@ -71,7 +71,7 @@ const handleGrantAccess = async () => {
         <View style={[styles.card, { height: hp(565), width: wp(360) }]}>
           <View style={styles.iconBox}>
             <Image
-              source={require('../assets/images/locationIcon.png')}
+              source={require('../assets/Icons/locationIcon.png')}
               style={{ height: hp(32), width: wp(32) }}
             />
           </View>

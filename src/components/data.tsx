@@ -2,17 +2,17 @@ export const shops = [
   {
     id: '1',
     name: 'Dolly',
-    image: require('../assets/images/medicineIcon.png'),
+    image: require('../assets/Icons/medicineIcon.png'),
   },
   {
     id: '2',
     name: 'Pharma',
-    image: require('../assets/images/PanIcon.png'),
+    image: require('../assets/Icons/PanIcon.png'),
   },
   {
     id: '3',
     name: 'Health',
-    image: require('../assets/images/Adhaar.png'),
+    image: require('../assets/Icons/Adhaar.png'),
   },
 ];
 

@@ -45,7 +45,7 @@ const PreferredShopsScreen = () => {
       {/* HEADER ICON */}
       <View style={[styles.headerIconBox, { width: wp(72), height: wp(72), borderRadius: wp(36) }]}>
         <Image
-          source={require('../assets/images/ShopsIcon.png')}
+          source={require('../assets/Icons/ShopsIcon.png')}
           style={{ width: wp(32), height: wp(32), tintColor: '#ff2d87' }}
         />
       </View>
@@ -62,7 +62,7 @@ const PreferredShopsScreen = () => {
       <View style={[styles.locationCard, { marginTop: hp(25), marginBottom: hp(20), padding: wp(18) }]}>
         <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
           <Image
-            source={require('../assets/images/locationIcon.png')}
+            source={require('../assets/Icons/locationIcon.png')}
             style={{ width: wp(20), height: wp(20), marginRight: wp(15) }}
           />
           <View>
@@ -109,7 +109,7 @@ const PreferredShopsScreen = () => {
                 ]}
               >
                 <Image
-                  source={require('../assets/images/ShopsIcon.png')}
+                  source={require('../assets/Icons/ShopsIcon.png')}
                   style={{
                     width: wp(28),
                     height: wp(28),

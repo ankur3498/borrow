@@ -42,7 +42,7 @@ const KycVerification = () => {
           }}
           onPress={() => navigation.goBack()}
         >
-          <Image source={require('../assets/images/backIcon.png')} />
+          <Image source={require('../assets/Icons/backIcon.png')} />
         </TouchableOpacity>
         <View
           style={[
@@ -66,7 +66,7 @@ const KycVerification = () => {
             ]}
           >
             <Image
-              source={require('../assets/images/KycIcon.png')}
+              source={require('../assets/Icons/KycIcon.png')}
               style={{
                 width: wp(32),
                 height: wp(32),
@@ -98,7 +98,7 @@ const KycVerification = () => {
           >
             <View>
               <Image
-                source={require('../assets/images/PanIcon.png')}
+                source={require('../assets/Icons/PanIcon.png')}
                 style={{ height: hp(20), width: wp(20), resizeMode: 'contain' }}
               />
             </View>

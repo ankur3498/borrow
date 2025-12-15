@@ -108,7 +108,7 @@ const OtpScreen = () => {
           style={{ marginTop: 20, marginLeft: 24, height: 24, width: 20 }}
           onPress={() => navigation.goBack()}
         >
-          <Image source={require('../../assets/images/backIcon.png')} />
+          <Image source={require('../../assets/Icons/backIcon.png')} />
         </TouchableOpacity>
 
         {/* Body */}

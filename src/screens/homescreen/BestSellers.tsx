@@ -72,7 +72,7 @@ const BestSellers = () => {
           renderItem={({ item }) => (
             <View
               style={{
-                width: wp(108),
+                width: wp(110),
                 height: hp(187),
                 flexDirection: 'column',
                 borderRadius: hp(8),
@@ -83,7 +83,7 @@ const BestSellers = () => {
                 source={item.image}
                 style={{
                   height: hp(107),
-                  width: wp(108),
+                  width: wp(110),
                   borderTopLeftRadius: hp(8),
                   borderTopRightRadius: hp(8),
                 }}

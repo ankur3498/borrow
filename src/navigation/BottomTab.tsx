@@ -24,16 +24,15 @@ const BottomTabs = () => {
         tabBarShowLabel: false,
 
         tabBarStyle: {
-          height: 75 + insets.bottom,
-          paddingTop: 15,
+          height: 65 + insets.bottom,
+          paddingTop: hp(13),
           paddingBottom: insets.bottom + 10,
 
           backgroundColor: '#FFFFFF',
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
+          borderTopLeftRadius: hp(16),
+          borderTopRightRadius: hp(16),
           position: 'absolute',
 
-          // shadow
           shadowColor: '#000',
           shadowOffset: { width: 0, height: -4 },
           shadowOpacity: 0.08,
@@ -111,7 +110,7 @@ const TabItem = ({
   icon: any;
   label: string;
 }) => (
-  <View style={{ alignItems: 'center', justifyContent: 'center',width:40 }}>
+  <View style={{ alignItems: 'center', justifyContent: 'center',width:50 }}>
     <Image
       source={icon}
       style={{
@@ -119,6 +118,7 @@ const TabItem = ({
         height: 24,
         tintColor: focused ? '#FC156A' : '#808daaff',
       }}
+       resizeMode="contain"
     />
     <Text
       style={{

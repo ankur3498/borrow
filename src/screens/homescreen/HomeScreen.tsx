@@ -252,7 +252,7 @@ const [activeCategoryId, setActiveCategoryId] = useState<string | null>(
               <Text
                 style={{
                   fontSize: fp(12),
-                  fontWeight:  activeCategoryId === item.id ? '600' : '400',
+                  fontWeight:  activeCategoryId === item.id ? '500' : '400',
                   color: activeCategoryId === item.id ? '#FFFFFF' : '#FFFFFF99',
                   textAlign: 'center',
                 }}

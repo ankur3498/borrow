@@ -33,11 +33,8 @@ export default function App() {
             name="PreferredShopsScreen"
             component={PreferredShopsScreen}
           />
-
-          {/* 🔥 Bottom Navigation starts here */}
           <Stack.Screen name="MainTabs" component={BottomTabs} />
         </Stack.Navigator>
-
         <Toast />
       </NavigationContainer>
     </SafeAreaProvider>

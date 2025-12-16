@@ -16,6 +16,7 @@ import { category } from '../../components/data';
 import { shops } from '../../components/data';
 import BestSellers from './BestSellers';
 import QuickPicks from './QuickPicks';
+import HomeScreen2 from './FrequentlyOrdered';
 
 const HomeScreen = () => {
   const { width, height } = useWindowDimensions();
@@ -33,7 +34,13 @@ const HomeScreen = () => {
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 });
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false} style={{backgroundColor:'#FFFFFF'}}>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{
+        paddingBottom: hp(90),
+        backgroundColor:'#FFFFFF'
+      }}
+    >
       <View
         style={{
           height: hp(230),
@@ -97,7 +104,7 @@ const HomeScreen = () => {
         <View
           style={{
             flexDirection: 'row',
-            marginTop: hp(20),
+            marginTop: hp(14),
             alignItems: 'center',
           }}
         >
@@ -209,12 +216,12 @@ const HomeScreen = () => {
           keyExtractor={item => item.id.toString()}
           contentContainerStyle={{
             alignItems: 'center',
-            gap: wp(24),
+            gap: wp(8),
           }}
           renderItem={({ item }) => (
             <TouchableOpacity
               style={{
-                width: wp(38),
+                width: wp(59),
                 height: hp(18),
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -246,8 +253,8 @@ const HomeScreen = () => {
         />
       </View>
       {/* <HomeScreen2 /> */}
-      <BestSellers/>
-      <QuickPicks/>
+      <BestSellers />
+      <QuickPicks />
     </ScrollView>
   );
 };

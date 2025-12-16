@@ -1,6 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, useWindowDimensions } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 // Screens
 import HomeScreen from '../screens/homescreen/HomeScreen';
@@ -11,25 +12,41 @@ import ProfileScreen from '../screens/profile/ProfileScreen';
 const Tab = createBottomTabNavigator();
 
 const BottomTabs = () => {
+  const insets = useSafeAreaInsets();
+  const { width, height } = useWindowDimensions();
+    const wp = (v: number) => (v / 390) * width;
+    const hp = (v: number) => (v / 812) * height;
+    const fp = (v: number) => (v / 390) * width;
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
+
         tabBarStyle: {
-          height: 72,
+          height: 75 + insets.bottom,
+          paddingTop: 15,
+          paddingBottom: insets.bottom + 10,
+
+          backgroundColor: '#FFFFFF',
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
           position: 'absolute',
+
+          // shadow
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: -4 },
+          shadowOpacity: 0.08,
+          shadowRadius: 10,
+          elevation: 20,
         },
       }}
     >
-      {/* SHOP */}
       <Tab.Screen
         name="Shop"
         component={HomeScreen}
         options={{
-          tabBarIcon: ({ focused }) => (
+          tabBarIcon: ({ focused }: { focused: boolean }) => (
             <TabItem
               focused={focused}
               label="Shop"
@@ -39,46 +56,42 @@ const BottomTabs = () => {
         }}
       />
 
-      {/* ORDERS */}
       <Tab.Screen
         name="Orders"
         component={OrdersScreen}
         options={{
-          tabBarIcon: ({ focused }) => (
+          tabBarIcon: ({ focused }: { focused: boolean }) => (
             <TabItem
               focused={focused}
               label="Orders"
-              icon={require('../assets/Icons/Shops.png')}
+              icon={require('../assets/Icons/Orders.png')}
             />
           ),
         }}
       />
 
-      {/* BILLS */}
       <Tab.Screen
         name="Bills"
         component={BillsScreen}
         options={{
-          tabBarIcon: ({ focused }) => (
+          tabBarIcon: ({ focused }: { focused: boolean }) => (
             <TabItem
               focused={focused}
               label="Bills"
-              icon={require('../assets/Icons/Shops.png')}
+              icon={require('../assets/Icons/Bills.png')}
             />
           ),
         }}
       />
-
-      {/* PROFILE */}
       <Tab.Screen
         name="Profile"
         component={ProfileScreen}
         options={{
-          tabBarIcon: ({ focused }) => (
+          tabBarIcon: ({ focused }: { focused: boolean }) => (
             <TabItem
               focused={focused}
               label="Profile"
-              icon={require('../assets/Icons/Shops.png')}
+              icon={require('../assets/Icons/Profile.png')}
             />
           ),
         }}
@@ -89,22 +102,30 @@ const BottomTabs = () => {
 
 export default BottomTabs;
 
-/* 🔹 Reusable tab item */
-const TabItem = ({ focused, icon, label }: any) => (
-  <View style={{ alignItems: 'center' }}>
+const TabItem = ({
+  focused,
+  icon,
+  label,
+}: {
+  focused: boolean;
+  icon: any;
+  label: string;
+}) => (
+  <View style={{ alignItems: 'center', justifyContent: 'center' }}>
     <Image
       source={icon}
       style={{
-        width: 22,
-        height: 22,
+        width: 28,
+        height: 24,
         tintColor: focused ? '#FC156A' : '#8A8F9A',
       }}
     />
     <Text
       style={{
         fontSize: 12,
-        marginTop: 4,
+        marginTop: 6,
         color: focused ? '#FC156A' : '#8A8F9A',
+        fontWeight: focused ? '600' : '500',
       }}
     >
       {label}

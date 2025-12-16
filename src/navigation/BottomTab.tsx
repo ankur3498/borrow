@@ -111,22 +111,23 @@ const TabItem = ({
   icon: any;
   label: string;
 }) => (
-  <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+  <View style={{ alignItems: 'center', justifyContent: 'center',width:40 }}>
     <Image
       source={icon}
       style={{
         width: 28,
         height: 24,
-        tintColor: focused ? '#FC156A' : '#8A8F9A',
+        tintColor: focused ? '#FC156A' : '#808daaff',
       }}
     />
     <Text
       style={{
-        fontSize: 12,
+        fontSize: 13,
         marginTop: 6,
         color: focused ? '#FC156A' : '#8A8F9A',
         fontWeight: focused ? '600' : '500',
       }}
+      numberOfLines={1}
     >
       {label}
     </Text>

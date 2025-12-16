@@ -134,7 +134,7 @@ const AdharCardVerification = () => {
               {
                 paddingVertical: hp(15),
                 borderRadius: hp(14),
-                marginTop: hp(20),
+                marginTop: hp(18),
                 marginBottom: hp(196),
               },
             ]}

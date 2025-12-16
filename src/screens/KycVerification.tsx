@@ -124,7 +124,7 @@ const KycVerification = () => {
             ]}
           >
             <TextInput
-              placeholder="Enter your full name as per PAN"
+              placeholder="Enter your Pan number"
               placeholderTextColor="#0A0A0A80"
               style={[styles.input, { fontSize: fp(16) }]}
               value={pan}
@@ -133,7 +133,6 @@ const KycVerification = () => {
             />
           </View>
 
-          {/* Verify Button */}
           <TouchableOpacity
             style={[
               styles.button,

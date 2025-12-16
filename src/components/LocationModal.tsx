@@ -12,7 +12,7 @@ import {
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
 import { useNavigation } from '@react-navigation/native';
-import { PERMISSIONS, request, RESULTS } from "react-native-permissions";
+import { PERMISSIONS, request, RESULTS } from 'react-native-permissions';
 type NavProp = NativeStackNavigationProp<
   RootStackParamList,
   'PreferredShopsScreen'
@@ -46,24 +46,24 @@ const LocationModal: React.FC<Props> = ({ visible, onClose }) => {
   const wp = (px: number) => (px / 390) * width;
   const hp = (px: number) => (px / 812) * height;
   const fp = (px: number) => (px / 390) * width;
-  
-const handleGrantAccess = async () => {
-  const result = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
 
-  if (result === RESULTS.GRANTED) {
-    // Permission mil gayi → Close modal + Navigate
-    onClose();
-    setTimeout(() => {
-      navigation.navigate("PreferredShopsScreen");
-    }, 200);
-  } else if (result === RESULTS.DENIED) {
-    // User ne deny kiya
-    console.log("Please allow location permission to continue.");
-  } else if (result === RESULTS.BLOCKED) {
-    // User ne 'Don't Allow' permanently select kiya
-    console.log("Permission blocked. Please enable it from Settings.");
-  }
-};
+  const handleGrantAccess = async () => {
+    const result = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+
+    if (result === RESULTS.GRANTED) {
+      // Permission mil gayi → Close modal + Navigate
+      onClose();
+      setTimeout(() => {
+        navigation.navigate('PreferredShopsScreen');
+      }, 200);
+    } else if (result === RESULTS.DENIED) {
+      // User ne deny kiya
+      console.log('Please allow location permission to continue.');
+    } else if (result === RESULTS.BLOCKED) {
+      // User ne 'Don't Allow' permanently select kiya
+      console.log('Permission blocked. Please enable it from Settings.');
+    }
+  };
 
   return (
     <Modal visible={visible} transparent animationType="fade">
@@ -87,13 +87,13 @@ const handleGrantAccess = async () => {
             data={Points}
             showsVerticalScrollIndicator={false}
             keyExtractor={item => item.id.toString()}
-            contentContainerStyle={{ paddingBottom: 120, gap: hp(12) }}
+            contentContainerStyle={{ gap: hp(12) }}
             style={{
               marginTop: hp(24),
               width: wp(297),
             }}
             renderItem={({ item }) => (
-              <View style={[styles.rowC,{height: hp(58)}]}>
+              <View style={[styles.rowC, { height: hp(58) }]}>
                 <View style={styles.bullet} />
                 <Text style={{ fontSize: fp(16), color: '#333' }}>
                   {item.text}
@@ -102,11 +102,22 @@ const handleGrantAccess = async () => {
             )}
           />
 
-          <TouchableOpacity style={styles.btn} onPress={handleGrantAccess}>
-            <Text style={[styles.btnText,{ fontSize: fp(16),}]}>Grant Location Access →</Text>
+          <TouchableOpacity
+            style={{
+              backgroundColor: '#FC156A',
+              paddingVertical: hp(14),
+              borderRadius: hp(12),
+              height: hp(50),
+              marginBottom: hp(16),
+            }}
+            onPress={handleGrantAccess}
+          >
+            <Text style={[styles.btnText, { fontSize: fp(16) }]}>
+              Grant Location Access →
+            </Text>
           </TouchableOpacity>
 
-          <Text style={[styles.privacyText,{fontSize:fp(14)}]}>
+          <Text style={[styles.privacyText, { fontSize: fp(14) }]}>
             Your location data is secure and never shared with third parties
           </Text>
         </View>
@@ -163,12 +174,6 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   point: { fontSize: 15, color: '#333' },
-  btn: {
-    backgroundColor: '#FC156A',
-    paddingVertical: 14,
-    borderRadius: 12,
-    height:55
-  },
   btnText: {
     color: '#fff',
     textAlign: 'center',
@@ -184,7 +189,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 12,
     backgroundColor: '#F9FAFB',
-    paddingHorizontal:24,
-    borderRadius:12
+    paddingHorizontal: 24,
+    borderRadius: 12,
   },
 });

@@ -17,6 +17,10 @@ import { shops } from '../../components/data';
 import BestSellers from './BestSellers';
 import QuickPicks from './QuickPicks';
 import HomeScreen2 from './FrequentlyOrdered';
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
 
 const HomeScreen = () => {
   const { width, height } = useWindowDimensions();
@@ -25,7 +29,12 @@ const HomeScreen = () => {
   const fp = (v: number) => (v / 390) * width;
 
   const [activeIndex, setActiveIndex] = useState(0);
-
+  const insets = useSafeAreaInsets();
+  const allCategory = category.find(item => item.name === 'All');
+  
+const [activeCategoryId, setActiveCategoryId] = useState<string | null>(
+  allCategory ? allCategory.id : null
+);
   const onViewRef = useRef(({ viewableItems }: any) => {
     if (viewableItems.length > 0) {
       setActiveIndex(viewableItems[0].index);
@@ -37,8 +46,8 @@ const HomeScreen = () => {
     <ScrollView
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
-        paddingBottom: hp(90),
-        backgroundColor:'#FFFFFF'
+        paddingBottom: hp(70),
+        backgroundColor: '#FFFFFF',
       }}
     >
       <View
@@ -226,6 +235,7 @@ const HomeScreen = () => {
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
+              onPress={() => setActiveCategoryId(item.id)}
             >
               <Image
                 source={item.image}
@@ -233,6 +243,8 @@ const HomeScreen = () => {
                   width: wp(24),
                   height: wp(24),
                   marginBottom: hp(6),
+                  tintColor:
+                    activeCategoryId === item.id ? '#FFFFFF' : '#FFFFFF',
                 }}
                 resizeMode="contain"
               />
@@ -240,8 +252,8 @@ const HomeScreen = () => {
               <Text
                 style={{
                   fontSize: fp(12),
-                  fontWeight: '600',
-                  color: '#FFFFFF',
+                  fontWeight:  activeCategoryId === item.id ? '600' : '400',
+                  color: activeCategoryId === item.id ? '#FFFFFF' : '#FFFFFF99',
                   textAlign: 'center',
                 }}
                 numberOfLines={1}
@@ -252,7 +264,7 @@ const HomeScreen = () => {
           )}
         />
       </View>
-      {/* <HomeScreen2 /> */}
+      <HomeScreen2 />
       <BestSellers />
       <QuickPicks />
     </ScrollView>

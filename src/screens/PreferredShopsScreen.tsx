@@ -17,7 +17,6 @@ type NavProp = NativeStackNavigationProp<
   RootStackParamList,
   'MainTabs'
 >;
-
 const shops = [
   { id: '1', name: 'Reddy Kirana & General Stores', area: 'Jayanagar, Bangalore', distance: '3.5 km' },
   { id: '2', name: 'Reddy Kirana & General Stores', area: 'Jayanagar, Bangalore', distance: '3.5 km' },
@@ -42,7 +41,6 @@ const PreferredShopsScreen = () => {
   return (
     <SafeAreaView style={[styles.container, { paddingHorizontal: wp(24), paddingTop: hp(52) }]}>
 
-      {/* HEADER ICON */}
       <View style={[styles.headerIconBox, { width: wp(72), height: wp(72), borderRadius: wp(36) }]}>
         <Image
           source={require('../assets/Icons/ShopsIcon.png')}
@@ -58,7 +56,6 @@ const PreferredShopsScreen = () => {
         Choose shops you want to borrow items from
       </Text>
 
-      {/* LOCATION CARD */}
       <View style={[styles.locationCard, { marginTop: hp(25), marginBottom: hp(20), padding: wp(18) }]}>
         <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
           <Image

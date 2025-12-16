@@ -103,7 +103,6 @@ const OtpScreen = () => {
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         style={{ flex: 1 }}
       >
-        {/* Back Button */}
         <TouchableOpacity
           style={{ marginTop: 20, marginLeft: 24, height: 24, width: 20 }}
           onPress={() => navigation.goBack()}
@@ -111,7 +110,6 @@ const OtpScreen = () => {
           <Image source={require('../../assets/Icons/backIcon.png')} />
         </TouchableOpacity>
 
-        {/* Body */}
         <View style={{ paddingHorizontal: wp(24), paddingTop: hp(22) }}>
           <Text style={[styles.title, { fontSize: fp(28) }]}>Enter OTP</Text>
           <Text style={styles.subtitle}>OTP sent to +91 {phone}</Text>
@@ -144,7 +142,6 @@ const OtpScreen = () => {
             ))}
           </View>
 
-          {/* Verify Button */}
           <TouchableOpacity
             style={[styles.btn, { width: wp(345), height: 54 }]}
             onPress={handleVerify}
@@ -154,7 +151,6 @@ const OtpScreen = () => {
             </Text>
           </TouchableOpacity>
 
-          {/* Resend OTP */}
           <TouchableOpacity disabled={!canResend} onPress={handleResendOtp}>
             <Text style={[styles.changeText, { opacity: canResend ? 1 : 0.5 }]}>
               {canResend ? 'Resend OTP' : `Resend OTP in ${timer}s`}

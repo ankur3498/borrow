@@ -9,7 +9,8 @@ import {
 import React from 'react';
 import { FlatList } from 'react-native';
 import { sellers } from '../../components/data.tsx';
-const BestSellers = () => {
+
+const QuickPicks = () => {
   const { width, height } = useWindowDimensions();
   const wp = (v: number) => (v / 390) * width;
   const hp = (v: number) => (v / 812) * height;
@@ -40,7 +41,7 @@ const BestSellers = () => {
             color: '#1A1A1A',
           }}
         >
-          Best Sellers
+          Quick Picks{' '}
         </Text>
         <View
           style={{
@@ -53,10 +54,8 @@ const BestSellers = () => {
       <View
         style={{
           height: hp(211),
-          backgroundColor: '#F7F2FF',
-          borderRadius: wp(12),
           padding: hp(10),
-          marginHorizontal: wp(10),
+    
         }}
       >
         <FlatList
@@ -72,18 +71,21 @@ const BestSellers = () => {
           renderItem={({ item }) => (
             <View
               style={{
-                width: wp(108),
+                width:wp(116),
                 height: hp(187),
                 flexDirection: 'column',
                 borderRadius: hp(8),
                 backgroundColor: '#FFFFFF',
+                borderColor:'#E5E7EB',
+                borderWidth:1,
+                elevation:1/2
               }}
             >
               <Image
                 source={item.image}
                 style={{
                   height: hp(107),
-                  width: wp(108),
+                  width: wp(116),
                   borderTopLeftRadius: hp(8),
                   borderTopRightRadius: hp(8),
                 }}
@@ -161,6 +163,6 @@ const BestSellers = () => {
   );
 };
 
-export default BestSellers;
+export default QuickPicks;
 
 const styles = StyleSheet.create({});

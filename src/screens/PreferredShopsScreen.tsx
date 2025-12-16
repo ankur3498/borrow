@@ -15,7 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 
 type NavProp = NativeStackNavigationProp<
   RootStackParamList,
-  'HomeScreen'
+  'MainTabs'
 >;
 
 const shops = [
@@ -139,7 +139,8 @@ const PreferredShopsScreen = () => {
       <View style={[styles.bottomBtnWrapper, { bottom: hp(34), paddingHorizontal: wp(22) }]}>
         <TouchableOpacity
           disabled={selectedIds.length === 0}
-          onPress={() => navigation.navigate('HomeScreen')}
+          onPress={() => navigation.replace('MainTabs')
+}
           style={[
             styles.bottomBtn,
             { paddingVertical: hp(16), borderRadius: wp(14) },

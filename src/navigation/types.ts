@@ -5,5 +5,5 @@ export type RootStackParamList = {
   KycVerification: undefined;
   AdharCardVerification: undefined;
   PreferredShopsScreen: undefined;
-  HomeScreen: undefined;
+  MainTabs: undefined; 
 };

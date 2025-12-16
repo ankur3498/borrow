@@ -14,8 +14,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import MaskedView from '@react-native-masked-view/masked-view';
 import { category } from '../../components/data';
 import { shops } from '../../components/data';
-import HomeScreen2 from './FrequentlyOrdered';
 import BestSellers from './BestSellers';
+import QuickPicks from './QuickPicks';
 
 const HomeScreen = () => {
   const { width, height } = useWindowDimensions();
@@ -33,7 +33,7 @@ const HomeScreen = () => {
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 });
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
+    <ScrollView showsVerticalScrollIndicator={false} style={{backgroundColor:'#FFFFFF'}}>
       <View
         style={{
           height: hp(230),
@@ -245,8 +245,9 @@ const HomeScreen = () => {
           )}
         />
       </View>
-      <HomeScreen2 />
+      {/* <HomeScreen2 /> */}
       <BestSellers/>
+      <QuickPicks/>
     </ScrollView>
   );
 };

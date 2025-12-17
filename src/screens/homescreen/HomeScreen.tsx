@@ -17,9 +17,6 @@ import { shops } from '../../components/data';
 import BestSellers from './BestSellers';
 import QuickPicks from './QuickPicks';
 import HomeScreen2 from './FrequentlyOrdered';
-import {
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
 
 const HomeScreen = () => {
   const { width, height } = useWindowDimensions();
@@ -28,12 +25,11 @@ const HomeScreen = () => {
   const fp = (v: number) => (v / 390) * width;
 
   const [activeIndex, setActiveIndex] = useState(0);
-  const insets = useSafeAreaInsets();
   const allCategory = category.find(item => item.name === 'All');
-  
-const [activeCategoryId, setActiveCategoryId] = useState<string | null>(
-  allCategory ? allCategory.id : null
-);
+
+  const [activeCategoryId, setActiveCategoryId] = useState<string | null>(
+    allCategory ? allCategory.id : null,
+  );
   const onViewRef = useRef(({ viewableItems }: any) => {
     if (viewableItems.length > 0) {
       setActiveIndex(viewableItems[0].index);
@@ -217,56 +213,53 @@ const [activeCategoryId, setActiveCategoryId] = useState<string | null>(
             </View>
           </View>
         </View>
-        <FlatList
-          data={category}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          keyExtractor={item => item.id.toString()}
-          contentContainerStyle={{
-            alignItems: 'center',
-            gap: wp(8),
-          }}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              style={{
-                width: wp(59),
-                height: hp(18),
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-              onPress={() => setActiveCategoryId(item.id)}
-            >
-              <Image
-                source={item.image}
-                style={{
-                  width: wp(24),
-                  height: wp(24),
-                  marginBottom: hp(6),
-                  tintColor:
-                    activeCategoryId === item.id ? '#FFFFFF' : '#FFFFFF',
-                }}
-                resizeMode="contain"
-              />
-
-              <Text
-                style={{
-                  fontSize: fp(12),
-                  fontWeight:  activeCategoryId === item.id ? '500' : '400',
-                  color: activeCategoryId === item.id ? '#FFFFFF' : '#FFFFFF99',
-                  textAlign: 'center',
-                }}
-                numberOfLines={1}
+        <View style={{ marginTop: hp(14) }}>
+          <FlatList
+            data={category}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={item => item.id.toString()}
+            contentContainerStyle={{
+              gap: wp(24),
+              flexDirection: 'row',
+            }}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+              style={{justifyContent:'center',alignItems:'center'}}
+                onPress={() => setActiveCategoryId(item.id)}
               >
-                {item.name}
-              </Text>
-            </TouchableOpacity>
-          )}
-        />
+                <Image
+                  source={item.image}
+                  style={{
+                    width: wp(24),
+                    height: wp(24),
+                    marginBottom: hp(6),
+                    tintColor:
+                      activeCategoryId === item.id ? '#FFFFFF' : '#FFFFFF',
+                  }}
+                  resizeMode="contain"
+                />
+
+                <Text
+                  style={{
+                    fontSize: fp(12),
+                    
+                    color:
+                      activeCategoryId === item.id ? '#FFFFFF' : '#FFFFFF99',
+                    textAlign: 'center',
+                  }}
+                  numberOfLines={1}
+                >
+                  {item.name}
+                </Text>
+              </TouchableOpacity>
+            )}
+          />
+        </View>
       </View>
       <HomeScreen2 />
       <BestSellers />
       <QuickPicks />
-      
     </ScrollView>
   );
 };

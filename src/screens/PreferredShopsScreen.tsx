@@ -162,8 +162,8 @@ const PreferredShopsScreen = () => {
                 <Image
                   source={require('../assets/Icons/ShopsIcon.png')}
                   style={{
-                    width: wp(28),
-                    height: wp(28),
+                    width: wp(25),
+                    height: wp(25),
                     tintColor: isSelected ? '#fff' : '#7b7b7b',
                   }}
                 />
@@ -264,7 +264,7 @@ const styles = StyleSheet.create({
 
   shopCardSelected: {
     borderColor: '#ff2d87',
-    borderWidth: 2,
+    borderWidth: 1,
     backgroundColor: '#fff0f6',
   },
 

@@ -120,9 +120,8 @@ const TabItem = ({
     <Image
       source={focused? activeIcon : icon}
       style={{
-        width: 28,
+        width: 24,
         height: 24,
-        tintColor: focused ? '#FC156A' : '#808daaff',
       }}
        resizeMode="contain"
     />
@@ -131,7 +130,7 @@ const TabItem = ({
         fontSize: 13,
         marginTop: 6,
         color: focused ? '#FC156A' : '#8A8F9A',
-        fontWeight: focused ? '600' : '500',
+        fontWeight: focused ? '500' : '400',
       }}
       numberOfLines={1}
     >

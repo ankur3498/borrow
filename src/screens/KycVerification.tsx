@@ -93,7 +93,7 @@ const KycVerification = () => {
           <View
             style={[
               styles.panBox,
-              { padding: wp(16), marginBottom: hp(32), borderRadius: wp(10) },
+              { padding: wp(16), marginBottom: hp(8), borderRadius: wp(10) },
             ]}
           >
             <View>
@@ -144,9 +144,11 @@ const KycVerification = () => {
             style={[
               styles.button,
               {
-                paddingVertical: hp(15),
+                justifyContent:'center',
                 borderRadius: hp(14),
-                marginBottom: hp(196),
+                marginBottom: hp(220),
+                height:hp(54),
+                marginTop:hp(20)
               },
             ]}
             onPress={() => navigation.navigate('AdharCardVerification')}
@@ -158,7 +160,7 @@ const KycVerification = () => {
           <Text
             style={[
               styles.skipText,
-              { fontSize: fp(16), marginBottom: hp(34) },
+              { fontSize: fp(16), marginBottom: hp(0) },
             ]}
           >
             Skip for now (can verify later)
@@ -229,9 +231,8 @@ const styles = StyleSheet.create({
 
   button: {
     backgroundColor: '#FC156A',
-    justifyContent: 'center',
     alignItems: 'center',
-    elevation: 2,
+    elevation: 6,
   },
 
   buttonText: {
@@ -241,7 +242,7 @@ const styles = StyleSheet.create({
 
   skipText: {
     textAlign: 'center',
-    color: '#99A1AF',
+    color: '#FC156A',
     fontWeight: 400,
     fontFamily: 'Helvetica',
   },

@@ -53,7 +53,7 @@ const PreferredShopsScreen = () => {
 
   return (
     <SafeAreaView style={[styles.container, { paddingHorizontal: wp(24) }]}>
-      {/* HEADER ICON */}
+
       <View
         style={[
           styles.headerIconBox,
@@ -71,7 +71,7 @@ const PreferredShopsScreen = () => {
         />
       </View>
 
-      {/* TITLE */}
+
       <Text style={[styles.title, { fontSize: fp(26), marginTop: hp(20) }]}>
         Select Preferred Shops
       </Text>
@@ -80,7 +80,6 @@ const PreferredShopsScreen = () => {
         Choose shops you want to borrow items from
       </Text>
 
-      {/* LOCATION CARD */}
       <View
         style={[
           styles.locationCard,
@@ -127,7 +126,6 @@ const PreferredShopsScreen = () => {
         </TouchableOpacity>
       </View>
 
-      {/* SHOP LIST */}
       <FlatList
         data={shops}
         keyExtractor={item => item.id}
@@ -201,7 +199,6 @@ const PreferredShopsScreen = () => {
         }}
       />
 
-      {/* BOTTOM BUTTON */}
       <View
         style={[
           styles.bottomBtnWrapper,

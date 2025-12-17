@@ -88,7 +88,7 @@ const AdharCardVerification = () => {
           <View
             style={[
               styles.adhaarBox,
-              { padding: wp(16), marginBottom: hp(32), borderRadius: wp(10) },
+              { padding: wp(16), marginBottom: hp(8), borderRadius: wp(10) },
             ]}
           >
             <View>
@@ -125,8 +125,6 @@ const AdharCardVerification = () => {
                 {
                   fontSize: fp(16),
                   lineHeight: hp(20),
-                  paddingVertical: 0,
-                  textAlignVertical: 'center',
                 },
               ]}
               keyboardType="number-pad"
@@ -140,15 +138,16 @@ const AdharCardVerification = () => {
             style={[
               styles.button,
               {
-                paddingVertical: hp(15),
+                justifyContent:'center',
+                height:hp(54),
                 borderRadius: hp(14),
-                marginTop: hp(18),
-                marginBottom: hp(196),
+                marginBottom: hp(220),
+                marginTop:hp(20)
               },
             ]}
             onPress={() => setShowLocationModal(true)}
           >
-            <Text style={[styles.buttonText, { fontSize: fp(16) }]}>
+            <Text style={[styles.buttonText, {fontSize: fp(16), marginBottom: hp(0)}]}>
               Verify & Login →
             </Text>
           </TouchableOpacity>
@@ -159,7 +158,7 @@ const AdharCardVerification = () => {
           <Text
             style={[
               styles.skipText,
-              { fontSize: fp(16), marginBottom: hp(34) },
+              { fontSize: fp(16), marginBottom: hp(0) },
             ]}
           >
             Skip for now (can verify later)
@@ -230,9 +229,8 @@ const styles = StyleSheet.create({
 
   button: {
     backgroundColor: '#FC156A',
-    justifyContent: 'center',
     alignItems: 'center',
-    elevation: 2,
+    elevation: 6,
   },
 
   buttonText: {
@@ -242,7 +240,7 @@ const styles = StyleSheet.create({
 
   skipText: {
     textAlign: 'center',
-    color: '#99A1AF',
+    color: '#FC156A',
     fontWeight: 400,
     fontFamily: 'Helvetica',
   },

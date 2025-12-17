@@ -33,7 +33,7 @@ const OtpScreen = () => {
   const [canResend, setCanResend] = useState(false);
 
   const { width, height } = useWindowDimensions();
-  const hp = (px: number) => (px / 390) * height;
+  const hp = (px: number) => (px / 812) * height;
   const wp = (px: number) => (px / 390) * width;
   const fp = (px: number) => (px / 390) * width;
 
@@ -143,7 +143,11 @@ const OtpScreen = () => {
           </View>
 
           <TouchableOpacity
-            style={[styles.btn, { width: wp(345), height: 54 }]}
+            style={[styles.btn,{
+                justifyContent:'center',
+                borderRadius: hp(14),
+                height:hp(54),
+              }]}
             onPress={handleVerify}
           >
             <Text style={[styles.btnText, { fontSize: fp(16) }]}>
@@ -194,7 +198,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 16,
-    alignSelf: 'center',
     marginTop: 20,
   },
   btnText: {

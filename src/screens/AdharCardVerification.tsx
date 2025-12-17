@@ -15,6 +15,7 @@ import { RootStackParamList } from '../navigation/types';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import LocationModal from '../components/LocationModal';
+import Toast from 'react-native-toast-message';
 type NavProp = NativeStackNavigationProp<
   RootStackParamList,
   'PreferredShopsScreen'
@@ -138,16 +139,29 @@ const AdharCardVerification = () => {
             style={[
               styles.button,
               {
-                justifyContent:'center',
-                height:hp(54),
+                justifyContent: 'center',
+                height: hp(54),
                 borderRadius: hp(14),
                 marginBottom: hp(220),
-                marginTop:hp(20)
+                marginTop: hp(20),
               },
             ]}
-            onPress={() => setShowLocationModal(true)}
+            onPress={() => {
+              if (!/^\d{12}$/.test(adhaar)) {
+                return Toast.show({
+                  type: 'error',
+                  text1: 'Enter valid Adhaar Number',
+                });
+              }
+              setShowLocationModal(true);
+            }}
           >
-            <Text style={[styles.buttonText, {fontSize: fp(16), marginBottom: hp(0)}]}>
+            <Text
+              style={[
+                styles.buttonText,
+                { fontSize: fp(16), marginBottom: hp(0) },
+              ]}
+            >
               Verify & Login →
             </Text>
           </TouchableOpacity>
@@ -156,10 +170,7 @@ const AdharCardVerification = () => {
             onClose={() => setShowLocationModal(false)}
           />
           <Text
-            style={[
-              styles.skipText,
-              { fontSize: fp(16), marginBottom: hp(0) },
-            ]}
+            style={[styles.skipText, { fontSize: fp(16), marginBottom: hp(0) }]}
           >
             Skip for now (can verify later)
           </Text>

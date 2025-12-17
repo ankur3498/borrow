@@ -12,7 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
 import { useNavigation } from '@react-navigation/native';
-
+import Screen from './Screen';
 type NavProp = NativeStackNavigationProp<RootStackParamList, 'MainTabs'>;
 
 const shops = [
@@ -52,180 +52,181 @@ const PreferredShopsScreen = () => {
   };
 
   return (
-    <SafeAreaView style={[styles.container, { paddingHorizontal: wp(24) }]}>
-
-      <View
-        style={[
-          styles.headerIconBox,
-          {
-            width: wp(72),
-            height: wp(72),
-            borderRadius: wp(36),
-            marginTop: hp(32),
-          },
-        ]}
-      >
-        <Image
-          source={require('../assets/Icons/ShopsIcon.png')}
-          style={{ width: wp(32), height: wp(32), tintColor: '#ff2d87' }}
-        />
-      </View>
-
-
-      <Text style={[styles.title, { fontSize: fp(26), marginTop: hp(20) }]}>
-        Select Preferred Shops
-      </Text>
-
-      <Text style={[styles.subtitle, { fontSize: fp(15), marginTop: hp(4) }]}>
-        Choose shops you want to borrow items from
-      </Text>
-
-      <View
-        style={[
-          styles.locationCard,
-          {
-            marginTop: hp(25),
-            marginBottom: hp(20),
-            padding: wp(18),
-            borderRadius: wp(14),
-          },
-        ]}
-      >
-        <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
+    <Screen bg="#FFFFFF" barStyle="dark-content">
+      <SafeAreaView style={[styles.container, { paddingHorizontal: wp(24) }]}>
+        <View
+          style={[
+            styles.headerIconBox,
+            {
+              width: wp(72),
+              height: wp(72),
+              borderRadius: wp(36),
+              marginTop: hp(32),
+            },
+          ]}
+        >
           <Image
-            source={require('../assets/Icons/locationIcon.png')}
-            style={{
-              width: wp(20),
-              height: wp(20),
-              marginRight: wp(15),
-            }}
+            source={require('../assets/Icons/ShopsIcon.png')}
+            style={{ width: wp(32), height: wp(32), tintColor: '#ff2d87' }}
           />
-          <View>
-            <Text style={[styles.locationText, { fontSize: fp(15) }]}>
-              Koramangala
-            </Text>
-            <Text style={[styles.locationText, { fontSize: fp(15) }]}>
-              Bangalore Karnataka
-            </Text>
-          </View>
         </View>
 
-        <TouchableOpacity
+        <Text style={[styles.title, { fontSize: fp(26), marginTop: hp(20) }]}>
+          Select Preferred Shops
+        </Text>
+
+        <Text style={[styles.subtitle, { fontSize: fp(15), marginTop: hp(4) }]}>
+          Choose shops you want to borrow items from
+        </Text>
+
+        <View
           style={[
-            styles.changeBtn,
+            styles.locationCard,
             {
-              paddingHorizontal: wp(18),
-              paddingVertical: hp(8),
-              borderRadius: wp(10),
-            },
-          ]}
-        >
-          <Text style={[styles.changeBtnText, { fontSize: fp(14) }]}>
-            Change
-          </Text>
-        </TouchableOpacity>
-      </View>
-
-      <FlatList
-        data={shops}
-        keyExtractor={item => item.id}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: hp(160) }}
-        renderItem={({ item }) => {
-          const isSelected = selectedIds.includes(item.id);
-
-          return (
-            <TouchableOpacity
-              onPress={() => toggleSelect(item.id)}
-              style={[
-                styles.shopCard,
-                {
-                  padding: wp(12),
-                  marginTop: hp(16),
-                  borderRadius: wp(10),
-                },
-                isSelected && styles.shopCardSelected,
-              ]}
-            >
-              <View
-                style={[
-                  styles.iconWrapper,
-                  {
-                    width: wp(40),
-                    height: wp(40),
-                    borderRadius: wp(20),
-                    marginRight: wp(15),
-                  },
-                  isSelected && styles.iconWrapperSelected,
-                ]}
-              >
-                <Image
-                  source={require('../assets/Icons/ShopsIcon.png')}
-                  style={{
-                    width: wp(25),
-                    height: wp(25),
-                    tintColor: isSelected ? '#fff' : '#7b7b7b',
-                  }}
-                />
-              </View>
-
-              <View style={{ flex: 1 }}>
-                <Text
-                  numberOfLines={1}
-                  style={[styles.shopName, { fontSize: fp(15) }]}
-                >
-                  {item.name}
-                </Text>
-                <Text
-                  style={[
-                    styles.shopArea,
-                    { fontSize: fp(13), marginTop: hp(2) },
-                  ]}
-                >
-                  {item.area}
-                </Text>
-              </View>
-
-              <Text
-                style={[
-                  styles.distanceText,
-                  { fontSize: fp(14), marginBottom: hp(15) },
-                ]}
-              >
-                {item.distance}
-              </Text>
-            </TouchableOpacity>
-          );
-        }}
-      />
-
-      <View
-        style={[
-          styles.bottomBtnWrapper,
-          {
-            paddingHorizontal: wp(22),
-            bottom: hp(24),
-          },
-        ]}
-      >
-        <TouchableOpacity
-          disabled={selectedIds.length === 0}
-          onPress={() => navigation.replace('MainTabs')}
-          style={[
-            styles.bottomBtn,
-            {
-              paddingVertical: hp(16),
+              marginTop: hp(25),
+              marginBottom: hp(20),
+              padding: wp(18),
               borderRadius: wp(14),
             },
-            selectedIds.length > 0 && styles.bottomBtnActive,
           ]}
         >
-          <Text style={[styles.bottomBtnText, { fontSize: fp(17) }]}>
-            Verify & Login →
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+          <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
+            <Image
+              source={require('../assets/Icons/locationIcon.png')}
+              style={{
+                width: wp(20),
+                height: wp(20),
+                marginRight: wp(15),
+              }}
+            />
+            <View>
+              <Text style={[styles.locationText, { fontSize: fp(15) }]}>
+                Koramangala
+              </Text>
+              <Text style={[styles.locationText, { fontSize: fp(15) }]}>
+                Bangalore Karnataka
+              </Text>
+            </View>
+          </View>
+
+          <TouchableOpacity
+            style={[
+              styles.changeBtn,
+              {
+                paddingHorizontal: wp(18),
+                paddingVertical: hp(8),
+                borderRadius: wp(10),
+              },
+            ]}
+          >
+            <Text style={[styles.changeBtnText, { fontSize: fp(14) }]}>
+              Change
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <FlatList
+          data={shops}
+          keyExtractor={item => item.id}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: hp(160) }}
+          renderItem={({ item }) => {
+            const isSelected = selectedIds.includes(item.id);
+
+            return (
+              <TouchableOpacity
+                onPress={() => toggleSelect(item.id)}
+                style={[
+                  styles.shopCard,
+                  {
+                    padding: wp(12),
+                    marginTop: hp(16),
+                    borderRadius: wp(10),
+                  },
+                  isSelected && styles.shopCardSelected,
+                ]}
+              >
+                <View
+                  style={[
+                    styles.iconWrapper,
+                    {
+                      width: wp(40),
+                      height: wp(40),
+                      borderRadius: wp(20),
+                      marginRight: wp(15),
+                    },
+                    isSelected && styles.iconWrapperSelected,
+                  ]}
+                >
+                  <Image
+                    source={require('../assets/Icons/ShopsIcon.png')}
+                    style={{
+                      width: wp(25),
+                      height: wp(25),
+                      tintColor: isSelected ? '#fff' : '#7b7b7b',
+                    }}
+                  />
+                </View>
+
+                <View style={{ flex: 1 }}>
+                  <Text
+                    numberOfLines={1}
+                    style={[styles.shopName, { fontSize: fp(15) }]}
+                  >
+                    {item.name}
+                  </Text>
+                  <Text
+                    style={[
+                      styles.shopArea,
+                      { fontSize: fp(13), marginTop: hp(2) },
+                    ]}
+                  >
+                    {item.area}
+                  </Text>
+                </View>
+
+                <Text
+                  style={[
+                    styles.distanceText,
+                    { fontSize: fp(14), marginBottom: hp(15) },
+                  ]}
+                >
+                  {item.distance}
+                </Text>
+              </TouchableOpacity>
+            );
+          }}
+        />
+
+        <View
+          style={[
+            styles.bottomBtnWrapper,
+            {
+              paddingHorizontal: wp(22),
+              bottom: hp(24),
+            },
+          ]}
+        >
+          <TouchableOpacity
+            disabled={selectedIds.length === 0}
+            onPress={() => navigation.replace('MainTabs')}
+            style={[
+              styles.bottomBtn,
+              {
+                paddingVertical: hp(16),
+                borderRadius: wp(14),
+                marginBottom: hp(34),
+              },
+              selectedIds.length > 0 && styles.bottomBtnActive,
+            ]}
+          >
+            <Text style={[styles.bottomBtnText, { fontSize: fp(17) }]}>
+              Verify & Login →
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    </Screen>
   );
 };
 

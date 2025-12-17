@@ -16,6 +16,7 @@ import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import LocationModal from '../components/LocationModal';
 import Toast from 'react-native-toast-message';
+import Screen from './Screen';
 type NavProp = NativeStackNavigationProp<
   RootStackParamList,
   'PreferredShopsScreen'
@@ -29,6 +30,7 @@ const AdharCardVerification = () => {
   const fp = (px: number) => (px / 390) * width;
   const [showLocationModal, setShowLocationModal] = useState(false);
   return (
+    <Screen bg="#FFFFFF" barStyle="dark-content">
     <SafeAreaView style={styles.screen}>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
@@ -142,7 +144,7 @@ const AdharCardVerification = () => {
                 justifyContent: 'center',
                 height: hp(54),
                 borderRadius: hp(14),
-                marginBottom: hp(220),
+                marginBottom: hp(214),
                 marginTop: hp(20),
               },
             ]}
@@ -177,6 +179,7 @@ const AdharCardVerification = () => {
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
+    </Screen>
   );
 };
 

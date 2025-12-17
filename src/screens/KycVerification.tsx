@@ -15,6 +15,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Screen from './Screen';
 type NavProp = NativeStackNavigationProp<
   RootStackParamList,
   'AdharCardVerification'
@@ -28,6 +29,7 @@ const KycVerification = () => {
   const fp = (px: number) => (px / 390) * width;
 
   return (
+    <Screen bg="#FFFFFF" barStyle="dark-content">
     <SafeAreaView style={styles.screen}>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
@@ -146,7 +148,7 @@ const KycVerification = () => {
               {
                 justifyContent:'center',
                 borderRadius: hp(14),
-                marginBottom: hp(220),
+                marginBottom: hp(214),
                 height:hp(54),
                 marginTop:hp(20)
               },
@@ -168,6 +170,7 @@ const KycVerification = () => {
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
+    </Screen>
   );
 };
 

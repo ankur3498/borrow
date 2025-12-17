@@ -50,6 +50,7 @@ const BottomTabs = () => {
               focused={focused}
               label="Shop"
               icon={require('../assets/Icons/Shops.png')}
+              activeIcon = {require('../assets/Icons/activeShops.png')}
             />
           ),
         }}
@@ -64,6 +65,7 @@ const BottomTabs = () => {
               focused={focused}
               label="Orders"
               icon={require('../assets/Icons/Orders.png')}
+              activeIcon = {require('../assets/Icons/activeOrders.png')}
             />
           ),
         }}
@@ -78,6 +80,7 @@ const BottomTabs = () => {
               focused={focused}
               label="Bills"
               icon={require('../assets/Icons/Bills.png')}
+              activeIcon = {require('../assets/Icons/activeBills.png')}
             />
           ),
         }}
@@ -91,6 +94,7 @@ const BottomTabs = () => {
               focused={focused}
               label="Profile"
               icon={require('../assets/Icons/Profile.png')}
+              activeIcon = {require('../assets/Icons/activeProfile.png')}
             />
           ),
         }}
@@ -105,14 +109,16 @@ const TabItem = ({
   focused,
   icon,
   label,
+  activeIcon
 }: {
   focused: boolean;
   icon: any;
   label: string;
+  activeIcon:any;
 }) => (
   <View style={{ alignItems: 'center', justifyContent: 'center',width:50 }}>
     <Image
-      source={icon}
+      source={focused? activeIcon : icon}
       style={{
         width: 28,
         height: 24,

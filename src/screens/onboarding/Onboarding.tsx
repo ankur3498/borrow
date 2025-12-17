@@ -26,7 +26,7 @@ const Onboarding = () => {
   const wp = (px: number) => (px / 390) * width;
   const hp = (px: number) => (px / 812) * height;
   const fp = (px: number) => (px / 390) * width;
-  const [agree, setAgree] = useState(false);
+  const [agree, setAgree] = useState(true);
 
   return (
     <SafeAreaView style={styles.screen}>

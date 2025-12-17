@@ -54,7 +54,7 @@ const HomeScreen2 = () => {
         style={{
           flexDirection: 'row',
           alignItems: 'center',
-          paddingHorizontal: wp(10),
+          paddingHorizontal: wp(8),
           gap: wp(10),
         }}
       >

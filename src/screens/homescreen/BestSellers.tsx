@@ -21,7 +21,7 @@ const BestSellers = () => {
           flexDirection: 'row',
           alignItems: 'center',
           marginTop: hp(16),
-          paddingHorizontal: wp(10),
+          paddingHorizontal: wp(8),
           marginBottom: hp(10),
         }}
       >

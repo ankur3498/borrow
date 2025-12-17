@@ -87,6 +87,8 @@ const Onboarding = () => {
               {
                 width: wp(345),
                 height: hp(54),
+                justifyContent:'center',
+                alignItems:'center',
                 marginTop: hp(20),
                 marginBottom: hp(21),
               },

@@ -266,6 +266,7 @@ const [activeCategoryId, setActiveCategoryId] = useState<string | null>(
       <HomeScreen2 />
       <BestSellers />
       <QuickPicks />
+      
     </ScrollView>
   );
 };

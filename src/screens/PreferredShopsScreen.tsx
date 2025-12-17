@@ -13,14 +13,27 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
 import { useNavigation } from '@react-navigation/native';
 
-type NavProp = NativeStackNavigationProp<
-  RootStackParamList,
-  'MainTabs'
->;
+type NavProp = NativeStackNavigationProp<RootStackParamList, 'MainTabs'>;
+
 const shops = [
-  { id: '1', name: 'Reddy Kirana & General Stores', area: 'Jayanagar, Bangalore', distance: '3.5 km' },
-  { id: '2', name: 'Reddy Kirana & General Stores', area: 'Jayanagar, Bangalore', distance: '3.5 km' },
-  { id: '3', name: 'Reddy Kirana & General Stores', area: 'Jayanagar, Bangalore', distance: '3.5 km' },
+  {
+    id: '1',
+    name: 'Reddy Kirana & General Stores',
+    area: 'Jayanagar, Bangalore',
+    distance: '3.5 km',
+  },
+  {
+    id: '2',
+    name: 'Reddy Kirana & General Stores',
+    area: 'Jayanagar, Bangalore',
+    distance: '3.5 km',
+  },
+  {
+    id: '3',
+    name: 'Reddy Kirana & General Stores',
+    area: 'Jayanagar, Bangalore',
+    distance: '3.5 km',
+  },
 ];
 
 const PreferredShopsScreen = () => {
@@ -34,20 +47,31 @@ const PreferredShopsScreen = () => {
 
   const toggleSelect = (id: string) => {
     setSelectedIds(prev =>
-      prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id],
     );
   };
 
   return (
-    <SafeAreaView style={[styles.container, { paddingHorizontal: wp(24), paddingTop: hp(52) }]}>
-
-      <View style={[styles.headerIconBox, { width: wp(72), height: wp(72), borderRadius: wp(36) }]}>
+    <SafeAreaView style={[styles.container, { paddingHorizontal: wp(24) }]}>
+      {/* HEADER ICON */}
+      <View
+        style={[
+          styles.headerIconBox,
+          {
+            width: wp(72),
+            height: wp(72),
+            borderRadius: wp(36),
+            marginTop: hp(32),
+          },
+        ]}
+      >
         <Image
           source={require('../assets/Icons/ShopsIcon.png')}
           style={{ width: wp(32), height: wp(32), tintColor: '#ff2d87' }}
         />
       </View>
 
+      {/* TITLE */}
       <Text style={[styles.title, { fontSize: fp(26), marginTop: hp(20) }]}>
         Select Preferred Shops
       </Text>
@@ -56,20 +80,50 @@ const PreferredShopsScreen = () => {
         Choose shops you want to borrow items from
       </Text>
 
-      <View style={[styles.locationCard, { marginTop: hp(25), marginBottom: hp(20), padding: wp(18) }]}>
-        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+      {/* LOCATION CARD */}
+      <View
+        style={[
+          styles.locationCard,
+          {
+            marginTop: hp(25),
+            marginBottom: hp(20),
+            padding: wp(18),
+            borderRadius: wp(14),
+          },
+        ]}
+      >
+        <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
           <Image
             source={require('../assets/Icons/locationIcon.png')}
-            style={{ width: wp(20), height: wp(20), marginRight: wp(15) }}
+            style={{
+              width: wp(20),
+              height: wp(20),
+              marginRight: wp(15),
+            }}
           />
           <View>
-            <Text style={[styles.locationText, { fontSize: fp(15) }]}>Koramangala</Text>
-            <Text style={[styles.locationText, { fontSize: fp(15) }]}>Bangalore Karnataka</Text>
+            <Text style={[styles.locationText, { fontSize: fp(15) }]}>
+              Koramangala
+            </Text>
+            <Text style={[styles.locationText, { fontSize: fp(15) }]}>
+              Bangalore Karnataka
+            </Text>
           </View>
         </View>
 
-        <TouchableOpacity style={[styles.changeBtn, { paddingHorizontal: wp(18), paddingVertical: hp(8) }]}>
-          <Text style={[styles.changeBtnText, { fontSize: fp(14) }]}>Change</Text>
+        <TouchableOpacity
+          style={[
+            styles.changeBtn,
+            {
+              paddingHorizontal: wp(18),
+              paddingVertical: hp(8),
+              borderRadius: wp(10),
+            },
+          ]}
+        >
+          <Text style={[styles.changeBtnText, { fontSize: fp(14) }]}>
+            Change
+          </Text>
         </TouchableOpacity>
       </View>
 
@@ -78,9 +132,10 @@ const PreferredShopsScreen = () => {
         data={shops}
         keyExtractor={item => item.id}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: hp(140) }}
+        contentContainerStyle={{ paddingBottom: hp(160) }}
         renderItem={({ item }) => {
           const isSelected = selectedIds.includes(item.id);
+
           return (
             <TouchableOpacity
               onPress={() => toggleSelect(item.id)}
@@ -101,6 +156,7 @@ const PreferredShopsScreen = () => {
                     width: wp(40),
                     height: wp(40),
                     borderRadius: wp(20),
+                    marginRight: wp(15),
                   },
                   isSelected && styles.iconWrapperSelected,
                 ]}
@@ -116,15 +172,28 @@ const PreferredShopsScreen = () => {
               </View>
 
               <View style={{ flex: 1 }}>
-                <Text numberOfLines={1} style={[styles.shopName, { fontSize: fp(15) }]}>
+                <Text
+                  numberOfLines={1}
+                  style={[styles.shopName, { fontSize: fp(15) }]}
+                >
                   {item.name}
                 </Text>
-                <Text style={[styles.shopArea, { fontSize: fp(13), marginTop: hp(2) }]}>
+                <Text
+                  style={[
+                    styles.shopArea,
+                    { fontSize: fp(13), marginTop: hp(2) },
+                  ]}
+                >
                   {item.area}
                 </Text>
               </View>
 
-              <Text style={[styles.distanceText, { fontSize: fp(14),marginBottom:hp(15) }]}>
+              <Text
+                style={[
+                  styles.distanceText,
+                  { fontSize: fp(14), marginBottom: hp(15) },
+                ]}
+              >
                 {item.distance}
               </Text>
             </TouchableOpacity>
@@ -133,14 +202,24 @@ const PreferredShopsScreen = () => {
       />
 
       {/* BOTTOM BUTTON */}
-      <View style={[styles.bottomBtnWrapper, { bottom: hp(34), paddingHorizontal: wp(22) }]}>
+      <View
+        style={[
+          styles.bottomBtnWrapper,
+          {
+            paddingHorizontal: wp(22),
+            bottom: hp(24),
+          },
+        ]}
+      >
         <TouchableOpacity
           disabled={selectedIds.length === 0}
-          onPress={() => navigation.replace('MainTabs')
-}
+          onPress={() => navigation.replace('MainTabs')}
           style={[
             styles.bottomBtn,
-            { paddingVertical: hp(16), borderRadius: wp(14) },
+            {
+              paddingVertical: hp(16),
+              borderRadius: wp(14),
+            },
             selectedIds.length > 0 && styles.bottomBtnActive,
           ]}
         >
@@ -170,14 +249,12 @@ const styles = StyleSheet.create({
   locationCard: {
     backgroundColor: '#f7f7f7',
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    borderRadius: 14,
   },
 
   locationText: { color: '#333', fontWeight: '500' },
 
-  changeBtn: { backgroundColor: '#FC156A', borderRadius: 10 },
+  changeBtn: { backgroundColor: '#FC156A' },
   changeBtnText: { color: '#fff', fontWeight: '600' },
 
   shopCard: {
@@ -197,7 +274,6 @@ const styles = StyleSheet.create({
   iconWrapper: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 15,
     backgroundColor: '#f2f2f2',
   },
 
@@ -213,7 +289,11 @@ const styles = StyleSheet.create({
     right: 0,
   },
 
-  bottomBtn: { backgroundColor: '#d5d5d5', alignItems: 'center' },
+  bottomBtn: {
+    backgroundColor: '#d5d5d5',
+    alignItems: 'center',
+  },
+
   bottomBtnActive: { backgroundColor: '#FC156A' },
   bottomBtnText: { color: '#fff', fontWeight: '700' },
 });

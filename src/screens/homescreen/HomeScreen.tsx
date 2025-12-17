@@ -18,7 +18,6 @@ import BestSellers from './BestSellers';
 import QuickPicks from './QuickPicks';
 import HomeScreen2 from './FrequentlyOrdered';
 import {
-  SafeAreaView,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 

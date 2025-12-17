@@ -116,20 +116,27 @@ const KycVerification = () => {
             style={[
               styles.inputBox,
               {
-                paddingVertical: hp(8),
-                marginBottom: hp(20),
                 paddingHorizontal: wp(16),
                 height: hp(53),
+                justifyContent: 'center',
               },
             ]}
           >
             <TextInput
               placeholder="Enter your Pan number"
               placeholderTextColor="#0A0A0A80"
-              style={[styles.input, { fontSize: fp(16) }]}
               value={pan}
               maxLength={10}
               onChangeText={setPan}
+              style={[
+                styles.input,
+                {
+                  fontSize: fp(16),
+                  lineHeight: hp(20),
+                  paddingVertical: 0,
+                  textAlignVertical: 'center', 
+                },
+              ]}
             />
           </View>
 
@@ -148,12 +155,15 @@ const KycVerification = () => {
               Verify →
             </Text>
           </TouchableOpacity>
+          <Text
+            style={[
+              styles.skipText,
+              { fontSize: fp(16), marginBottom: hp(34) },
+            ]}
+          >
+            Skip for now (can verify later)
+          </Text>
         </View>
-        <Text
-          style={[styles.skipText, { fontSize: fp(16), marginBottom: hp(34) }]}
-        >
-          Skip for now (can verify later)
-        </Text>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

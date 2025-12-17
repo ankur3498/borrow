@@ -64,8 +64,8 @@ const Information = () => {
             style={[
               styles.inputBox,
               {
-                paddingVertical: hp(9),
-                paddingHorizontal: wp(18),
+                justifyContent:'center',
+                paddingHorizontal: wp(16),
                 height: hp(53.07),
               },
             ]}
@@ -73,7 +73,15 @@ const Information = () => {
             <TextInput
               placeholder="Your name"
               placeholderTextColor="#A7A7A7"
-              style={[styles.input, { fontSize: fp(16) }]}
+              style={[
+                styles.input,
+                {
+                  fontSize: fp(16),
+                  lineHeight: hp(20),
+                  paddingVertical: 0,
+                  textAlignVertical: 'center',
+                },
+              ]}
               value={name}
               onChangeText={setName}
             />

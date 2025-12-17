@@ -24,8 +24,8 @@ const AdharCardVerification = () => {
   const navigation = useNavigation<NavProp>();
   const { width, height } = useWindowDimensions();
   const wp = (px: number) => (px / 390) * width;
-  const hp = (px: number) => (px / 812) * height; 
-  const fp = (px: number) => (px / 390) * width; 
+  const hp = (px: number) => (px / 812) * height;
+  const fp = (px: number) => (px / 390) * width;
   const [showLocationModal, setShowLocationModal] = useState(false);
   return (
     <SafeAreaView style={styles.screen}>
@@ -111,7 +111,7 @@ const AdharCardVerification = () => {
             style={[
               styles.inputBox,
               {
-                paddingVertical: hp(8),
+                justifyContent: 'center',
                 paddingHorizontal: wp(16),
                 height: hp(53),
               },
@@ -120,7 +120,15 @@ const AdharCardVerification = () => {
             <TextInput
               placeholder="Enter your Adhaar Number"
               placeholderTextColor="#0A0A0A80"
-              style={[styles.input, { fontSize: fp(16) }]}
+              style={[
+                styles.input,
+                {
+                  fontSize: fp(16),
+                  lineHeight: hp(20),
+                  paddingVertical: 0,
+                  textAlignVertical: 'center',
+                },
+              ]}
               keyboardType="number-pad"
               maxLength={12}
               value={adhaar}
@@ -138,8 +146,7 @@ const AdharCardVerification = () => {
                 marginBottom: hp(196),
               },
             ]}
-            onPress={() =>
-              setShowLocationModal(true)}
+            onPress={() => setShowLocationModal(true)}
           >
             <Text style={[styles.buttonText, { fontSize: fp(16) }]}>
               Verify & Login →
@@ -149,12 +156,15 @@ const AdharCardVerification = () => {
             visible={showLocationModal}
             onClose={() => setShowLocationModal(false)}
           />
+          <Text
+            style={[
+              styles.skipText,
+              { fontSize: fp(16), marginBottom: hp(34) },
+            ]}
+          >
+            Skip for now (can verify later)
+          </Text>
         </View>
-        <Text
-          style={[styles.skipText, { fontSize: fp(16), marginBottom: hp(34) }]}
-        >
-          Skip for now (can verify later)
-        </Text>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

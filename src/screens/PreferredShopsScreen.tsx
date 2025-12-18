@@ -201,7 +201,7 @@ const PreferredShopsScreen = () => {
 
         <View
           style={{
-            paddingBottom: Math.max(insets.bottom + hp(16)),
+            paddingBottom: Math.max(insets.bottom, hp(34)),
             paddingTop: hp(12),
             alignItems: 'center',
           }}

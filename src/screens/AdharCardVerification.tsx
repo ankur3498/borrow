@@ -173,20 +173,19 @@ const AdharCardVerification = () => {
             />
           </View>
           <View
-            style={{
-              paddingBottom: Math.max(insets.bottom + hp(16)),
-              paddingTop: hp(12),
-              alignItems: 'center',
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => setShowLocationModal(true)}
-            >
-              <Text style={[styles.skipText, { fontSize: fp(16) }]}>
-                Skip for now (can verify later)
-              </Text>
-            </TouchableOpacity>
-          </View>
+  style={{
+    paddingBottom: Math.max(insets.bottom, hp(34)),
+    paddingTop: hp(12),
+    alignItems: 'center',
+  }}
+>
+  <TouchableOpacity onPress={() => setShowLocationModal(true)}>
+    <Text style={[styles.skipText, { fontSize: fp(16) }]}>
+      Skip for now (can verify later)
+    </Text>
+  </TouchableOpacity>
+</View>
+
         </KeyboardAvoidingView>
       </SafeAreaView>
     </Screen>

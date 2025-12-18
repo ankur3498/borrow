@@ -7,7 +7,9 @@ import {
   useWindowDimensions,
   TouchableOpacity,
   FlatList,
+  Animated,
 } from 'react-native';
+
 import React, { useState, useRef } from 'react';
 import { ScrollView } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -18,11 +20,15 @@ import BestSellers from './BestSellers';
 import QuickPicks from './QuickPicks';
 import HomeScreen2 from './FrequentlyOrdered';
 import Screen from '../Screen';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 const HomeScreen = () => {
   const { width, height } = useWindowDimensions();
   const wp = (v: number) => (v / 390) * width;
   const hp = (v: number) => (v / 812) * height;
   const fp = (v: number) => (v / 390) * width;
+  const scrollY = useRef(new Animated.Value(0)).current;
+  const [showCall, setShowCall] = useState(false);
+  const insets = useSafeAreaInsets();
 
   const [activeIndex, setActiveIndex] = useState(0);
   const allCategory = category.find(item => item.name === 'All');
@@ -260,7 +266,7 @@ const HomeScreen = () => {
             />
           </View>
         </View>
-        <HomeScreen2 />
+        {/* <HomeScreen2 /> */}
         <BestSellers />
         <QuickPicks />
       </ScrollView>

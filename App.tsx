@@ -12,7 +12,7 @@ import KycVerification from './src/screens/KycVerification';
 import AdharCardVerification from './src/screens/AdharCardVerification';
 import PreferredShopsScreen from './src/screens/PreferredShopsScreen';
 import BottomTabs from './src/navigation/BottomTab';
-
+import MapScreen from './src/screens/MapScreen';
 const Stack = createNativeStackNavigator();
 ``
 export default function App() {
@@ -34,6 +34,8 @@ export default function App() {
             component={PreferredShopsScreen}
           />
           <Stack.Screen name="MainTabs" component={BottomTabs} />
+          <Stack.Screen name="MapScreen" component={MapScreen} />
+
         </Stack.Navigator>
         <Toast />
       </NavigationContainer>

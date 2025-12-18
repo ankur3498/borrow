@@ -6,4 +6,5 @@ export type RootStackParamList = {
   AdharCardVerification: undefined;
   PreferredShopsScreen: undefined;
   MainTabs: undefined; 
+  MapScreen: undefined;
 };

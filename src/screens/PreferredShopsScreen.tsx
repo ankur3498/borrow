@@ -14,6 +14,8 @@ import { RootStackParamList } from '../navigation/types';
 import { useNavigation } from '@react-navigation/native';
 import Screen from './Screen';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Modal } from 'react-native';
+import MapScreen from './MapScreen';
 type NavProp = NativeStackNavigationProp<RootStackParamList, 'MainTabs'>;
 
 const shops = [
@@ -36,6 +38,7 @@ const shops = [
     distance: '3.5 km',
   },
 ];
+import { Animated, PanResponder, Dimensions } from 'react-native';
 
 const PreferredShopsScreen = () => {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -45,12 +48,60 @@ const PreferredShopsScreen = () => {
   const wp = (v: number) => (v / 390) * width;
   const hp = (v: number) => (v / 812) * height;
   const fp = (v: number) => (v / 390) * width;
+  const [showMap, setShowMap] = useState(false);
+  const SCREEN_HEIGHT = Dimensions.get('window').height;
+
+  const COLLAPSED_HEIGHT = SCREEN_HEIGHT * 0.45; // half
+  const EXPANDED_HEIGHT = SCREEN_HEIGHT * 0.85; // almost full
+  const sheetHeight = React.useRef(
+    new Animated.Value(COLLAPSED_HEIGHT),
+  ).current;
+
+  const panResponder = PanResponder.create({
+    onMoveShouldSetPanResponder: (_, gesture) => {
+      return Math.abs(gesture.dy) > 10;
+    },
+
+    onPanResponderMove: (_, gesture) => {
+      let newHeight = COLLAPSED_HEIGHT - gesture.dy;
+
+      if (newHeight < COLLAPSED_HEIGHT) newHeight = COLLAPSED_HEIGHT;
+
+      if (newHeight > EXPANDED_HEIGHT) newHeight = EXPANDED_HEIGHT;
+
+      sheetHeight.setValue(newHeight);
+    },
+
+    onPanResponderRelease: (_, gesture) => {
+      if (gesture.dy < -50) {
+        // swipe up
+        Animated.spring(sheetHeight, {
+          toValue: EXPANDED_HEIGHT,
+          useNativeDriver: false,
+        }).start();
+      } else if (gesture.dy > 50) {
+        // swipe down
+        Animated.spring(sheetHeight, {
+          toValue: COLLAPSED_HEIGHT,
+          useNativeDriver: false,
+        }).start();
+      }
+    },
+  });
 
   const toggleSelect = (id: string) => {
     setSelectedIds(prev =>
       prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id],
     );
   };
+  const [selectedLocation, setSelectedLocation] = useState({
+    latitude: 28.6139,
+    longitude: 77.209,
+  });
+
+  const [selectedAddress, setSelectedAddress] = useState(
+    'Koramangala, Bangalore',
+  );
 
   return (
     <Screen bg="#F3F3F3" barStyle="dark-content">
@@ -101,12 +152,7 @@ const PreferredShopsScreen = () => {
               }}
             />
             <View>
-              <Text style={[styles.locationText, { fontSize: fp(15) }]}>
-                Koramangala
-              </Text>
-              <Text style={[styles.locationText, { fontSize: fp(15) }]}>
-                Bangalore Karnataka
-              </Text>
+              <Text style={styles.locationText}>{selectedAddress}</Text>
             </View>
           </View>
 
@@ -119,6 +165,7 @@ const PreferredShopsScreen = () => {
                 borderRadius: wp(10),
               },
             ]}
+            onPress={() => setShowMap(true)}
           >
             <Text style={[styles.changeBtnText, { fontSize: fp(14) }]}>
               Change
@@ -214,7 +261,7 @@ const PreferredShopsScreen = () => {
               {
                 paddingVertical: hp(16),
                 borderRadius: wp(14),
-                width:wp(345)
+                width: wp(345),
               },
               selectedIds.length > 0 && styles.bottomBtnActive,
             ]}
@@ -225,6 +272,42 @@ const PreferredShopsScreen = () => {
           </TouchableOpacity>
         </View>
       </SafeAreaView>
+      <Modal
+        visible={showMap}
+        animationType="slide"
+        transparent
+        onRequestClose={() => setShowMap(false)}
+      >
+        <View style={styles.overlay}>
+          {/* Tap outside to close */}
+          <TouchableOpacity
+            style={StyleSheet.absoluteFill}
+            activeOpacity={1}
+            onPress={() => setShowMap(false)}
+          />
+
+          {/* 🧾 Bottom Sheet */}
+          <View style={styles.sheet}>
+            {/* Header */}
+            <View style={styles.sheetHeader}>
+              <View style={styles.dragHandle} />
+
+              <TouchableOpacity onPress={() => setShowMap(false)}>
+                <Text style={styles.closeText}>Close</Text>
+              </TouchableOpacity>
+            </View>
+
+            {/* 🗺️ Map */}
+            <View style={{ flex: 1 }}>
+              <MapScreen
+                location={selectedLocation}
+                onLocationChange={setSelectedLocation}
+                onAddressChange={setSelectedAddress}
+              />
+            </View>
+          </View>
+        </View>
+      </Modal>
     </Screen>
   );
 };
@@ -287,4 +370,38 @@ const styles = StyleSheet.create({
 
   bottomBtnActive: { backgroundColor: '#FC156A' },
   bottomBtnText: { color: '#fff', fontWeight: '700' },
+  overlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    justifyContent: 'flex-end',
+  },
+
+  sheet: {
+    height: '60%',
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    overflow: 'hidden',
+  },
+
+  sheetHeader: {
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+  },
+
+  dragHandle: {
+    width: 40,
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: '#ccc',
+    marginBottom: 6,
+  },
+
+  closeText: {
+    color: '#FC156A',
+    fontWeight: '600',
+  },
 });

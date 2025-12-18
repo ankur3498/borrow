@@ -13,6 +13,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
 import { useNavigation } from '@react-navigation/native';
 import Screen from './Screen';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 type NavProp = NativeStackNavigationProp<RootStackParamList, 'MainTabs'>;
 
 const shops = [
@@ -39,7 +40,7 @@ const shops = [
 const PreferredShopsScreen = () => {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const navigation = useNavigation<NavProp>();
-
+  const insets = useSafeAreaInsets();
   const { width, height } = useWindowDimensions();
   const wp = (v: number) => (v / 390) * width;
   const hp = (v: number) => (v / 812) * height;
@@ -199,13 +200,11 @@ const PreferredShopsScreen = () => {
         />
 
         <View
-          style={[
-            styles.bottomBtnWrapper,
-            {
-              paddingHorizontal: wp(22),
-              bottom: hp(24),
-            },
-          ]}
+          style={{
+            paddingBottom: insets.bottom + hp(14),
+            paddingTop: hp(12),
+            alignItems: 'center',
+          }}
         >
           <TouchableOpacity
             disabled={selectedIds.length === 0}
@@ -215,7 +214,7 @@ const PreferredShopsScreen = () => {
               {
                 paddingVertical: hp(16),
                 borderRadius: wp(14),
-                marginBottom: hp(34),
+                width:wp(345)
               },
               selectedIds.length > 0 && styles.bottomBtnActive,
             ]}
@@ -280,12 +279,6 @@ const styles = StyleSheet.create({
   shopName: { fontWeight: '600', color: '#000' },
   shopArea: { color: '#606060' },
   distanceText: { color: '#FC156A', fontWeight: '600' },
-
-  bottomBtnWrapper: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-  },
 
   bottomBtn: {
     backgroundColor: '#d5d5d5',

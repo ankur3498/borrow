@@ -184,7 +184,7 @@ const AdharCardVerification = () => {
               alignItems: 'center',
             }}
           >
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>setShowLocationModal(true)}>
               <Text style={[styles.skipText, { fontSize: fp(16) }]}>
                 Skip for now (can verify later)
               </Text>

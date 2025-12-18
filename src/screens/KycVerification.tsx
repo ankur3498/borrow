@@ -16,6 +16,7 @@ import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Screen from './Screen';
+import Toast from 'react-native-toast-message';
 type NavProp = NativeStackNavigationProp<
   RootStackParamList,
   'AdharCardVerification'
@@ -155,7 +156,15 @@ const KycVerification = () => {
                   marginTop: hp(20),
                 },
               ]}
-              onPress={() => navigation.navigate('AdharCardVerification')}
+              onPress={() => {
+                if (!/^\d{10}$/.test(pan)) {
+                  return Toast.show({
+                    type: 'error',
+                    text1: 'Enter valid Pan Number',
+                  });
+                }
+                navigation.navigate('AdharCardVerification');
+              }}
             >
               <Text style={[styles.buttonText, { fontSize: fp(16) }]}>
                 Verify →
@@ -169,7 +178,9 @@ const KycVerification = () => {
               alignItems: 'center',
             }}
           >
-            <TouchableOpacity onPress={()=>navigation.navigate('AdharCardVerification')}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('AdharCardVerification')}
+            >
               <Text style={[styles.skipText, { fontSize: fp(16) }]}>
                 Skip for now (can verify later)
               </Text>

@@ -59,7 +59,6 @@ const Information = () => {
             Enter your full name.
           </Text>
 
-          {/* Input */}
           <View
             style={[
               styles.inputBox,
@@ -67,6 +66,7 @@ const Information = () => {
                 justifyContent:'center',
                 paddingHorizontal: wp(16),
                 height: hp(53.07),
+                marginTop:hp(78)
               },
             ]}
           >
@@ -87,7 +87,6 @@ const Information = () => {
             />
           </View>
 
-          {/* Button */}
           <TouchableOpacity
             style={[
               styles.button,
@@ -113,7 +112,6 @@ const Information = () => {
             </Text>
           </TouchableOpacity>
 
-          {/* Footer Terms */}
           <TouchableOpacity
             onPress={() => setAgree(!agree)}
             activeOpacity={0.8}

@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
-  ScrollView,
   useWindowDimensions,
 } from 'react-native';
 import { Image } from 'react-native';
@@ -15,6 +14,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Screen from './Screen';
 type NavProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -27,149 +27,156 @@ const KycVerification = () => {
   const wp = (px: number) => (px / 390) * width;
   const hp = (px: number) => (px / 812) * height;
   const fp = (px: number) => (px / 390) * width;
-
+  const insets = useSafeAreaInsets();
   return (
-    <Screen bg="#FFFFFF" barStyle="dark-content">
-    <SafeAreaView style={styles.screen}>
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      >
-        <TouchableOpacity
-          style={{
-            marginTop: hp(24),
-            marginLeft: wp(24),
-            height: hp(24),
-            width: wp(20),
-          }}
-          onPress={() => navigation.goBack()}
+    <Screen bg="#F3F3F3" barStyle="dark-content">
+      <SafeAreaView style={styles.screen}>
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         >
-          <Image source={require('../assets/Icons/backIcon.png')} />
-        </TouchableOpacity>
-        <View
-          style={[
-            styles.container,
-            {
-              paddingHorizontal: wp(24),
-              marginTop: hp(52),
-              marginBottom: hp(34),
-            },
-          ]}
-        >
+          <TouchableOpacity
+            style={{
+              marginTop: hp(24),
+              marginLeft: wp(24),
+              height: hp(24),
+              width: wp(20),
+            }}
+            onPress={() => navigation.goBack()}
+          >
+            <Image source={require('../assets/Icons/backIcon.png')} />
+          </TouchableOpacity>
           <View
             style={[
-              styles.iconCircle,
+              styles.container,
               {
-                width: wp(64),
-                height: wp(64),
-                borderRadius: wp(32),
-                marginBottom: hp(20),
+                paddingHorizontal: wp(24),
+                marginTop: hp(52),
+                marginBottom: hp(34),
               },
             ]}
           >
-            <Image
-              source={require('../assets/Icons/KycIcon.png')}
-              style={{
-                width: wp(32),
-                height: wp(32),
-                resizeMode: 'contain',
-              }}
-            />
-          </View>
-
-          <Text style={[styles.title, { fontSize: fp(24) }]}>
-            Complete KYC Verification
-          </Text>
-
-          <Text
-            style={[
-              styles.subtitle,
-              { fontSize: fp(15), marginTop: hp(8), marginBottom: hp(24) },
-            ]}
-          >
-            We need to verify your identity before you can{'\n'}start borrowing
-            items
-          </Text>
-
-          {/* PAN Card Box */}
-          <View
-            style={[
-              styles.panBox,
-              { padding: wp(16), marginBottom: hp(8), borderRadius: wp(10) },
-            ]}
-          >
-            <View>
-              <Image
-                source={require('../assets/Icons/PanIcon.png')}
-                style={{ height: hp(20), width: wp(20), resizeMode: 'contain' }}
-              />
-            </View>
-            <View>
-              <Text style={[styles.panTitle, { fontSize: fp(16) }]}>
-                PAN Card Verification
-              </Text>
-              <Text style={[styles.panSub, { fontSize: fp(14) }]}>
-                Required for identity proof
-              </Text>
-            </View>
-          </View>
-
-          <View
-            style={[
-              styles.inputBox,
-              {
-                paddingHorizontal: wp(16),
-                height: hp(53),
-                justifyContent: 'center',
-              },
-            ]}
-          >
-            <TextInput
-              placeholder="Enter your Pan number"
-              placeholderTextColor="#0A0A0A80"
-              value={pan}
-              maxLength={10}
-              onChangeText={setPan}
+            <View
               style={[
-                styles.input,
+                styles.iconCircle,
                 {
-                  fontSize: fp(16),
-                  lineHeight: hp(20),
-                  paddingVertical: 0,
-                  textAlignVertical: 'center', 
+                  width: wp(64),
+                  height: wp(64),
+                  borderRadius: wp(32),
+                  marginBottom: hp(20),
                 },
               ]}
-            />
-          </View>
+            >
+              <Image
+                source={require('../assets/Icons/KycIcon.png')}
+                style={{
+                  width: wp(32),
+                  height: wp(32),
+                  resizeMode: 'contain',
+                }}
+              />
+            </View>
 
-          <TouchableOpacity
-            style={[
-              styles.button,
-              {
-                justifyContent:'center',
-                borderRadius: hp(14),
-                marginBottom: hp(214),
-                height:hp(54),
-                marginTop:hp(20)
-              },
-            ]}
-            onPress={() => navigation.navigate('AdharCardVerification')}
-          >
-            <Text style={[styles.buttonText, { fontSize: fp(16) }]}>
-              Verify →
+            <Text style={[styles.title, { fontSize: fp(24) }]}>
+              Complete KYC Verification
             </Text>
-          </TouchableOpacity>
-          <Text
-            style={[
-              styles.skipText,
-              { fontSize: fp(16), marginBottom: hp(0) },
-            ]}
+
+            <Text
+              style={[
+                styles.subtitle,
+                { fontSize: fp(15), marginTop: hp(8), marginBottom: hp(24) },
+              ]}
+            >
+              We need to verify your identity before you can{'\n'}start
+              borrowing items
+            </Text>
+
+            <View
+              style={[
+                styles.panBox,
+                { padding: wp(16), marginBottom: hp(8), borderRadius: wp(10) },
+              ]}
+            >
+              <View>
+                <Image
+                  source={require('../assets/Icons/PanIcon.png')}
+                  style={{
+                    height: hp(20),
+                    width: wp(20),
+                    resizeMode: 'contain',
+                  }}
+                />
+              </View>
+              <View>
+                <Text style={[styles.panTitle, { fontSize: fp(16) }]}>
+                  PAN Card Verification
+                </Text>
+                <Text style={[styles.panSub, { fontSize: fp(14) }]}>
+                  Required for identity proof
+                </Text>
+              </View>
+            </View>
+
+            <View
+              style={[
+                styles.inputBox,
+                {
+                  paddingHorizontal: wp(16),
+                  height: hp(53),
+                  justifyContent: 'center',
+                },
+              ]}
+            >
+              <TextInput
+                placeholder="Enter your Pan number"
+                placeholderTextColor="#0A0A0A80"
+                value={pan}
+                maxLength={10}
+                onChangeText={setPan}
+                style={[
+                  styles.input,
+                  {
+                    fontSize: fp(16),
+                    lineHeight: hp(20),
+                    paddingVertical: 0,
+                    textAlignVertical: 'center',
+                  },
+                ]}
+              />
+            </View>
+
+            <TouchableOpacity
+              style={[
+                styles.button,
+                {
+                  justifyContent: 'center',
+                  borderRadius: hp(14),
+                  height: hp(54),
+                  marginTop: hp(20),
+                },
+              ]}
+              onPress={() => navigation.navigate('AdharCardVerification')}
+            >
+              <Text style={[styles.buttonText, { fontSize: fp(16) }]}>
+                Verify →
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              paddingBottom: insets.bottom + hp(14),
+              paddingTop: hp(12),
+              alignItems: 'center',
+            }}
           >
-            Skip for now (can verify later)
-          </Text>
-        </View>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+            <TouchableOpacity onPress={()=>navigation.navigate('AdharCardVerification')}>
+              <Text style={[styles.skipText, { fontSize: fp(16) }]}>
+                Skip for now (can verify later)
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
     </Screen>
   );
 };
@@ -181,7 +188,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-
   iconCircle: {
     backgroundColor: '#FFE7F0',
     justifyContent: 'center',

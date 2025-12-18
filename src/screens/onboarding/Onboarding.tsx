@@ -29,7 +29,7 @@ const Onboarding = () => {
   const [agree, setAgree] = useState(true);
 
   return (
-    <Screen bg="#FFFFFF" barStyle="dark-content">
+    <Screen bg="#F3F3F3" barStyle="dark-content">
       <SafeAreaView style={styles.screen}>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : undefined}

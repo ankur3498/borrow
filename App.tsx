@@ -14,7 +14,7 @@ import PreferredShopsScreen from './src/screens/PreferredShopsScreen';
 import BottomTabs from './src/navigation/BottomTab';
 
 const Stack = createNativeStackNavigator();
-
+``
 export default function App() {
   return (
     <SafeAreaProvider>

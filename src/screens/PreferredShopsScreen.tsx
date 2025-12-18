@@ -52,7 +52,7 @@ const PreferredShopsScreen = () => {
   };
 
   return (
-    <Screen bg="#FFFFFF" barStyle="dark-content">
+    <Screen bg="#F3F3F3" barStyle="dark-content">
       <SafeAreaView style={[styles.container, { paddingHorizontal: wp(24) }]}>
         <View
           style={[

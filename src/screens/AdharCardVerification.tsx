@@ -17,12 +17,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import LocationModal from '../components/LocationModal';
 import Toast from 'react-native-toast-message';
 import Screen from './Screen';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 type NavProp = NativeStackNavigationProp<
   RootStackParamList,
   'PreferredShopsScreen'
 >;
 const AdharCardVerification = () => {
   const [adhaar, setAdhaar] = useState('');
+  const insets = useSafeAreaInsets();
   const navigation = useNavigation<NavProp>();
   const { width, height } = useWindowDimensions();
   const wp = (px: number) => (px / 390) * width;
@@ -30,155 +32,166 @@ const AdharCardVerification = () => {
   const fp = (px: number) => (px / 390) * width;
   const [showLocationModal, setShowLocationModal] = useState(false);
   return (
-    <Screen bg="#FFFFFF" barStyle="dark-content">
-    <SafeAreaView style={styles.screen}>
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      >
-        <TouchableOpacity
-          style={{
-            marginTop: hp(24),
-            marginLeft: wp(24),
-            height: hp(24),
-            width: wp(20),
-          }}
-          onPress={() => navigation.goBack()}
+    <Screen bg="#F3F3F3" barStyle="dark-content">
+      <SafeAreaView style={styles.screen}>
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         >
-          <Image source={require('../assets/Icons/backIcon.png')} />
-        </TouchableOpacity>
-        <View
-          style={[
-            styles.container,
-            { paddingHorizontal: wp(24), marginTop: hp(52) },
-          ]}
-        >
+          <TouchableOpacity
+            style={{
+              marginTop: hp(24),
+              marginLeft: wp(24),
+              height: hp(24),
+              width: wp(20),
+            }}
+            onPress={() => navigation.goBack()}
+          >
+            <Image source={require('../assets/Icons/backIcon.png')} />
+          </TouchableOpacity>
           <View
             style={[
-              styles.iconCircle,
-              {
-                width: wp(64),
-                height: wp(64),
-                borderRadius: wp(32),
-                marginBottom: hp(20),
-              },
+              styles.container,
+              { paddingHorizontal: wp(24), marginTop: hp(52) },
             ]}
           >
-            <Image
-              source={require('../assets/Icons/KycIcon.png')}
-              style={{
-                width: wp(32),
-                height: wp(32),
-                resizeMode: 'contain',
-              }}
-            />
-          </View>
-
-          <Text style={[styles.title, { fontSize: fp(24) }]}>
-            Complete KYC Verification
-          </Text>
-
-          <Text
-            style={[
-              styles.subtitle,
-              { fontSize: fp(15), marginTop: hp(8), marginBottom: hp(24) },
-            ]}
-          >
-            We need to verify your identity before you can{'\n'}start borrowing
-            items
-          </Text>
-
-          <View
-            style={[
-              styles.adhaarBox,
-              { padding: wp(16), marginBottom: hp(8), borderRadius: wp(10) },
-            ]}
-          >
-            <View>
-              <Image
-                source={require('../assets/Icons/Adhaar.png')}
-                style={{ height: hp(20), width: wp(20), resizeMode: 'contain' }}
-              />
-            </View>
-            <View>
-              <Text style={[styles.adhaarTitle, { fontSize: fp(16) }]}>
-                Aadhar Card Verification
-              </Text>
-              <Text style={[styles.adhaarSub, { fontSize: fp(14) }]}>
-                Required for address proof
-              </Text>
-            </View>
-          </View>
-
-          <View
-            style={[
-              styles.inputBox,
-              {
-                justifyContent: 'center',
-                paddingHorizontal: wp(16),
-                height: hp(53),
-              },
-            ]}
-          >
-            <TextInput
-              placeholder="Enter your Adhaar Number"
-              placeholderTextColor="#0A0A0A80"
+            <View
               style={[
-                styles.input,
+                styles.iconCircle,
                 {
-                  fontSize: fp(16),
-                  lineHeight: hp(20),
+                  width: wp(64),
+                  height: wp(64),
+                  borderRadius: wp(32),
+                  marginBottom: hp(20),
                 },
               ]}
-              keyboardType="number-pad"
-              maxLength={12}
-              value={adhaar}
-              onChangeText={setAdhaar}
-            />
-          </View>
+            >
+              <Image
+                source={require('../assets/Icons/KycIcon.png')}
+                style={{
+                  width: wp(32),
+                  height: wp(32),
+                  resizeMode: 'contain',
+                }}
+              />
+            </View>
 
-          <TouchableOpacity
-            style={[
-              styles.button,
-              {
-                justifyContent: 'center',
-                height: hp(54),
-                borderRadius: hp(14),
-                marginBottom: hp(214),
-                marginTop: hp(20),
-              },
-            ]}
-            onPress={() => {
-              if (!/^\d{12}$/.test(adhaar)) {
-                return Toast.show({
-                  type: 'error',
-                  text1: 'Enter valid Adhaar Number',
-                });
-              }
-              setShowLocationModal(true);
-            }}
-          >
+            <Text style={[styles.title, { fontSize: fp(24) }]}>
+              Complete KYC Verification
+            </Text>
+
             <Text
               style={[
-                styles.buttonText,
-                { fontSize: fp(16), marginBottom: hp(0) },
+                styles.subtitle,
+                { fontSize: fp(15), marginTop: hp(8), marginBottom: hp(24) },
               ]}
             >
-              Verify & Login →
+              We need to verify your identity before you can{'\n'}start
+              borrowing items
             </Text>
-          </TouchableOpacity>
-          <LocationModal
-            visible={showLocationModal}
-            onClose={() => setShowLocationModal(false)}
-          />
-          <Text
-            style={[styles.skipText, { fontSize: fp(16), marginBottom: hp(0) }]}
+
+            <View
+              style={[
+                styles.adhaarBox,
+                { padding: wp(16), marginBottom: hp(8), borderRadius: wp(10) },
+              ]}
+            >
+              <View>
+                <Image
+                  source={require('../assets/Icons/Adhaar.png')}
+                  style={{
+                    height: hp(20),
+                    width: wp(20),
+                    resizeMode: 'contain',
+                  }}
+                />
+              </View>
+              <View>
+                <Text style={[styles.adhaarTitle, { fontSize: fp(16) }]}>
+                  Aadhar Card Verification
+                </Text>
+                <Text style={[styles.adhaarSub, { fontSize: fp(14) }]}>
+                  Required for address proof
+                </Text>
+              </View>
+            </View>
+
+            <View
+              style={[
+                styles.inputBox,
+                {
+                  justifyContent: 'center',
+                  paddingHorizontal: wp(16),
+                  height: hp(53),
+                },
+              ]}
+            >
+              <TextInput
+                placeholder="Enter your Adhaar Number"
+                placeholderTextColor="#0A0A0A80"
+                style={[
+                  styles.input,
+                  {
+                    fontSize: fp(16),
+                    lineHeight: hp(20),
+                  },
+                ]}
+                keyboardType="number-pad"
+                maxLength={12}
+                value={adhaar}
+                onChangeText={setAdhaar}
+              />
+            </View>
+
+            <TouchableOpacity
+              style={[
+                styles.button,
+                {
+                  justifyContent: 'center',
+                  height: hp(54),
+                  borderRadius: hp(14),
+                  marginTop: hp(20),
+                },
+              ]}
+              onPress={() => {
+                if (!/^\d{12}$/.test(adhaar)) {
+                  return Toast.show({
+                    type: 'error',
+                    text1: 'Enter valid Adhaar Number',
+                  });
+                }
+                setShowLocationModal(true);
+              }}
+            >
+              <Text
+                style={[
+                  styles.buttonText,
+                  { fontSize: fp(16), marginBottom: hp(0) },
+                ]}
+              >
+                Verify & Login →
+              </Text>
+            </TouchableOpacity>
+            <LocationModal
+              visible={showLocationModal}
+              onClose={() => setShowLocationModal(false)}
+            />
+          </View>
+          <View
+            style={{
+              paddingBottom: insets.bottom + hp(14),
+              paddingTop: hp(12),
+              alignItems: 'center',
+            }}
           >
-            Skip for now (can verify later)
-          </Text>
-        </View>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+            <TouchableOpacity>
+              <Text style={[styles.skipText, { fontSize: fp(16) }]}>
+                Skip for now (can verify later)
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
     </Screen>
   );
 };

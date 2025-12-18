@@ -38,7 +38,7 @@ const HomeScreen = () => {
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 });
 
   return (
-    <Screen bg="#FFFFFF" barStyle="light-content">
+    <Screen bg="#fdfcfcff" barStyle="light-content">
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{

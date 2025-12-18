@@ -163,12 +163,7 @@ const AdharCardVerification = () => {
                 setShowLocationModal(true);
               }}
             >
-              <Text
-                style={[
-                  styles.buttonText,
-                  { fontSize: fp(16), marginBottom: hp(0) },
-                ]}
-              >
+              <Text style={[styles.buttonText, { fontSize: fp(16) }]}>
                 Verify & Login →
               </Text>
             </TouchableOpacity>
@@ -179,12 +174,14 @@ const AdharCardVerification = () => {
           </View>
           <View
             style={{
-              paddingBottom: insets.bottom + hp(14),
+              paddingBottom: Math.max(insets.bottom + hp(16)),
               paddingTop: hp(12),
               alignItems: 'center',
             }}
           >
-            <TouchableOpacity onPress={()=>setShowLocationModal(true)}>
+            <TouchableOpacity
+              onPress={() => setShowLocationModal(true)}
+            >
               <Text style={[styles.skipText, { fontSize: fp(16) }]}>
                 Skip for now (can verify later)
               </Text>

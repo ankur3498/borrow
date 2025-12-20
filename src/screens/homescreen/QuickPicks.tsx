@@ -9,12 +9,16 @@ import {
 import React from 'react';
 import { FlatList } from 'react-native';
 import { sellers } from '../../components/data.tsx';
-
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../navigation/types.ts';
+type NavProp = NativeStackNavigationProp<RootStackParamList, 'TrackingScreen'>;
 const QuickPicks = () => {
   const { width, height } = useWindowDimensions();
   const wp = (v: number) => (v / 390) * width;
   const hp = (v: number) => (v / 812) * height;
   const fp = (v: number) => (v / 390) * width;
+  const navigation = useNavigation<NavProp>();
   return (
     <View>
       <View
@@ -141,6 +145,7 @@ const QuickPicks = () => {
                     borderColor: '#FC156A',
                     padding: hp(5),
                   }}
+                  onPress={()=>navigation.navigate('TrackingScreen')}
                 >
                   <Text
                     style={{

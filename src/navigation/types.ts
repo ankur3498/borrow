@@ -7,4 +7,5 @@ export type RootStackParamList = {
   PreferredShopsScreen: undefined;
   MainTabs: undefined; 
   MapScreen: undefined;
+  TrackingScreen : undefined;
 };

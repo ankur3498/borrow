@@ -45,13 +45,8 @@ const getAddressFromLatLng = async (
 
 const MapScreen = ({ location, onLocationChange, onAddressChange }: Props) => {
   const handleLocationUpdate = async (latitude: number, longitude: number) => {
-    // 1️⃣ lat/lng parent ko bhejo
     onLocationChange({ latitude, longitude });
-
-    // 2️⃣ address nikalo
     const address = await getAddressFromLatLng(latitude, longitude);
-
-    // 3️⃣ address parent ko bhejo
     onAddressChange(address);
   };
 
@@ -70,7 +65,6 @@ const MapScreen = ({ location, onLocationChange, onAddressChange }: Props) => {
         zoomEnabled
         pitchEnabled
         rotateEnabled
-        /* 👇 USER TAP ON MAP */
         onPress={e => {
           const { latitude, longitude } = e.nativeEvent.coordinate;
           handleLocationUpdate(latitude, longitude);
@@ -85,21 +79,6 @@ const MapScreen = ({ location, onLocationChange, onAddressChange }: Props) => {
           }}
         />
       </MapView>
-
-      {/* DEBUG (optional) */}
-      <View
-        style={{
-          position: 'absolute',
-          bottom: 12,
-          left: 12,
-          backgroundColor: '#fff',
-          padding: 8,
-          borderRadius: 6,
-        }}
-      >
-        <Text>Lat: {location.latitude.toFixed(5)}</Text>
-        <Text>Lng: {location.longitude.toFixed(5)}</Text>
-      </View>
     </View>
   );
 };

@@ -46,23 +46,30 @@ const HomeScreen = () => {
 
   // 0 = closed, 1 = open
 
-  const togglePanel = () => {
+  const openPanel = () => {
+    setIsPanelOpen(true);
+
     Animated.timing(panelAnim, {
-      toValue: isPanelOpen ? 0 : 1,
+      toValue: 1,
       duration: 300,
       useNativeDriver: false,
     }).start();
-
-    setIsPanelOpen(prev => !prev);
   };
+
+  const closePanel = () => {
+    Animated.timing(panelAnim, {
+      toValue: 0,
+      duration: 300,
+      useNativeDriver: false,
+    }).start(() => {
+      // 🔥 animation ke baad hi state change
+      setIsPanelOpen(false);
+    });
+  };
+
   const panelTranslateX = panelAnim.interpolate({
     inputRange: [0, 1],
     outputRange: [wp(80), 0],
-  });
-
-  const arrowRotate = panelAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['0deg', '180deg'],
   });
 
   return (
@@ -298,62 +305,66 @@ const HomeScreen = () => {
       </View>
 
       {/* yeh tb dikhega jab user ne kuch order   krliya hoga */}
-      {/* <TrackOrderBar /> */}
+      <TrackOrderBar />
 
-      <TouchableOpacity
-        onPress={togglePanel}
-        style={{
-          position: 'absolute',
-          right: 0,
-          bottom: insets.bottom + hp(100),
-          width: wp(22),
-          height: wp(47),
-          borderTopLeftRadius: wp(12),
-          borderBottomLeftRadius: wp(12),
-          backgroundColor: '#3EC100',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 1000,
-          elevation: 12,
-        }}
-      >
-        <Animated.Image
-          source={require('../../assets/Icons/arrowIcon.png')}
+      {!isPanelOpen && (
+        <TouchableOpacity
+          onPress={openPanel}
           style={{
-            width: wp(14),
-            height: wp(14),
-            tintColor: '#fff',
-            transform: [{ rotate: arrowRotate }],
+            position: 'absolute',
+            right: 0,
+            bottom: insets.bottom + hp(100),
+            width: wp(16),
+            height: wp(47),
+            borderTopLeftRadius: wp(12),
+            borderBottomLeftRadius: wp(12),
+            backgroundColor: '#3EC100',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1000,
+            elevation: 12,
           }}
-        />
-      </TouchableOpacity>
-      <Animated.View
-        style={{
-          position: 'absolute',
-          right: 0,
-          bottom: insets.bottom + hp(100),
-          transform: [{ translateX: panelTranslateX }],
-          height: wp(47),
-          paddingHorizontal: wp(14),
-          backgroundColor: '#3EC100',
-          borderTopLeftRadius: wp(12),
-          borderBottomLeftRadius: wp(12),
-          flexDirection: 'row',
-          alignItems: 'center',
-          zIndex: 999,
-          elevation: 11,
-        }}
-      >
-        <Image
-          source={require('../../assets/Icons/callIcon.png')}
+        >
+          <Image
+            source={require('../../assets/Icons/arrowIcon.png')}
+            style={{
+              width: wp(14),
+              height: wp(14),
+              tintColor: '#fff',
+            }}
+          />
+        </TouchableOpacity>
+      )}
+      {isPanelOpen && (
+        <Animated.View
           style={{
-            width: wp(18),
-            height: wp(18),
-            tintColor: '#fff',
-            marginRight: wp(8),
+            position: 'absolute',
+            right: 0,
+            bottom: insets.bottom + hp(100),
+            transform: [{ translateX: panelTranslateX }],
+            height: wp(47),
+            paddingHorizontal: wp(14),
+            backgroundColor: '#3EC100',
+            borderTopLeftRadius: wp(12),
+            borderBottomLeftRadius: wp(12),
+            flexDirection: 'row',
+            alignItems: 'center',
+            zIndex: 999,
+            elevation: 11,
           }}
-        />
-      </Animated.View>
+        >
+          <TouchableOpacity onPress={closePanel}>
+            <Image
+              source={require('../../assets/Icons/callIcon.png')}
+              style={{
+                width: wp(18),
+                height: wp(18),
+                tintColor: '#fff',
+              }}
+            />
+          </TouchableOpacity>
+        </Animated.View>
+      )}
     </Screen>
   );
 };

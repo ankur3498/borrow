@@ -8,20 +8,24 @@ import {
 } from 'react-native';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { RootStackParamList } from '../../navigation/types';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+type NavProp = NativeStackNavigationProp<RootStackParamList, 'TrackingScreen'>;
 
 const TrackOrderBar = () => {
   const { width, height } = useWindowDimensions();
   const insets = useSafeAreaInsets();
-
   const wp = (v: number) => (v / 390) * width;
   const hp = (v: number) => (v / 812) * height;
   const fp = (v: number) => (v / 390) * width;
+   const navigation = useNavigation<NavProp>();
 
   return (
     <View
       style={{
         position: 'absolute',
-        bottom: insets.bottom + hp(100),
+        bottom: insets.bottom + hp(90),
         left: wp(8),
         right:wp(8),
         flexDirection: 'row',
@@ -98,6 +102,7 @@ const TrackOrderBar = () => {
             paddingVertical: hp(7),
             borderRadius: wp(8),
           }}
+          onPress={()=>navigation.navigate('TrackingScreen')}
         >
           <Text
             style={{

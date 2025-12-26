@@ -1,11 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-
+import Header from './Header'
+import { SafeAreaView } from 'react-native-safe-area-context'
 const Tracking = () => {
   return (
-    <View>
-      <Text>Tracking</Text>
-    </View>
+    <ScrollView style={{backgroundColor:'#F6F8FC',flex:1}}>
+      <Header/>
+    </ScrollView>
   )
 }
 

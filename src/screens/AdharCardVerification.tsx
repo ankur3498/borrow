@@ -151,6 +151,8 @@ const AdharCardVerification = () => {
                   height: hp(54),
                   borderRadius: hp(14),
                   marginTop: hp(20),
+                  flexDirection:'row',
+                  gap:wp(8)
                 },
               ]}
               onPress={() => {
@@ -164,8 +166,12 @@ const AdharCardVerification = () => {
               }}
             >
               <Text style={[styles.buttonText, { fontSize: fp(16) }]}>
-                Verify & Login →
+                Verify & Login
               </Text>
+              <Image
+                source={require('../assets/Icons/sideArrow.png')}
+                style={{ height: hp(20), width: wp(20) }}
+              />
             </TouchableOpacity>
             <LocationModal
               visible={showLocationModal}
@@ -173,19 +179,18 @@ const AdharCardVerification = () => {
             />
           </View>
           <View
-  style={{
-    paddingBottom: Math.max(insets.bottom, hp(34)),
-    paddingTop: hp(12),
-    alignItems: 'center',
-  }}
->
-  <TouchableOpacity onPress={() => setShowLocationModal(true)}>
-    <Text style={[styles.skipText, { fontSize: fp(16) }]}>
-      Skip for now (can verify later)
-    </Text>
-  </TouchableOpacity>
-</View>
-
+            style={{
+              paddingBottom: Math.max(insets.bottom, hp(34)),
+              paddingTop: hp(12),
+              alignItems: 'center',
+            }}
+          >
+            <TouchableOpacity onPress={() => setShowLocationModal(true)}>
+              <Text style={[styles.skipText, { fontSize: fp(16) }]}>
+                Skip for now (can verify later)
+              </Text>
+            </TouchableOpacity>
+          </View>
         </KeyboardAvoidingView>
       </SafeAreaView>
     </Screen>

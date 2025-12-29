@@ -262,13 +262,20 @@ const PreferredShopsScreen = () => {
                 paddingVertical: hp(16),
                 borderRadius: wp(14),
                 width: wp(345),
+                flexDirection: 'row',
+                gap: wp(8),
+                justifyContent: 'center',
               },
               selectedIds.length > 0 && styles.bottomBtnActive,
             ]}
           >
-            <Text style={[styles.bottomBtnText, { fontSize: fp(17) }]}>
-              Verify & Login →
+            <Text style={[styles.buttonText, { fontSize: fp(16) }]}>
+              Verify & Login
             </Text>
+            <Image
+              source={require('../assets/Icons/sideArrow.png')}
+              style={{ height: hp(20), width: wp(20) }}
+            />
           </TouchableOpacity>
         </View>
       </SafeAreaView>
@@ -322,7 +329,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
+  buttonText: {
+    color: '#fff',
+    fontWeight: '600',
+  },
   title: { fontWeight: '700', color: '#000' },
   subtitle: { color: '#6b6b6b' },
 

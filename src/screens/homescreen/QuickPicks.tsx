@@ -145,7 +145,6 @@ const QuickPicks = () => {
                     borderColor: '#FC156A',
                     padding: hp(5),
                   }}
-                  onPress={()=>navigation.navigate('TrackingScreen')}
                 >
                   <Text
                     style={{

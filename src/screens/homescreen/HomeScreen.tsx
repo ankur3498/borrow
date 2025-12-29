@@ -51,7 +51,7 @@ const HomeScreen = () => {
 
     Animated.timing(panelAnim, {
       toValue: 1,
-      duration: 300,
+      duration: 100,
       useNativeDriver: false,
     }).start();
   };
@@ -59,7 +59,7 @@ const HomeScreen = () => {
   const closePanel = () => {
     Animated.timing(panelAnim, {
       toValue: 0,
-      duration: 300,
+      duration: 100,
       useNativeDriver: false,
     }).start(() => {
       // 🔥 animation ke baad hi state change
@@ -76,11 +76,9 @@ const HomeScreen = () => {
     <Screen bg="#FFFFFF" barStyle="light-content">
       <ScrollView
         showsVerticalScrollIndicator={false}
-        stickyHeaderIndices={[1]} // 🔥 ONLY sticky section
+        stickyHeaderIndices={[1]}
         contentContainerStyle={{ paddingBottom: hp(80) }}
       >
-        {/* ================= NON-STICKY HEADER ================= */}
-        {/* index 0 */}
         <View
           style={{
             backgroundColor: '#C10349',
@@ -135,9 +133,6 @@ const HomeScreen = () => {
             </TouchableOpacity>
           </View>
         </View>
-
-        {/* ================= STICKY SECTION ================= */}
-        {/* index 1 🔥 */}
         <View
           style={{
             backgroundColor: '#C10349',
@@ -278,7 +273,8 @@ const HomeScreen = () => {
                   />
                   <Text
                     style={{
-                      fontSize: fp(12),
+                      fontSize: fp(14),
+                      fontWeight:activeCategoryId === item.id ? '500' : '400',
                       color:
                         activeCategoryId === item.id ? '#FFF' : '#FFFFFF99',
                     }}
@@ -291,7 +287,6 @@ const HomeScreen = () => {
           </View>
         </View>
 
-        {/* ================= SCROLL CONTENT ================= */}
         <HomeScreen2 />
         <BestSellers />
         <QuickPicks />

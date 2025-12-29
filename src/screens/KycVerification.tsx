@@ -154,10 +154,12 @@ const KycVerification = () => {
                   borderRadius: hp(14),
                   height: hp(54),
                   marginTop: hp(20),
+                  flexDirection:'row',
+                  gap:wp(8)
                 },
               ]}
               onPress={() => {
-                if (!/^\d{10}$/.test(pan)) {
+                if (!/^[A-Z]{5}[0-9]{4}[A-Z]$/.test(pan.toUpperCase())) {
                   return Toast.show({
                     type: 'error',
                     text1: 'Enter valid Pan Number',
@@ -166,14 +168,15 @@ const KycVerification = () => {
                 navigation.navigate('AdharCardVerification');
               }}
             >
-              <Text style={[styles.buttonText, { fontSize: fp(16) }]}>
-                Verify →
-              </Text>
+                <Text style={[styles.buttonText, { fontSize: fp(16) }]}>
+                  Verify
+                </Text>
+                <Image source={require('../assets/Icons/sideArrow.png')} style={{height:hp(20),width:wp(20)}}/>
             </TouchableOpacity>
           </View>
           <View
             style={{
-              paddingBottom: Math.max(insets.bottom,hp(34)),
+              paddingBottom: Math.max(insets.bottom, hp(34)),
               paddingTop: hp(12),
               alignItems: 'center',
             }}
@@ -252,12 +255,12 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#FC156A',
     alignItems: 'center',
-    elevation: 6,
+    elevation: 3,
   },
 
   buttonText: {
     color: '#fff',
-    fontWeight: '600',
+    fontWeight: '700',
   },
 
   skipText: {

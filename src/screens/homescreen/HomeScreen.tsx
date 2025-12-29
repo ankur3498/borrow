@@ -73,238 +73,230 @@ const HomeScreen = () => {
   });
 
   return (
-    <Screen bg="#fdfcfcff" barStyle="light-content">
-      <View style={{ flex: 1 }}>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{
-            paddingBottom: hp(70),
-            backgroundColor: '#FFFFFF',
+    <Screen bg="#FFFFFF" barStyle="light-content">
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        stickyHeaderIndices={[1]} // 🔥 ONLY sticky section
+        contentContainerStyle={{ paddingBottom: hp(80) }}
+      >
+        {/* ================= NON-STICKY HEADER ================= */}
+        {/* index 0 */}
+        <View
+          style={{
+            backgroundColor: '#C10349',
+            paddingHorizontal: wp(16),
+            paddingTop: hp(52),
           }}
         >
           <View
             style={{
-              height: hp(230),
-              backgroundColor: '#C10349',
-              borderBottomLeftRadius: wp(16),
-              borderBottomRightRadius: wp(16),
-              paddingHorizontal: wp(16),
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}
+          >
+            <View>
+              <Text style={{ fontSize: fp(15), color: '#FFF' }}>
+                Mayur Vihar Phase-1
+              </Text>
+
+              <MaskedView
+                maskElement={
+                  <Text style={{ fontSize: fp(24), fontWeight: '700' }}>
+                    4 minutes
+                  </Text>
+                }
+              >
+                <LinearGradient
+                  colors={['#FFEDF4', '#FF88B4']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 0, y: 1 }}
+                >
+                  <Text style={{ opacity: 0, fontSize: fp(24) }}>
+                    4 minutes
+                  </Text>
+                </LinearGradient>
+              </MaskedView>
+            </View>
+
+            <TouchableOpacity
+              style={{
+                width: wp(36),
+                height: wp(36),
+                borderRadius: wp(18),
+                backgroundColor: 'rgba(255,255,255,0.2)',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Image
+                source={require('../../assets/Icons/dotsIcon.png')}
+                style={{ width: wp(20), height: wp(20), tintColor: '#fff' }}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* ================= STICKY SECTION ================= */}
+        {/* index 1 🔥 */}
+        <View
+          style={{
+            backgroundColor: '#C10349',
+            paddingHorizontal: wp(16),
+            paddingTop: insets.top > 0 ? hp(6) : hp(10),
+            paddingBottom: hp(14),
+            borderBottomLeftRadius: wp(16),
+            borderBottomRightRadius: wp(16),
+          }}
+        >
+          {/* SEARCH + DOLLY */}
+          <View
+            style={{
+              flexDirection: 'row',
+              marginTop: hp(14),
+              alignItems: 'center',
             }}
           >
             <View
               style={{
+                height: hp(48),
+                borderRadius: hp(14),
+                backgroundColor: '#FFF',
                 flexDirection: 'row',
-                justifyContent: 'space-between',
-                paddingTop: hp(52),
+                alignItems: 'center',
+                paddingHorizontal: wp(16),
+                width: wp(245),
+                marginRight: wp(10),
               }}
             >
-              <View>
-                <Text
-                  style={{
-                    fontSize: fp(15),
-                    color: '#FFF',
-                    fontWeight: '400',
-                  }}
-                >
-                  Mayur Vihar Phase-1
-                </Text>
-
-                <MaskedView
-                  maskElement={
-                    <Text style={{ fontSize: fp(24), fontWeight: '700' }}>
-                      4 minutes
-                    </Text>
-                  }
-                >
-                  <LinearGradient
-                    colors={['#FFEDF4', '#FF88B4']}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 0, y: 1 }}
-                  >
-                    <Text style={{ opacity: 0, fontSize: fp(24) }}>
-                      4 minutes
-                    </Text>
-                  </LinearGradient>
-                </MaskedView>
-              </View>
-
-              <TouchableOpacity
-                style={{
-                  width: wp(36),
-                  height: wp(36),
-                  borderRadius: wp(18),
-                  backgroundColor: 'rgba(255,255,255,0.2)',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <Image
-                  source={require('../../assets/Icons/dotsIcon.png')}
-                  style={{ width: wp(20), height: wp(20), tintColor: '#fff' }}
-                />
-              </TouchableOpacity>
+              <Image
+                source={require('../../assets/Icons/SearchIcon.png')}
+                style={{ width: wp(18), height: wp(18), marginRight: wp(10) }}
+              />
+              <TextInput
+                placeholder="Search for products..."
+                placeholderTextColor="#8A8F9A"
+                style={{ flex: 1, fontSize: fp(15), color: '#202735' }}
+              />
             </View>
+
             <View
               style={{
-                flexDirection: 'row',
-                marginTop: hp(14),
-                alignItems: 'center',
+                height: hp(48),
+                width: wp(105),
+                borderRadius: hp(14),
+                backgroundColor: '#FFC43C',
+                overflow: 'hidden',
+                justifyContent: 'center',
               }}
             >
-              <View
-                style={{
-                  height: hp(48),
-                  borderRadius: hp(14),
-                  backgroundColor: '#FFF',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  paddingHorizontal: wp(16),
-                  width: wp(245),
-                  marginRight: wp(10),
-                }}
-              >
-                <Image
-                  source={require('../../assets/Icons/SearchIcon.png')}
-                  style={{ width: wp(18), height: wp(18), marginRight: wp(10) }}
-                />
-                <TextInput
-                  placeholder="Search for products..."
-                  placeholderTextColor="#8A8F9A"
-                  style={{
-                    flex: 1,
-                    fontSize: fp(15),
-                    color: '#202735',
-                  }}
-                />
-              </View>
-
-              <View
-                style={{
-                  height: hp(48),
-                  width: wp(105),
-                  borderRadius: hp(14),
-                  backgroundColor: '#FFC43C',
-                  overflow: 'hidden',
-                  justifyContent: 'center',
-                }}
-              >
-                <FlatList
-                  data={shops}
-                  horizontal
-                  pagingEnabled
-                  showsHorizontalScrollIndicator={false}
-                  keyExtractor={item => item.id}
-                  onViewableItemsChanged={onViewRef.current}
-                  viewabilityConfig={viewConfigRef.current}
-                  renderItem={({ item }) => (
-                    <View
-                      style={{
-                        width: wp(105),
-                        height: hp(48),
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <Image
-                        source={item.image}
-                        style={{
-                          width: wp(16),
-                          height: wp(16),
-                          marginRight: wp(6),
-                        }}
-                      />
-                      <Text
-                        style={{
-                          fontSize: fp(14),
-                          fontWeight: '700',
-                          color: '#1A1A1A',
-                        }}
-                      >
-                        {item.name}
-                      </Text>
-                    </View>
-                  )}
-                />
-
-                <View
-                  pointerEvents="none"
-                  style={{
-                    position: 'absolute',
-                    bottom: hp(3.5),
-                    alignSelf: 'center',
-                    flexDirection: 'row',
-                  }}
-                >
-                  {shops.map((_, index) => (
-                    <View
-                      key={index}
-                      style={{
-                        width: activeIndex === index ? 6 : 6,
-                        height: 6,
-                        borderRadius: 3,
-                        backgroundColor:
-                          activeIndex === index ? '#202735' : '#00000033',
-                        marginHorizontal: 2,
-                      }}
-                    />
-                  ))}
-                </View>
-              </View>
-            </View>
-            <View style={{ marginTop: hp(14) }}>
               <FlatList
-                data={category}
+                data={shops}
                 horizontal
+                pagingEnabled
                 showsHorizontalScrollIndicator={false}
-                keyExtractor={item => item.id.toString()}
-                contentContainerStyle={{
-                  gap: wp(24),
-                  flexDirection: 'row',
-                }}
+                keyExtractor={item => item.id}
+                onViewableItemsChanged={onViewRef.current}
+                viewabilityConfig={viewConfigRef.current}
                 renderItem={({ item }) => (
-                  <TouchableOpacity
-                    style={{ justifyContent: 'center', alignItems: 'center' }}
-                    onPress={() => setActiveCategoryId(item.id)}
+                  <View
+                    style={{
+                      width: wp(105),
+                      height: hp(48),
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
                   >
                     <Image
                       source={item.image}
                       style={{
-                        width: wp(24),
-                        height: wp(24),
-                        marginBottom: hp(6),
-                        tintColor:
-                          activeCategoryId === item.id ? '#FFFFFF' : '#FFFFFF',
+                        width: wp(16),
+                        height: wp(16),
+                        marginRight: wp(6),
                       }}
-                      resizeMode="contain"
                     />
-
                     <Text
                       style={{
-                        fontSize: fp(12),
-
-                        color:
-                          activeCategoryId === item.id
-                            ? '#FFFFFF'
-                            : '#FFFFFF99',
-                        textAlign: 'center',
+                        fontSize: fp(14),
+                        fontWeight: '700',
+                        color: '#1A1A1A',
                       }}
-                      numberOfLines={1}
                     >
                       {item.name}
                     </Text>
-                  </TouchableOpacity>
+                  </View>
                 )}
               />
+
+              <View
+                pointerEvents="none"
+                style={{
+                  position: 'absolute',
+                  bottom: hp(3.5),
+                  alignSelf: 'center',
+                  flexDirection: 'row',
+                }}
+              >
+                {shops.map((_, index) => (
+                  <View
+                    key={index}
+                    style={{
+                      width: activeIndex === index ? 6 : 6,
+                      height: 6,
+                      borderRadius: 3,
+                      backgroundColor:
+                        activeIndex === index ? '#202735' : '#00000033',
+                      marginHorizontal: 2,
+                    }}
+                  />
+                ))}
+              </View>
             </View>
           </View>
-          <HomeScreen2 />
-          <BestSellers />
-          <QuickPicks />
-        </ScrollView>
-      </View>
 
-      {/* yeh tb dikhega jab user ne kuch order   krliya hoga */}
+          {/* CATEGORIES */}
+          <View style={{ marginTop: hp(14) }}>
+            <FlatList
+              data={category}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={item => item.id}
+              contentContainerStyle={{ gap: wp(24) }}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  onPress={() => setActiveCategoryId(item.id)}
+                  style={{ alignItems: 'center' }}
+                >
+                  <Image
+                    source={item.image}
+                    style={{
+                      width: wp(24),
+                      height: wp(24),
+                      marginBottom: hp(6),
+                      tintColor: '#FFF',
+                    }}
+                  />
+                  <Text
+                    style={{
+                      fontSize: fp(12),
+                      color:
+                        activeCategoryId === item.id ? '#FFF' : '#FFFFFF99',
+                    }}
+                  >
+                    {item.name}
+                  </Text>
+                </TouchableOpacity>
+              )}
+            />
+          </View>
+        </View>
+
+        {/* ================= SCROLL CONTENT ================= */}
+        <HomeScreen2 />
+        <BestSellers />
+        <QuickPicks />
+      </ScrollView>
+
       <TrackOrderBar />
 
       {!isPanelOpen && (
@@ -313,7 +305,7 @@ const HomeScreen = () => {
           style={{
             position: 'absolute',
             right: 0,
-            bottom: insets.bottom + hp(100),
+            bottom: insets.bottom + hp(120),
             width: wp(16),
             height: wp(47),
             borderTopLeftRadius: wp(8),
@@ -340,7 +332,7 @@ const HomeScreen = () => {
           style={{
             position: 'absolute',
             right: 0,
-            bottom: insets.bottom + hp(100),
+            bottom: insets.bottom + hp(120),
             transform: [{ translateX: panelTranslateX }],
             height: wp(47),
             paddingHorizontal: wp(14),

@@ -25,7 +25,7 @@ const TrackOrderBar = () => {
     <View
       style={{
         position: 'absolute',
-        bottom: insets.bottom + hp(90),
+        bottom: insets.bottom + hp(110),
         left: wp(8),
         right:wp(8),
         flexDirection: 'row',

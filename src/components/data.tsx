@@ -113,3 +113,28 @@ export const sellers = [
     price: 450,
   },
 ];
+
+export const ordersData = [
+  {
+    id: '698174',
+    date: '18 December 2025 at 02:41 pm',
+    status: 'Delivered',
+    total: 900,
+    product: {
+      name: 'Basmati Rice',
+      qty: 2,
+      image: require('../assets/Icons/Images/rice.png'),
+    },
+  },
+  {
+    id: '698175',
+    date: '19 December 2025 at 11:10 am',
+    status: 'Delivered',
+    total: 1200,
+    product: {
+      name: 'Wheat Flour',
+      qty: 1,
+      image: require('../assets/Icons/Images/rice.png'),
+    },
+  },
+];

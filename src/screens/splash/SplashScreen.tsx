@@ -1,13 +1,9 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
-import StoreIcon from '../splash/store.svg';
-
-console.log('StoreIcon ->', StoreIcon);
-console.log('typeof StoreIcon ->', typeof StoreIcon);
+import Rive from 'rive-react-native';
 
 const { width } = Dimensions.get('window');
 const iconSize = width * 0.25;
-
 const SplashScreen = ({ navigation }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -21,8 +17,17 @@ const SplashScreen = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.logoContainer}>
         <View style={styles.iconBackground}>
-          <StoreIcon width={iconSize} height={iconSize} fill="#e83e74" />
+
+          <Rive
+            resourceName="loader"   // loader.riv
+            autoplay
+            style={{
+              width: iconSize,
+              height: iconSize,
+            }}
+          />
         </View>
+
         <Text style={styles.tagline}>Borrow</Text>
       </View>
     </View>

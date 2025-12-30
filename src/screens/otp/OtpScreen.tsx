@@ -143,16 +143,23 @@ const OtpScreen = () => {
           </View>
 
           <TouchableOpacity
-            style={[styles.btn,{
-                justifyContent:'center',
+            style={[
+              styles.btn,
+              {
+                justifyContent: 'center',
                 borderRadius: hp(14),
-                height:hp(54),
-              }]}
+                height: hp(54),
+                flexDirection: 'row',
+                gap: wp(8),
+              },
+            ]}
             onPress={handleVerify}
           >
-            <Text style={[styles.btnText, { fontSize: fp(16) }]}>
-              Verify & Login →
-            </Text>
+            <Text style={[styles.btnText, { fontSize: fp(16) }]}>Verify</Text>
+            <Image
+              source={require('../../assets/Icons/sideArrow.png')}
+              style={{ height: hp(18), width: wp(18) }}
+            />
           </TouchableOpacity>
 
           <TouchableOpacity disabled={!canResend} onPress={handleResendOtp}>

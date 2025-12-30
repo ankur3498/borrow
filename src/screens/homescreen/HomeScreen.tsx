@@ -138,7 +138,7 @@ const HomeScreen = () => {
           style={{
             backgroundColor: '#C10349',
             paddingHorizontal: wp(16),
-            paddingTop: insets.top > 0 ? hp(10) : hp(0),
+            paddingTop: insets.top > 0 ? hp(3) : hp(0),
             paddingBottom: hp(14),
             borderBottomLeftRadius: wp(16),
             borderBottomRightRadius: wp(16),

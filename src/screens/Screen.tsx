@@ -1,16 +1,24 @@
 // components/Screen.tsx
 import React from 'react';
 import { View, StatusBar } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useIsFocused } from '@react-navigation/native';
 
 const Screen = ({
   children,
   bg = '#FFF',
   barStyle = 'dark-content',
 }: any) => {
+  const isFocused = useIsFocused();
+
   return (
     <>
-      <StatusBar backgroundColor={bg} barStyle={barStyle} />
+      {isFocused && (
+        <StatusBar
+          backgroundColor={bg}
+          barStyle={barStyle}
+        />
+      )}
+
       <View style={{ flex: 1, backgroundColor: bg }}>
         {children}
       </View>

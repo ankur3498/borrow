@@ -22,6 +22,7 @@ import HomeScreen2 from './FrequentlyOrdered';
 import Screen from '../Screen';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import TrackOrderBar from './TrackOrder';
+
 const HomeScreen = () => {
   const { width, height } = useWindowDimensions();
   const wp = (v: number) => (v / 390) * width;

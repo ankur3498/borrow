@@ -293,7 +293,7 @@ const HomeScreen = () => {
         <QuickPicks />
       </ScrollView>
 
-      <TrackOrderBar />
+      {/* <TrackOrderBar /> */}
 
       {!isPanelOpen && (
         <TouchableOpacity

@@ -16,7 +16,7 @@ const BestSellers = () => {
   const hp = (v: number) => (v / 812) * height;
   const fp = (v: number) => (v / 390) * width;
 
-
+  // ✅ quantity state (id wise)
   const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
 
   const addItem = (id: number) => {

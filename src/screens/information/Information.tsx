@@ -15,6 +15,7 @@ import Toast from 'react-native-toast-message';
 import { RootStackParamList } from '../../navigation/types';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Screen from '../Screen';
 type NavProp = NativeStackNavigationProp<RootStackParamList, 'KycVerification'>;
 const Information = () => {
   const [name, setName] = useState('');
@@ -25,6 +26,7 @@ const Information = () => {
   const fp = (px: number) => (px / 390) * width;
   const [agree, setAgree] = useState(false);
   return (
+    <Screen bg="#FFFFFF" barStyle="light-content">
     <SafeAreaView style={styles.screen}>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
@@ -125,6 +127,7 @@ const Information = () => {
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
+    </Screen>
   );
 };
 

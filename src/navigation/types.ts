@@ -1,6 +1,10 @@
+import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 export type RootStackParamList = {
   Onboarding: undefined;
-  OtpScreen: { phone: string };
+   OtpScreen: {
+    phone: string;
+    confirmation: FirebaseAuthTypes.ConfirmationResult;
+  };
   Information: undefined;
   KycVerification: undefined;
   AdharCardVerification: undefined;

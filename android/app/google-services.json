@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "406092572660",
+    "project_id": "barrow-2c81a",
+    "storage_bucket": "barrow-2c81a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:406092572660:android:58612e87c7f97811bbfba1",
+        "android_client_info": {
+          "package_name": "com.lenden"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGNCjNeznIIVPALIDWKw_JJzGxRmpBpwU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

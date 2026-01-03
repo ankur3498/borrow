@@ -9,6 +9,7 @@ import {
   Platform,
   useWindowDimensions,
 } from 'react-native';
+import auth from '@react-native-firebase/auth';
 import Toast from 'react-native-toast-message';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -21,12 +22,30 @@ type NavProp = NativeStackNavigationProp<RootStackParamList, 'Onboarding'>;
 const Onboarding = () => {
   const [phone, setPhone] = useState('');
   const navigation = useNavigation<NavProp>();
-
   const { width, height } = useWindowDimensions();
   const wp = (px: number) => (px / 390) * width;
   const hp = (px: number) => (px / 812) * height;
   const fp = (px: number) => (px / 390) * width;
   const [agree, setAgree] = useState(true);
+  const sendOtp = async () => {
+  try {
+    const fullPhone = '+91' + phone;
+
+    const confirmation = await auth().signInWithPhoneNumber(fullPhone);
+
+    navigation.navigate('OtpScreen', {
+      phone: fullPhone,
+      confirmation,
+    });
+  } catch (e) {
+    Toast.show({
+      type: 'error',
+      text1: 'OTP Failed',
+      text2: 'Please try again',
+    });
+  }
+};
+
 
   return (
     <Screen bg="#F3F3F3" barStyle="dark-content">
@@ -105,6 +124,7 @@ const Onboarding = () => {
                     text2: 'Please enter 10-digit number',
                   });
                 }
+
                 if (!['6', '7', '8', '9'].includes(phone[0])) {
                   return Toast.show({
                     type: 'error',
@@ -112,19 +132,22 @@ const Onboarding = () => {
                     text2: 'Number must start with 6, 7, 8 or 9',
                   });
                 }
+
                 if (!/^\d{10}$/.test(phone)) {
                   return Toast.show({
                     type: 'error',
                     text1: 'Enter valid Phone number',
                   });
                 }
+
                 if (!agree) {
                   return Toast.show({
                     type: 'error',
                     text1: 'Confirm the Terms of Service',
                   });
                 }
-                navigation.navigate('OtpScreen', { phone });
+
+                sendOtp();
               }}
             >
               <Text style={[styles.btnText, { fontSize: fp(16) }]}>

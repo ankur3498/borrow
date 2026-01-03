@@ -15,7 +15,8 @@ import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Toast from 'react-native-toast-message';
 import { RootStackParamList } from '../../navigation/types';
-
+import auth from '@react-native-firebase/auth';
+import Screen from '../Screen';
 type OtpRouteProp = RouteProp<RootStackParamList, 'OtpScreen'>;
 type NavProp = NativeStackNavigationProp<RootStackParamList, 'Information'>;
 
@@ -24,7 +25,13 @@ const RESEND_TIME = 30;
 const OtpScreen = () => {
   const route = useRoute<OtpRouteProp>();
   const navigation = useNavigation<NavProp>();
-  const { phone } = route.params;
+  const { width, height } = useWindowDimensions();
+  const wp = (v: number) => (v / 390) * width;
+  const hp = (v: number) => (v / 812) * height;
+  const fp = (v: number) => (v / 390) * width;
+  const { phone, confirmation } = route.params;
+
+  const [confirm, setConfirm] = useState(confirmation);
 
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const inputs = useRef<Array<TextInput | null>>([]);
@@ -32,72 +39,67 @@ const OtpScreen = () => {
   const [timer, setTimer] = useState(RESEND_TIME);
   const [canResend, setCanResend] = useState(false);
 
-  const { width, height } = useWindowDimensions();
-  const hp = (px: number) => (px / 812) * height;
-  const wp = (px: number) => (px / 390) * width;
-  const fp = (px: number) => (px / 390) * width;
-
   useEffect(() => {
     if (timer === 0) {
       setCanResend(true);
       return;
     }
-
     const interval = setInterval(() => {
       setTimer(prev => prev - 1);
     }, 1000);
-
     return () => clearInterval(interval);
   }, [timer]);
-
   const handleChange = (text: string, index: number) => {
     const newOtp = [...otp];
     newOtp[index] = text.replace(/[^0-9]/g, '');
     setOtp(newOtp);
-
     if (text && index < 5) {
       inputs.current[index + 1]?.focus();
     }
   };
-
   const handleBackspace = (text: string, index: number) => {
     if (text === '' && index > 0) {
       inputs.current[index - 1]?.focus();
     }
   };
 
-  const handleVerify = () => {
+  const handleVerify = async () => {
     const fullOtp = otp.join('');
 
     if (fullOtp.length !== 6) {
-      Toast.show({
-        type: 'error',
-        text1: 'Enter a valid 6-digit OTP',
-      });
+      Toast.show({ type: 'error', text1: 'Enter valid OTP' });
       return;
     }
 
-    navigation.navigate('Information');
+    try {
+      await confirm.confirm(fullOtp);
+
+      Toast.show({ type: 'success', text1: 'OTP Verified' });
+      navigation.replace('Information');
+    } catch {
+      Toast.show({ type: 'error', text1: 'Wrong OTP' });
+    }
   };
 
-  const handleResendOtp = () => {
+  const handleResendOtp = async () => {
     if (!canResend) return;
 
-    // 🔹 Call resend OTP API here
+    try {
+      const newConfirm = await auth().signInWithPhoneNumber('+91' + phone);
+      setConfirm(newConfirm);
 
-    Toast.show({
-      type: 'success',
-      text1: 'OTP resent successfully',
-    });
+      Toast.show({ type: 'success', text1: 'OTP Resent' });
 
-    setOtp(['', '', '', '', '', '']);
-    inputs.current[0]?.focus();
-
-    setTimer(RESEND_TIME);
-    setCanResend(false);
+      setOtp(['', '', '', '', '', '']);
+      setTimer(RESEND_TIME);
+      setCanResend(false);
+    } catch {
+      Toast.show({ type: 'error', text1: 'Resend failed' });
+    }
   };
 
   return (
+    <Screen bg="#FFFFFF" barStyle="light-content">
     <SafeAreaView style={styles.screen}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -170,6 +172,7 @@ const OtpScreen = () => {
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
+    </Screen>
   );
 };
 

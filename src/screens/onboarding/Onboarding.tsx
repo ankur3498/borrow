@@ -27,25 +27,29 @@ const Onboarding = () => {
   const hp = (px: number) => (px / 812) * height;
   const fp = (px: number) => (px / 390) * width;
   const [agree, setAgree] = useState(true);
+  
   const sendOtp = async () => {
-  try {
-    const fullPhone = '+91' + phone;
+    try {
+      const fullPhone = '+91' + phone;
 
-    const confirmation = await auth().signInWithPhoneNumber(fullPhone);
+      const confirmation = await auth().signInWithPhoneNumber(fullPhone);
 
-    navigation.navigate('OtpScreen', {
-      phone: fullPhone,
-      confirmation,
-    });
-  } catch (e) {
-    Toast.show({
-      type: 'error',
-      text1: 'OTP Failed',
-      text2: 'Please try again',
-    });
-  }
-};
-
+      navigation.navigate('OtpScreen', {
+        phone: fullPhone,
+        confirmation,
+      });
+    } catch (e) {
+      Toast.show({
+        type: 'error',
+        text1: 'OTP Failed',
+        text2: 'Please try again',
+        position: 'top',
+        visibilityTime: 2000,
+        autoHide: true,
+        topOffset: 40,
+      });
+    }
+  };
 
   return (
     <Screen bg="#F3F3F3" barStyle="dark-content">

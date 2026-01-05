@@ -1,14 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import Screen from '../Screen';
 
 const BillsScreen = () => {
-  return (
-    <View>
-      <Text>BillsScreen</Text>
-    </View>
-  )
-}
+  return <Screen bg="#FFFFFF" barStyle="dark-content"></Screen>;
+};
 
-export default BillsScreen
+export default BillsScreen;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

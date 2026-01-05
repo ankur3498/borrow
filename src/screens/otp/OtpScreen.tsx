@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+
 import {
   View,
   Text,
@@ -35,10 +36,10 @@ const OtpScreen = () => {
 
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const inputs = useRef<Array<TextInput | null>>([]);
-
+  const IS_TEST_MODE =true;
   const [timer, setTimer] = useState(RESEND_TIME);
   const [canResend, setCanResend] = useState(false);
-
+  
   useEffect(() => {
     if (timer === 0) {
       setCanResend(true);
@@ -47,7 +48,7 @@ const OtpScreen = () => {
     const interval = setInterval(() => {
       setTimer(prev => prev - 1);
     }, 1000);
-    return () => clearInterval(interval);
+    return () => clearInterval(interval)
   }, [timer]);
   const handleChange = (text: string, index: number) => {
     const newOtp = [...otp];
@@ -75,15 +76,26 @@ const OtpScreen = () => {
       await confirm.confirm(fullOtp);
 
       Toast.show({ type: 'success', text1: 'OTP Verified' });
-      navigation.replace('Information');
+      navigation.navigate('Information');
     } catch {
       Toast.show({ type: 'error', text1: 'Wrong OTP' });
     }
-  };
+  }; 
 
   const handleResendOtp = async () => {
     if (!canResend) return;
+    if (IS_TEST_MODE) {
+    Toast.show({
+      type: 'success',
+      text1: 'OTP Resent (Test Mode)',
+      text2: 'Use the same test OTP',
+    });
 
+    setOtp(['', '', '', '', '', '']);
+    setTimer(RESEND_TIME);
+    setCanResend(false);
+    return;
+  }
     try {
       const newConfirm = await auth().signInWithPhoneNumber('+91' + phone);
       setConfirm(newConfirm);
@@ -99,79 +111,81 @@ const OtpScreen = () => {
   };
 
   return (
-    <Screen bg="#FFFFFF" barStyle="light-content">
-    <SafeAreaView style={styles.screen}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        style={{ flex: 1 }}
-      >
-        <TouchableOpacity
-          style={{ marginTop: 20, marginLeft: 24, height: 24, width: 20 }}
-          onPress={() => navigation.goBack()}
+    <Screen bg="#FFFFFF" barStyle="dark-content">
+      <SafeAreaView style={styles.screen}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          style={{ flex: 1 }}
         >
-          <Image source={require('../../assets/Icons/backIcon.png')} />
-        </TouchableOpacity>
-
-        <View style={{ paddingHorizontal: wp(24), paddingTop: hp(22) }}>
-          <Text style={[styles.title, { fontSize: fp(28) }]}>Enter OTP</Text>
-          <Text style={styles.subtitle}>OTP sent to +91 {phone}</Text>
-          <View style={[styles.otpRow, { paddingTop: hp(35) }]}>
-            {otp.map((digit, index) => (
-              <TextInput
-                key={index}
-                ref={ref => {
-                  inputs.current[index] = ref;
-                }}
-                style={[
-                  styles.otpBox,
-                  {
-                    width: wp(50),
-                    height: wp(55),
-                    fontSize: fp(22),
-                    borderColor: digit ? '#FC156A' : '#D9D9D9',
-                    backgroundColor: digit ? '#FC156A14' : '#FFF',
-                  },
-                ]}
-                keyboardType="number-pad"
-                maxLength={1}
-                value={digit}
-                onChangeText={text => handleChange(text, index)}
-                onKeyPress={({ nativeEvent }) =>
-                  nativeEvent.key === 'Backspace' &&
-                  handleBackspace(digit, index)
-                }
-              />
-            ))}
-          </View>
-
           <TouchableOpacity
-            style={[
-              styles.btn,
-              {
-                justifyContent: 'center',
-                borderRadius: hp(14),
-                height: hp(54),
-                flexDirection: 'row',
-                gap: wp(8),
-              },
-            ]}
-            onPress={handleVerify}
+            style={{ marginTop: 20, marginLeft: 24, height: 24, width: 20 }}
+            onPress={()=>navigation.goBack()}
           >
-            <Text style={[styles.btnText, { fontSize: fp(16) }]}>Verify</Text>
-            <Image
-              source={require('../../assets/Icons/sideArrow.png')}
-              style={{ height: hp(18), width: wp(18) }}
-            />
+            <Image source={require('../../assets/Icons/backIcon.png')} />
           </TouchableOpacity>
 
-          <TouchableOpacity disabled={!canResend} onPress={handleResendOtp}>
-            <Text style={[styles.changeText, { opacity: canResend ? 1 : 0.5 }]}>
-              {canResend ? 'Resend OTP' : `Resend OTP in ${timer}s`}
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+          <View style={{ paddingHorizontal: wp(24), paddingTop: hp(22) }}>
+            <Text style={[styles.title, { fontSize: fp(28) }]}>Enter OTP</Text>
+            <Text style={styles.subtitle}>OTP sent to {phone}</Text>
+            <View style={[styles.otpRow, { paddingTop: hp(35) }]}>
+              {otp.map((digit, index) => (
+                <TextInput
+                  key={index}
+                  ref={ref => {
+                    inputs.current[index] = ref;
+                  }}
+                  style={[
+                    styles.otpBox,
+                    {
+                      width: wp(50),
+                      height: wp(55),
+                      fontSize: fp(22),
+                      borderColor: digit ? '#FC156A' : '#D9D9D9',
+                      backgroundColor: digit ? '#FC156A14' : '#FFF',
+                    },
+                  ]}
+                  keyboardType="number-pad"
+                  maxLength={1}
+                  value={digit}
+                  onChangeText={text => handleChange(text, index)}
+                  onKeyPress={({ nativeEvent }) =>
+                    nativeEvent.key === 'Backspace' &&
+                    handleBackspace(digit, index)
+                  }
+                />
+              ))}
+            </View>
+
+            <TouchableOpacity
+              style={[
+                styles.btn,
+                {
+                  justifyContent: 'center',
+                  borderRadius: hp(14),
+                  height: hp(54),
+                  flexDirection: 'row',
+                  gap: wp(8),
+                },
+              ]}
+              onPress={handleVerify}
+            >
+              <Text style={[styles.btnText, { fontSize: fp(16) }]}>Verify</Text>
+              <Image
+                source={require('../../assets/Icons/sideArrow.png')}
+                style={{ height: hp(18), width: wp(18) }}
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity disabled={!canResend} onPress={handleResendOtp}>
+              <Text
+                style={[styles.changeText, { opacity: canResend ? 1 : 0.5 }]}
+              >
+                {canResend ? 'Resend OTP' : `Resend OTP in ${timer}s`}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
     </Screen>
   );
 };

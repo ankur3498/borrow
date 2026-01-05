@@ -22,7 +22,7 @@ export default function App() {
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Splash" component={SplashScreen} />
           <Stack.Screen name="Onboarding" component={Onboarding} />
-          <Stack.Screen name="OtpScreen" component={OtpScreen} />
+          <Stack.Screen name="OtpScreen" component={OtpScreen}  />
           <Stack.Screen name="Information" component={Information} />
           <Stack.Screen name="KycVerification" component={KycVerification} />
           <Stack.Screen

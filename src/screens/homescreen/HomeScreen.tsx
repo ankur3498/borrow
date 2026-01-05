@@ -63,7 +63,7 @@ const HomeScreen = () => {
       duration: 100,
       useNativeDriver: false,
     }).start(() => {
-      // 🔥 animation ke baad hi state change
+      
       setIsPanelOpen(false);
     });
   };
@@ -228,7 +228,7 @@ const HomeScreen = () => {
                 pointerEvents="none"
                 style={{
                   position: 'absolute',
-                  bottom: hp(3.5),
+                  bottom: hp(4.5),
                   alignSelf: 'center',
                   flexDirection: 'row',
                 }}
@@ -316,8 +316,8 @@ const HomeScreen = () => {
           <Image
             source={require('../../assets/Icons/arrowIcon.png')}
             style={{
-              width: wp(14),
-              height: wp(14),
+              width: wp(18),
+              height: wp(18),
               tintColor: '#fff',
             }}
           />

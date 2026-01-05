@@ -26,7 +26,7 @@ const Information = () => {
   const fp = (px: number) => (px / 390) * width;
   const [agree, setAgree] = useState(false);
   return (
-    <Screen bg="#FFFFFF" barStyle="light-content">
+    <Screen bg="#FFFFFF" barStyle="dark-content">
     <SafeAreaView style={styles.screen}>
       <KeyboardAvoidingView
         style={{ flex: 1 }}

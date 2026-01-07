@@ -36,10 +36,10 @@ const OtpScreen = () => {
 
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const inputs = useRef<Array<TextInput | null>>([]);
-  const IS_TEST_MODE =true;
+  const IS_TEST_MODE = true;
   const [timer, setTimer] = useState(RESEND_TIME);
   const [canResend, setCanResend] = useState(false);
-  
+
   useEffect(() => {
     if (timer === 0) {
       setCanResend(true);
@@ -48,7 +48,7 @@ const OtpScreen = () => {
     const interval = setInterval(() => {
       setTimer(prev => prev - 1);
     }, 1000);
-    return () => clearInterval(interval)
+    return () => clearInterval(interval);
   }, [timer]);
   const handleChange = (text: string, index: number) => {
     const newOtp = [...otp];
@@ -68,34 +68,44 @@ const OtpScreen = () => {
     const fullOtp = otp.join('');
 
     if (fullOtp.length !== 6) {
-      Toast.show({ type: 'error', text1: 'Enter valid OTP' });
-      return;
+      return Toast.show({ type: 'error', text1: 'Enter valid OTP' });
     }
 
     try {
+      // 1️⃣ Firebase OTP verify
       await confirm.confirm(fullOtp);
 
-      Toast.show({ type: 'success', text1: 'OTP Verified' });
+      // 2️⃣ Firebase ID token
+      const user = auth().currentUser;
+      const idToken = await user?.getIdToken();
+
+      // 3️⃣ Backend verify
+      await fetch('http://192.168.1.6:3000/api/auth/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idToken }),
+      });
+
       navigation.navigate('Information');
     } catch {
       Toast.show({ type: 'error', text1: 'Wrong OTP' });
     }
-  }; 
+  };
 
   const handleResendOtp = async () => {
     if (!canResend) return;
     if (IS_TEST_MODE) {
-    Toast.show({
-      type: 'success',
-      text1: 'OTP Resent (Test Mode)',
-      text2: 'Use the same test OTP',
-    });
+      Toast.show({
+        type: 'success',
+        text1: 'OTP Resent (Test Mode)',
+        text2: 'Use the same test OTP',
+      });
 
-    setOtp(['', '', '', '', '', '']);
-    setTimer(RESEND_TIME);
-    setCanResend(false);
-    return;
-  }
+      setOtp(['', '', '', '', '', '']);
+      setTimer(RESEND_TIME);
+      setCanResend(false);
+      return;
+    }
     try {
       const newConfirm = await auth().signInWithPhoneNumber('+91' + phone);
       setConfirm(newConfirm);
@@ -119,7 +129,7 @@ const OtpScreen = () => {
         >
           <TouchableOpacity
             style={{ marginTop: 20, marginLeft: 24, height: 24, width: 20 }}
-            onPress={()=>navigation.goBack()}
+            onPress={() => navigation.goBack()}
           >
             <Image source={require('../../assets/Icons/backIcon.png')} />
           </TouchableOpacity>

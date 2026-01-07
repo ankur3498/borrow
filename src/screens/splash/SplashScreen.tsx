@@ -1,10 +1,23 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import Rive from 'rive-react-native';
-
+import auth from '@react-native-firebase/auth';
 const { width } = Dimensions.get('window');
 const iconSize = width * 0.25;
-const SplashScreen = ({ navigation }) => {
+const SplashScreen = ({ navigation}) => {
+//   useEffect(() => {
+//   const unsubscribe = auth().onAuthStateChanged(user => {
+//     if (user) {
+//       // user already logged in
+//       navigation.replace("MainTabs");
+//     } else {
+//       // user not logged in
+//       navigation.replace("Onboarding");
+//     }
+//   });
+
+//   return unsubscribe;
+// }, []);
   useEffect(() => {
     const timer = setTimeout(() => {
       navigation.replace('Onboarding');
@@ -13,7 +26,7 @@ const SplashScreen = ({ navigation }) => {
     return () => clearTimeout(timer);
   }, [navigation]);
 
-  return (
+  return ( 
     <View style={styles.container}>
       <View style={styles.logoContainer}>
         <View style={styles.iconBackground}>

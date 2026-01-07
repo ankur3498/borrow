@@ -17,7 +17,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Screen from '../Screen';
 import { RootStackParamList } from '../../navigation/types';
 
-type NavProp = NativeStackNavigationProp<RootStackParamList, 'Onboarding'>;
+type NavProp = NativeStackNavigationProp<RootStackParamList, 'OtpScreen'>;
 
 const Onboarding = () => {
   const [phone, setPhone] = useState('');
@@ -29,27 +29,37 @@ const Onboarding = () => {
   const [agree, setAgree] = useState(true);
   
   const sendOtp = async () => {
-    try {
-      const fullPhone = '+91' + phone;
+  try {
+    const res = await fetch("http://192.168.1.6:3000/api/auth/request-otp", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ phone }),
+    });
 
-      const confirmation = await auth().signInWithPhoneNumber(fullPhone);
+    const data = await res.json();
 
-      navigation.navigate('OtpScreen', {
-        phone: fullPhone,
-        confirmation,
-      });
-    } catch (e) {
-      Toast.show({
-        type: 'error',
-        text1: 'OTP Failed',
-        text2: 'Please try again',
-        position: 'top',
-        visibilityTime: 2000,
-        autoHide: true,
-        topOffset: 40,
-      });
+    if (!data.allowOtp) {
+      return Toast.show({ type: "error", text1: "OTP blocked" });
     }
-  };
+
+    const confirmation = await auth().signInWithPhoneNumber("+91" + phone);
+
+    navigation.navigate("OtpScreen", {
+      phone: "+91" + phone,
+      confirmation,
+    });
+
+  } catch (err: any) {
+    console.log("🔥 FIREBASE OTP ERROR:", err);
+    Toast.show({
+      type: "error",
+      text1: "OTP failed",
+      text2: err?.message,
+    });
+  }
+};
+
+
 
   return (
     <Screen bg="#F3F3F3" barStyle="dark-content">

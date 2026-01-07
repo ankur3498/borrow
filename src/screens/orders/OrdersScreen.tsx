@@ -11,15 +11,17 @@ import {
 import { ordersData } from '../../components/data';
 import Screen from '../Screen';
 import { useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '../../navigation/types';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 const { width, height } = Dimensions.get('window');
-
+type NavProp = NativeStackNavigationProp<RootStackParamList, 'TrackingScreen'>;
 // 🔹 Responsive helpers (Design: 390 x 812)
 const wp = (v: number) => (width / 390) * v;
 const hp = (v: number) => (height / 812) * v;
 const fp = (v: number) => (width / 390) * v;
 
 const MyOrders = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavProp>();
   return (
     <Screen bg="#FFFFFF" barStyle="dark-content">
       <ScrollView
@@ -85,7 +87,7 @@ const MyOrders = () => {
               <Text style={styles.totalAmount}>₹{item.total}</Text>
             </View>
 
-            <TouchableOpacity style={styles.trackBtn}>
+            <TouchableOpacity style={styles.trackBtn} onPress={()=>navigation.navigate('TrackingScreen')}>
               <Image
                 source={require('../../assets/Icons/eyeIcon.png')}
                 style={styles.eyeIcon}

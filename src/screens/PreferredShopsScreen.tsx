@@ -21,18 +21,21 @@ type NavProp = NativeStackNavigationProp<RootStackParamList, 'MainTabs'>;
 const shops = [
   {
     id: '1',
+    ownerName: 'Anjali Sharma',
     name: 'Reddy Kirana & General Stores',
     area: 'Jayanagar, Bangalore',
     distance: '3.5 km',
   },
   {
     id: '2',
+    ownerName: 'Rajesh Pal',
     name: 'Reddy Kirana & General Stores',
     area: 'Jayanagar, Bangalore',
     distance: '3.5 km',
   },
   {
     id: '3',
+    ownerName: 'Sneha Verma',
     name: 'Reddy Kirana & General Stores',
     area: 'Jayanagar, Bangalore',
     distance: '3.5 km',
@@ -183,64 +186,29 @@ const PreferredShopsScreen = () => {
 
             return (
               <TouchableOpacity
+                activeOpacity={0.9}
                 onPress={() => toggleSelect(item.id)}
-                style={[
-                  styles.shopCard,
-                  {
-                    padding: wp(12),
-                    marginTop: hp(16),
-                    borderRadius: wp(10),
-                  },
-                  isSelected && styles.shopCardSelected,
-                ]}
+                style={[styles.shopCard, isSelected && styles.shopCardSelected]}
               >
-                <View
-                  style={[
-                    styles.iconWrapper,
-                    {
-                      width: wp(40),
-                      height: wp(40),
-                      borderRadius: wp(20),
-                      marginRight: wp(15),
-                    },
-                    isSelected && styles.iconWrapperSelected,
-                  ]}
-                >
-                  <Image
-                    source={require('../assets/Icons/ShopsIcon.png')}
-                    style={{
-                      width: wp(25),
-                      height: wp(25),
-                      tintColor: isSelected ? '#fff' : '#7b7b7b',
-                    }}
-                  />
-                </View>
+                <View style={styles.shopTopRow}>
+                  <View style={styles.shopIconWrap}>
+                    <Image
+                      source={require('../assets/Icons/ShopsIcon.png')}
+                      style={styles.shopIcon}
+                    />
+                  </View>
 
-                <View style={{ flex: 1 }}>
-                  <Text
-                    numberOfLines={1}
-                    style={[styles.shopName, { fontSize: fp(15) }]}
-                  >
-                    {item.name}
-                  </Text>
-                  <Text
-                    style={[
-                      styles.shopArea,
-                      { fontSize: fp(13), marginTop: hp(2) },
-                    ]}
-                  >
-                    {item.area}
-                  </Text>
+                  <Text style={styles.ownerName}>{item.ownerName}</Text>
                 </View>
+                <View style={styles.shopDivider} />
+                <View style={styles.shopBottomRow}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.shopName}>{item.name}</Text>
+                    <Text style={styles.shopArea}>{item.area}</Text>
+                  </View>
 
-                <Text
-                  style={[
-                    styles.distanceText,
-                    { fontSize: fp(14), marginBottom: hp(15) },
-                  ]}
-                >
-                  {item.distance}
-                </Text>
+                  <Text style={styles.distanceText}>{item.distance}</Text>
+                </View>
               </TouchableOpacity>
             );
           }}
@@ -286,25 +254,19 @@ const PreferredShopsScreen = () => {
         onRequestClose={() => setShowMap(false)}
       >
         <View style={styles.overlay}>
-          {/* Tap outside to close */}
           <TouchableOpacity
             style={StyleSheet.absoluteFill}
             activeOpacity={1}
             onPress={() => setShowMap(false)}
           />
 
-          {/* 🧾 Bottom Sheet */}
           <View style={styles.sheet}>
-            {/* Header */}
             <View style={styles.sheetHeader}>
               <View style={styles.dragHandle} />
-
               <TouchableOpacity onPress={() => setShowMap(false)}>
                 <Text style={styles.closeText}>Close</Text>
               </TouchableOpacity>
             </View>
-
-            {/* 🗺️ Map */}
             <View style={{ flex: 1 }}>
               <MapScreen
                 location={selectedLocation}
@@ -347,19 +309,19 @@ const styles = StyleSheet.create({
   changeBtn: { backgroundColor: '#FC156A' },
   changeBtnText: { color: '#fff', fontWeight: '600' },
 
-  shopCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#eee',
-    backgroundColor: '#fff',
-  },
+  // shopCard: {
+  //   flexDirection: 'row',
+  //   alignItems: 'center',
+  //   borderWidth: 1,
+  //   borderColor: '#eee',
+  //   backgroundColor: '#fff',
+  // },
 
-  shopCardSelected: {
-    borderColor: '#ff2d87',
-    borderWidth: 1,
-    backgroundColor: '#fff0f6',
-  },
+  // shopCardSelected: {
+  //   borderColor: '#ff2d87',
+  //   borderWidth: 1,
+  //   backgroundColor: '#fff0f6',
+  // },
 
   iconWrapper: {
     justifyContent: 'center',
@@ -369,9 +331,9 @@ const styles = StyleSheet.create({
 
   iconWrapperSelected: { backgroundColor: '#FC156A' },
 
-  shopName: { fontWeight: '600', color: '#000' },
-  shopArea: { color: '#606060' },
-  distanceText: { color: '#FC156A', fontWeight: '600' },
+  // shopName: { fontWeight: '600', color: '#000' },
+  // shopArea: { color: '#606060' },
+  // distanceText: { color: '#FC156A', fontWeight: '600' },
 
   bottomBtn: {
     backgroundColor: '#d5d5d5',
@@ -413,5 +375,76 @@ const styles = StyleSheet.create({
   closeText: {
     color: '#FC156A',
     fontWeight: '600',
+  },
+  shopCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 20,
+    padding: 18,
+    marginTop: 16,
+    borderWidth: 1.2,
+    borderColor: '#E5E7EB',
+  },
+
+  shopCardSelected: {
+    borderColor: '#FC156A',
+    borderWidth: 1,
+    backgroundColor: '#fff0f6',
+  },
+
+  shopTopRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  shopIconWrap: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#F3F4F6',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
+  },
+
+  shopIcon: {
+    width: 20,
+    height: 20,
+    tintColor: '#6B7280',
+  },
+
+  ownerName: {
+    fontSize: 16,
+    fontWeight: '400',
+    color: '#111827',
+  },
+
+  shopDivider: {
+    height: 1,
+    backgroundColor: '#EDEEF0',
+    marginVertical: 14,
+  },
+
+  shopBottomRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  shopName: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#0F172A',
+  },
+
+  shopArea: {
+    fontSize: 15,
+    color: '#6B7280',
+    marginTop: 6,
+  },
+
+  distanceText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FC156A',
+    marginLeft: 14,
   },
 });

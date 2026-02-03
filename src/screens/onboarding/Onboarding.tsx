@@ -16,7 +16,6 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Screen from '../Screen';
 import { RootStackParamList } from '../../navigation/types';
-
 type NavProp = NativeStackNavigationProp<RootStackParamList, 'OtpScreen'>;
 
 const Onboarding = () => {
@@ -28,36 +27,36 @@ const Onboarding = () => {
   const fp = (px: number) => (px / 390) * width;
   const [agree, setAgree] = useState(true);
   
-  const sendOtp = async () => {
-  try {
-    const res = await fetch("http://192.168.1.6:3000/api/auth/request-otp", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ phone }),
-    });
+//   const sendOtp = async () => {
+//   try {
+//     const res = await fetch("http://192.168.1.6:3000/api/auth/request-otp", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({ phone }),
+//     });
 
-    const data = await res.json();
+//     const data = await res.json();
 
-    if (!data.allowOtp) {
-      return Toast.show({ type: "error", text1: "OTP blocked" });
-    }
+//     if (!data.allowOtp) {
+//       return Toast.show({ type: "error", text1: "OTP blocked" });
+//     }
 
-    const confirmation = await auth().signInWithPhoneNumber("+91" + phone);
+//     const confirmation = await auth().signInWithPhoneNumber("+91" + phone);
 
-    navigation.navigate("OtpScreen", {
-      phone: "+91" + phone,
-      confirmation,
-    });
+//     navigation.navigate("OtpScreen", {
+//       phone: "+91" + phone,
+//       confirmation,
+//     });
 
-  } catch (err: any) {
-    console.log("🔥 FIREBASE OTP ERROR:", err);
-    Toast.show({
-      type: "error",
-      text1: "OTP failed",
-      text2: err?.message,
-    });
-  }
-};
+//   } catch (err: any) {
+//     console.log("🔥 FIREBASE OTP ERROR:", err);
+//     Toast.show({
+//       type: "error",
+//       text1: "OTP failed",
+//       text2: err?.message,
+//     });
+//   }
+// };
 
 
 
@@ -160,8 +159,8 @@ const Onboarding = () => {
                     text1: 'Confirm the Terms of Service',
                   });
                 }
-
-                sendOtp();
+                navigation.navigate('OtpScreen',{phone})
+                // sendOtp();
               }}
             >
               <Text style={[styles.btnText, { fontSize: fp(16) }]}>

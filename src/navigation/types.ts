@@ -3,7 +3,7 @@ export type RootStackParamList = {
   Onboarding: undefined;
    OtpScreen: {
     phone: string;
-    confirmation: FirebaseAuthTypes.ConfirmationResult;
+    // confirmation: FirebaseAuthTypes.ConfirmationResult;
   };
   Information: undefined;
   KycVerification: undefined;
@@ -12,4 +12,5 @@ export type RootStackParamList = {
   MainTabs: undefined; 
   MapScreen: undefined;
   TrackingScreen : undefined;
+  MyRequest : undefined;
 };

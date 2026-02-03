@@ -42,8 +42,6 @@ const steps = [
 
 const DeliveryProgress = () => {
   const { width, height } = useWindowDimensions();
-
-  /* 🔹 Responsive helpers */
   const wp = (v: number) => (width / 390) * v;
   const hp = (v: number) => (height / 812) * v;
   const fp = (v: number) => (width / 390) * v;
@@ -97,7 +95,6 @@ const DeliveryProgress = () => {
               )}
             </View>
 
-            {/* CENTER TEXT */}
             <View style={[styles.content, { paddingLeft: wp(12) }]}>
               <Text
                 style={[
@@ -124,7 +121,6 @@ const DeliveryProgress = () => {
               )}
             </View>
 
-            {/* RIGHT CHECK */}
             {item.done && (
               <Image
                 source={require('../../assets/Icons/tickIcon.png')}

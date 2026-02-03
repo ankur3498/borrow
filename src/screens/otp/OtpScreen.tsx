@@ -30,9 +30,9 @@ const OtpScreen = () => {
   const wp = (v: number) => (v / 390) * width;
   const hp = (v: number) => (v / 812) * height;
   const fp = (v: number) => (v / 390) * width;
-  const { phone, confirmation } = route.params;
+  const { phone } = route.params;
 
-  const [confirm, setConfirm] = useState(confirmation);
+  // const [confirm, setConfirm] = useState(confirmation);
 
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const inputs = useRef<Array<TextInput | null>>([]);
@@ -64,61 +64,57 @@ const OtpScreen = () => {
     }
   };
 
-  const handleVerify = async () => {
-    const fullOtp = otp.join('');
+  // const handleVerify = async () => {
+  //   const fullOtp = otp.join('');
 
-    if (fullOtp.length !== 6) {
-      return Toast.show({ type: 'error', text1: 'Enter valid OTP' });
-    }
+  //   if (fullOtp.length !== 6) {
+  //     return Toast.show({ type: 'error', text1: 'Enter valid OTP' });
+  //   }
 
-    try {
-      // 1️⃣ Firebase OTP verify
-      await confirm.confirm(fullOtp);
+  //   try {
+  //     await confirm.confirm(fullOtp);
 
-      // 2️⃣ Firebase ID token
-      const user = auth().currentUser;
-      const idToken = await user?.getIdToken();
+  //     const user = auth().currentUser;
+  //     const idToken = await user?.getIdToken();
+  //     await fetch('http://192.168.1.6:3000/api/auth/verify', {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify({ idToken }),
+  //     });
 
-      // 3️⃣ Backend verify
-      await fetch('http://192.168.1.6:3000/api/auth/verify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ idToken }),
-      });
+  //     navigation.navigate('Information');
+  //   } catch {
+  //     Toast.show({ type: 'error', text1: 'Wrong OTP' });
+  //   }
+  // };
 
-      navigation.navigate('Information');
-    } catch {
-      Toast.show({ type: 'error', text1: 'Wrong OTP' });
-    }
-  };
+  // const handleResendOtp = async () => {
+  //   if (!canResend) return;
+  //   if (IS_TEST_MODE) {
+  //     Toast.show({
+  //       type: 'success',
+  //       text1: 'OTP Resent (Test Mode)',
+  //       text2: 'Use the same test OTP',
+  //     });
 
-  const handleResendOtp = async () => {
-    if (!canResend) return;
-    if (IS_TEST_MODE) {
-      Toast.show({
-        type: 'success',
-        text1: 'OTP Resent (Test Mode)',
-        text2: 'Use the same test OTP',
-      });
+  //     setOtp(['', '', '', '', '', '']);
+  //     setTimer(RESEND_TIME);
+  //     setCanResend(false);
+  //     return;
+  //   }
+  //   try {
+  //     const newConfirm = await auth().signInWithPhoneNumber('+91' + phone);
+  //     setConfirm(newConfirm);
 
-      setOtp(['', '', '', '', '', '']);
-      setTimer(RESEND_TIME);
-      setCanResend(false);
-      return;
-    }
-    try {
-      const newConfirm = await auth().signInWithPhoneNumber('+91' + phone);
-      setConfirm(newConfirm);
+  //     Toast.show({ type: 'success', text1: 'OTP Resent' });
 
-      Toast.show({ type: 'success', text1: 'OTP Resent' });
-
-      setOtp(['', '', '', '', '', '']);
-      setTimer(RESEND_TIME);
-      setCanResend(false);
-    } catch {
-      Toast.show({ type: 'error', text1: 'Resend failed' });
-    }
-  };
+  //     setOtp(['', '', '', '', '', '']);
+  //     setTimer(RESEND_TIME);
+  //     setCanResend(false);
+  //   } catch {
+  //     Toast.show({ type: 'error', text1: 'Resend failed' });
+  //   }
+  // };
 
   return (
     <Screen bg="#FFFFFF" barStyle="dark-content">
@@ -177,7 +173,7 @@ const OtpScreen = () => {
                   gap: wp(8),
                 },
               ]}
-              onPress={handleVerify}
+              onPress={()=>navigation.navigate('Information')}
             >
               <Text style={[styles.btnText, { fontSize: fp(16) }]}>Verify</Text>
               <Image
@@ -186,7 +182,7 @@ const OtpScreen = () => {
               />
             </TouchableOpacity>
 
-            <TouchableOpacity disabled={!canResend} onPress={handleResendOtp}>
+            <TouchableOpacity disabled={!canResend}>
               <Text
                 style={[styles.changeText, { opacity: canResend ? 1 : 0.5 }]}
               >

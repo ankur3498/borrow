@@ -13,6 +13,7 @@ import AdharCardVerification from './src/screens/AdharCardVerification';
 import PreferredShopsScreen from './src/screens/PreferredShopsScreen';
 import BottomTabs from './src/navigation/BottomTab';
 import Tracking from './src/screens/TrackingScreen/Tracking';
+import MyRequest from './src/screens/MyRequest/MyOrders';
 const Stack = createNativeStackNavigator();
 ``
 export default function App() {
@@ -37,6 +38,10 @@ export default function App() {
            <Stack.Screen
             name="TrackingScreen"
             component={Tracking}
+          />
+          <Stack.Screen
+            name="MyRequest"
+            component={MyRequest}
           />
         </Stack.Navigator>
         <Toast />

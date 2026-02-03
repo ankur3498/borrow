@@ -15,7 +15,6 @@ import { RootStackParamList } from '../../navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 const { width, height } = Dimensions.get('window');
 type NavProp = NativeStackNavigationProp<RootStackParamList, 'TrackingScreen'>;
-// 🔹 Responsive helpers (Design: 390 x 812)
 const wp = (v: number) => (width / 390) * v;
 const hp = (v: number) => (height / 812) * v;
 const fp = (v: number) => (width / 390) * v;

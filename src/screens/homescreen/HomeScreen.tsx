@@ -22,6 +22,7 @@ import HomeScreen2 from './FrequentlyOrdered';
 import Screen from '../Screen';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import TrackOrderBar from './TrackOrder';
+import MyRequestBar from '../MyRequest/MyRequestBar';
 
 const HomeScreen = () => {
   const { width, height } = useWindowDimensions();
@@ -44,8 +45,6 @@ const HomeScreen = () => {
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 });
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const panelAnim = useRef(new Animated.Value(0)).current;
-
-  // 0 = closed, 1 = open
 
   const openPanel = () => {
     setIsPanelOpen(true);
@@ -144,7 +143,6 @@ const HomeScreen = () => {
             borderBottomRightRadius: wp(16),
           }}
         >
-          {/* SEARCH + DOLLY */}
           <View
             style={{
               flexDirection: 'row',
@@ -249,8 +247,6 @@ const HomeScreen = () => {
               </View>
             </View>
           </View>
-
-          {/* CATEGORIES */}
           <View style={{ marginTop: hp(14) }}>
             <FlatList
               data={category}
@@ -288,11 +284,11 @@ const HomeScreen = () => {
           </View>
         </View>
 
-        <HomeScreen2 />
+        {/* <HomeScreen2 /> */}
         <BestSellers />
         <QuickPicks />
       </ScrollView>
-
+      <MyRequestBar/>
       {/* <TrackOrderBar /> */}
 
       {!isPanelOpen && (
@@ -314,7 +310,7 @@ const HomeScreen = () => {
           }}
         >
           <Image
-            source={require('../../assets/Icons/arrowIcon.png')}
+            source={require('../../assets/Icons/arrowicon.png')}
             style={{
               width: wp(18),
               height: wp(18),

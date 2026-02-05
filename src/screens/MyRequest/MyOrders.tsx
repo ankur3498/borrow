@@ -45,18 +45,17 @@ const MyRequest = () => {
       [id]: (prev[id] || 0) + 1,
     }));
   };
-
   const decrease = (id: number) => {
     setCart(prev => {
-      const val = (prev[id] || 0) - 1;
-
-      if (val <= 0) {
-        const copy = { ...prev };
-        delete copy[id];
-        return copy;
+      const currentQty = prev[id] || 1;
+      if (currentQty <= 1) {
+        return prev;
       }
 
-      return { ...prev, [id]: val };
+      return {
+        ...prev,
+        [id]: currentQty - 1,
+      };
     });
   };
 
@@ -67,7 +66,6 @@ const MyRequest = () => {
       return copy;
     });
   };
-
 
   const cartItems: CartItem[] = Object.entries(cart)
     .map(([id, qty]: [string, number]) => {
@@ -84,12 +82,12 @@ const MyRequest = () => {
 
   const totalAmount = cartItems.reduce(
     (sum, item) => sum + item.qty * item.price,
-    0
+    0,
   );
 
   return (
     <Screen bg="#FFFFFF" barStyle="dark-content">
-      <ScrollView style={{ flex: 1, backgroundColor: '#f5f6f8' }}>
+      <ScrollView style={{ flex: 1, backgroundColor: '#F6F8FC' }}>
         <View style={styles.header}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image
@@ -124,27 +122,27 @@ const MyRequest = () => {
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
-                  gap: wp(12),
+                  gap: wp(10),
+                  height:hp(120)
                 }}
               >
                 <Image
                   source={item.image}
                   style={{
-                    width: wp(70),
-                    height: wp(70),
+                    width: wp(105),
+                    height: hp(105),
                     borderRadius: wp(12),
                   }}
                 />
                 <View style={{ flex: 1 }}>
                   <Text style={styles.productTitle}>{item.name}</Text>
-
                   <Text style={styles.desc}>{item.measure}</Text>
-
                   <View
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
-                      marginTop: hp(8),
+                      marginTop: hp(20),
+                      gap:wp(50)
                     }}
                   >
                     <View
@@ -159,6 +157,7 @@ const MyRequest = () => {
                       }}
                     >
                       <TouchableOpacity
+                        disabled={item.qty <= 1}
                         onPress={() => decrease(item.id)}
                       >
                         <Text style={styles.qtyBtn}>−</Text>
@@ -173,9 +172,7 @@ const MyRequest = () => {
                         {item.qty}
                       </Text>
 
-                      <TouchableOpacity
-                        onPress={() => increase(item.id)}
-                      >
+                      <TouchableOpacity onPress={() => increase(item.id)}>
                         <Text style={styles.qtyBtn}>+</Text>
                       </TouchableOpacity>
                     </View>
@@ -193,15 +190,14 @@ const MyRequest = () => {
                   </View>
                 </View>
 
-                <TouchableOpacity
-                  onPress={() => removeItem(item.id)}
-                >
+                <TouchableOpacity onPress={() => removeItem(item.id)}>
                   <Image
                     source={require('../../assets/Icons/delete.png')}
                     style={{
                       width: wp(18),
                       height: wp(18),
                       tintColor: '#EF4444',
+                      marginBottom:hp(75)
                     }}
                   />
                 </TouchableOpacity>
@@ -221,14 +217,10 @@ const MyRequest = () => {
                 style={{ height: hp(18), width: 18 }}
               />
 
-              <Text style={styles.sendText}>
-                Send Borrow Request
-              </Text>
+              <Text style={styles.sendText}>Send Borrow Request</Text>
             </TouchableOpacity>
 
-            <Text style={styles.note}>
-              Shop owner will review your request
-            </Text>
+            <Text style={styles.note}>Shop owner will review your request</Text>
           </View>
         </View>
       </ScrollView>

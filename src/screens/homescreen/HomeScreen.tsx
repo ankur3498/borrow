@@ -23,6 +23,8 @@ import Screen from '../Screen';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import TrackOrderBar from './TrackOrder';
 import MyRequestBar from '../MyRequest/MyRequestBar';
+import { useContext } from 'react';
+import { CartContext } from '../../context/CartContext';
 
 const HomeScreen = () => {
   const { width, height } = useWindowDimensions();
@@ -34,7 +36,7 @@ const HomeScreen = () => {
   const totalQty = Object.values(cart).reduce((sum, qty) => sum + qty, 0);
   const [activeIndex, setActiveIndex] = useState(0);
   const allCategory = category.find(item => item.name === 'All');
-
+  
   const [activeCategoryId, setActiveCategoryId] = useState<string | null>(
     allCategory ? allCategory.id : null,
   );

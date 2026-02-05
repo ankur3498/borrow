@@ -75,7 +75,7 @@ const Onboarding = () => {
           >
             <View style={{ paddingBottom: hp(97) }}>
               <Text style={[styles.title, { fontSize: fp(28) }]}>
-                Welcome to Barrow
+                Welcome to Lenden
               </Text>
               <Text
                 style={[

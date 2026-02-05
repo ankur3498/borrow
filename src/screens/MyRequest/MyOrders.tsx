@@ -8,17 +8,84 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 import { TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Screen from '../Screen';
+import { sellers } from '../../components/data';
+
 const { width, height } = Dimensions.get('window');
+
 const wp = (v: number): number => (width / 390) * v;
 const hp = (v: number): number => (height / 812) * v;
 const fp = (v: number): number => (width / 390) * v;
 
+type CartType = {
+  [key: number]: number;
+};
+
+interface CartItem {
+  id: number;
+  name: string;
+  image: any;
+  measure: string;
+  price: number;
+  qty: number;
+}
+
 const MyRequest = () => {
-  const [qty, setQty] = useState(1);
-  const pricePerDay = 80;
   const navigation = useNavigation();
+  const route = useRoute();
+
+  const { cart: initialCart } = route.params as { cart: CartType };
+
+  const [cart, setCart] = useState<CartType>(initialCart);
+
+  const increase = (id: number) => {
+    setCart(prev => ({
+      ...prev,
+      [id]: (prev[id] || 0) + 1,
+    }));
+  };
+
+  const decrease = (id: number) => {
+    setCart(prev => {
+      const val = (prev[id] || 0) - 1;
+
+      if (val <= 0) {
+        const copy = { ...prev };
+        delete copy[id];
+        return copy;
+      }
+
+      return { ...prev, [id]: val };
+    });
+  };
+
+  const removeItem = (id: number) => {
+    setCart(prev => {
+      const copy = { ...prev };
+      delete copy[id];
+      return copy;
+    });
+  };
+
+
+  const cartItems: CartItem[] = Object.entries(cart)
+    .map(([id, qty]: [string, number]) => {
+      const product = sellers.find(p => p.id === Number(id));
+
+      if (!product) return null;
+
+      return {
+        ...product,
+        qty,
+      };
+    })
+    .filter(Boolean) as CartItem[];
+
+  const totalAmount = cartItems.reduce(
+    (sum, item) => sum + item.qty * item.price,
+    0
+  );
 
   return (
     <Screen bg="#FFFFFF" barStyle="dark-content">
@@ -30,10 +97,16 @@ const MyRequest = () => {
               style={styles.backIcon}
             />
           </TouchableOpacity>
-          <View style={{gap:8}}>
+
+          <View style={{ gap: 8 }}>
             <Text style={styles.headerTitle}>My Cart</Text>
+
             <Text
-              style={{ color: '#4A5565', fontWeight: '400', fontSize: wp(16) }}
+              style={{
+                color: '#4A5565',
+                fontWeight: '400',
+                fontSize: wp(16),
+              }}
             >
               Track and manage your orders
             </Text>
@@ -45,60 +118,117 @@ const MyRequest = () => {
             <Text style={styles.smallText}>Borrowing from</Text>
             <Text style={styles.storeName}>Home Essentials Store</Text>
           </View>
+          {cartItems.map((item, index) => (
+            <View key={index} style={styles.card}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: wp(12),
+                }}
+              >
+                <Image
+                  source={item.image}
+                  style={{
+                    width: wp(70),
+                    height: wp(70),
+                    borderRadius: wp(12),
+                  }}
+                />
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.productTitle}>{item.name}</Text>
 
-          <View style={styles.card}>
-            <View style={styles.productTop}>
-              <Image source={require("../../assets/Icons/Images/HealthCare.png")}/>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.productTitle}>Pressure Cooker</Text>
-                <Text style={styles.desc}>
-                  5L capacity, perfect for family cooking
-                </Text>
-                <Text style={styles.price}>₹{pricePerDay} per day</Text>
-              </View>
+                  <Text style={styles.desc}>{item.measure}</Text>
 
-              <TouchableOpacity>
-                <Image source={require("../../assets/Icons/delete.png")} style={{height:hp(20),width:wp(20)}}/>
-              </TouchableOpacity>
-            </View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      marginTop: hp(8),
+                    }}
+                  >
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        borderWidth: 1,
+                        borderColor: '#E5E7EB',
+                        borderRadius: wp(8),
+                        paddingHorizontal: wp(6),
+                        paddingVertical: hp(4),
+                      }}
+                    >
+                      <TouchableOpacity
+                        onPress={() => decrease(item.id)}
+                      >
+                        <Text style={styles.qtyBtn}>−</Text>
+                      </TouchableOpacity>
+                      <Text
+                        style={{
+                          marginHorizontal: wp(10),
+                          fontWeight: '600',
+                          fontSize: fp(14),
+                        }}
+                      >
+                        {item.qty}
+                      </Text>
 
-            <View style={styles.bottomRow}>
-              <View style={styles.qtyBox}>
+                      <TouchableOpacity
+                        onPress={() => increase(item.id)}
+                      >
+                        <Text style={styles.qtyBtn}>+</Text>
+                      </TouchableOpacity>
+                    </View>
+
+                    <Text
+                      style={{
+                        marginLeft: wp(12),
+                        fontSize: fp(14),
+                        color: '#374151',
+                        fontWeight: '500',
+                      }}
+                    >
+                      Subtotal: ₹{item.qty * item.price}
+                    </Text>
+                  </View>
+                </View>
+
                 <TouchableOpacity
-                  style={styles.qtyCircle}
-                  onPress={() => qty > 1 && setQty(qty - 1)}
+                  onPress={() => removeItem(item.id)}
                 >
-                  <Text style={styles.qtyBtn}>−</Text>
-                </TouchableOpacity>
-
-                <Text style={styles.qtyValue}>{qty}</Text>
-
-                <TouchableOpacity
-                  style={styles.qtyCircle}
-                  onPress={() => setQty(qty + 1)}
-                >
-                  <Text style={styles.qtyBtn}>+</Text>
+                  <Image
+                    source={require('../../assets/Icons/delete.png')}
+                    style={{
+                      width: wp(18),
+                      height: wp(18),
+                      tintColor: '#EF4444',
+                    }}
+                  />
                 </TouchableOpacity>
               </View>
-
-              <Text style={styles.subtotalText}>
-                Subtotal: ₹{qty * pricePerDay}
-              </Text>
             </View>
-          </View>
-
+          ))}
           <View style={styles.card}>
             <View style={styles.totalRow}>
               <Text style={styles.totalText}>Total Amount</Text>
-              <Text style={styles.totalPrice}>₹{qty * pricePerDay}</Text>
+
+              <Text style={styles.totalPrice}>₹{totalAmount}</Text>
             </View>
 
             <TouchableOpacity style={styles.sendBtn}>
-              <Image source={require("../../assets/Icons/sendIcon.png")} style={{height:hp(18),width:(18)}}/>
-              <Text style={styles.sendText}>Send Borrow Request</Text>
+              <Image
+                source={require('../../assets/Icons/sendIcon.png')}
+                style={{ height: hp(18), width: 18 }}
+              />
+
+              <Text style={styles.sendText}>
+                Send Borrow Request
+              </Text>
             </TouchableOpacity>
 
-            <Text style={styles.note}>Shop owner will review your request</Text>
+            <Text style={styles.note}>
+              Shop owner will review your request
+            </Text>
           </View>
         </View>
       </ScrollView>
@@ -113,8 +243,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     gap: hp(24),
     paddingTop: hp(54),
-    paddingBottom:hp(24),
-    paddingHorizontal:wp(24),
+    paddingBottom: hp(24),
+    paddingHorizontal: wp(24),
     backgroundColor: '#ffff',
     borderBottomWidth: 1,
     borderBottomColor: '#e5e7eb',
@@ -124,13 +254,6 @@ const styles = StyleSheet.create({
     height: hp(24),
     width: wp(24),
     tintColor: '#111827',
-    marginRight: wp(6),
-  },
-
-  backText: {
-    fontSize: fp(14),
-    fontWeight: '500',
-    color: '#111827',
   },
 
   headerTitle: {
@@ -142,6 +265,7 @@ const styles = StyleSheet.create({
   pagePadding: {
     padding: wp(14),
   },
+
   card: {
     backgroundColor: '#ffffff',
     borderRadius: wp(14),
@@ -156,7 +280,6 @@ const styles = StyleSheet.create({
   smallText: {
     fontSize: fp(16),
     color: '#6b7280',
-    fontWeight:'400'
   },
 
   storeName: {
@@ -164,12 +287,6 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#111827',
     marginTop: hp(4),
-  },
-
-  productTop: {
-    flexDirection: 'row',
-    gap:wp(16),
-    alignItems: 'flex-start',
   },
 
   productTitle: {
@@ -182,62 +299,12 @@ const styles = StyleSheet.create({
     fontSize: fp(16),
     color: '#6b7280',
     marginTop: hp(4),
-    lineHeight: fp(24),
-    maxWidth: '95%',
-    fontWeight:'400'
-  },
-
-  price: {
-    fontSize: fp(14),
-    fontWeight: '600',
-    color: '#ff2d7a',
-    marginTop: hp(6),
-  },
-
-  deleteIcon: {
-    fontSize: fp(18),
-    marginLeft: wp(6),
-  },
-
-  bottomRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: hp(18),
-  },
-
-  qtyBox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
-  qtyCircle: {
-    width: wp(29),
-    height: wp(31),
-    borderRadius: wp(10),
-    borderWidth: 1,
-    borderColor: '#d1d5db',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 
   qtyBtn: {
     fontSize: fp(16),
     fontWeight: '400',
     color: '#111827',
-  },
-
-  qtyValue: {
-    fontSize: fp(14),
-    fontWeight: '600',
-    marginHorizontal: wp(14),
-    color: '#111827',
-  },
-
-  subtotalText: {
-    fontSize: fp(14),
-    fontWeight: '500',
-    color: '#374151',
   },
 
   totalRow: {
@@ -250,7 +317,6 @@ const styles = StyleSheet.create({
   totalText: {
     fontSize: fp(16),
     color: '#374151',
-    fontWeight:'400'
   },
 
   totalPrice: {
@@ -260,19 +326,18 @@ const styles = StyleSheet.create({
   },
 
   sendBtn: {
-    flexDirection:"row",
+    flexDirection: 'row',
     backgroundColor: '#ff1466',
     paddingVertical: hp(14),
     borderRadius: wp(10),
     alignItems: 'center',
-    justifyContent:'center',
-    gap:wp(10)
+    justifyContent: 'center',
+    gap: wp(10),
   },
 
   sendText: {
     color: '#ffffff',
     fontSize: fp(16),
-    fontWeight: '400',
   },
 
   note: {

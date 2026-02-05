@@ -10,38 +10,40 @@ import React, { useState } from 'react';
 import { FlatList } from 'react-native';
 import { sellers } from '../../components/data.tsx';
 
-const BestSellers = () => {
+const BestSellers = ({ cart, setCart }) => {
   const { width, height } = useWindowDimensions();
   const wp = (v: number) => (v / 390) * width;
   const hp = (v: number) => (v / 812) * height;
   const fp = (v: number) => (v / 390) * width;
-
-  // ✅ quantity state (id wise)
   const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
 
   const addItem = (id: number) => {
-    setQuantities(prev => ({ ...prev, [id]: 1 }));
+    setCart(prev => ({ ...prev, [id]: 1 }));
   };
 
   const increase = (id: number) => {
-    setQuantities(prev => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
+    setCart(prev => ({
+      ...prev,
+      [id]: (prev[id] || 0) + 1,
+    }));
   };
 
   const decrease = (id: number) => {
-    setQuantities(prev => {
+    setCart(prev => {
       const val = (prev[id] || 0) - 1;
+
       if (val <= 0) {
         const copy = { ...prev };
         delete copy[id];
         return copy;
       }
+
       return { ...prev, [id]: val };
     });
   };
 
   return (
     <View>
-      {/* -------- header unchanged -------- */}
       <View
         style={{
           flexDirection: 'row',
@@ -64,8 +66,6 @@ const BestSellers = () => {
         </Text>
         <View style={{ flex: 1, height: 1, backgroundColor: '#D9D9D9' }} />
       </View>
-
-      {/* -------- card container unchanged -------- */}
       <View
         style={{
           height: hp(211),
@@ -86,7 +86,7 @@ const BestSellers = () => {
             gap: wp(8),
           }}
           renderItem={({ item }) => {
-            const qty = quantities[item.id] || 0;
+            const qty = cart[item.id] || 0;
 
             return (
               <View
@@ -151,8 +151,6 @@ const BestSellers = () => {
                   >
                     ₹{item.price}
                   </Text>
-
-                  {/* ✅ ONLY BEHAVIOUR CHANGE (UI SAME) */}
                   {qty === 0 ? (
                     <TouchableOpacity
                       onPress={() => addItem(item.id)}

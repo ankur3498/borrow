@@ -63,7 +63,7 @@ const OtpScreen = () => {
       inputs.current[index - 1]?.focus();
     }
   };
-
+  const fullOtp = otp.join('');
   // const handleVerify = async () => {
   //   const fullOtp = otp.join('');
 
@@ -173,7 +173,15 @@ const OtpScreen = () => {
                   gap: wp(8),
                 },
               ]}
-              onPress={()=>navigation.navigate('Information')}
+              onPress={()=>{
+                if(fullOtp.length !== 6){
+                   return Toast.show({ type: 'error', text1: 'Enter valid OTP' });
+                }
+                else
+                  {
+                    navigation.navigate('Information')
+                  }
+                }}
             >
               <Text style={[styles.btnText, { fontSize: fp(16) }]}>Verify</Text>
               <Image

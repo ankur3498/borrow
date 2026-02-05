@@ -175,7 +175,6 @@ const PreferredShopsScreen = () => {
             </Text>
           </TouchableOpacity>
         </View>
-
         <FlatList
           data={shops}
           keyExtractor={item => item.id}
@@ -183,7 +182,6 @@ const PreferredShopsScreen = () => {
           contentContainerStyle={{ paddingBottom: hp(160) }}
           renderItem={({ item }) => {
             const isSelected = selectedIds.includes(item.id);
-
             return (
               <TouchableOpacity
                 activeOpacity={0.9}
@@ -400,18 +398,18 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#F3F4F6',
+    backgroundColor: '#FC156A',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 12,
   },
 
   shopIcon: {
-    width: 20,
-    height: 20,
-    tintColor: '#6B7280',
+    width: 24,
+    height: 24,
+    tintColor: '#ffff',
   },
-
+  
   ownerName: {
     fontSize: 16,
     fontWeight: '400',

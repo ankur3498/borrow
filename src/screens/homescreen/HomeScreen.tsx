@@ -30,7 +30,8 @@ const HomeScreen = () => {
   const hp = (v: number) => (v / 812) * height;
   const fp = (v: number) => (v / 390) * width;
   const insets = useSafeAreaInsets();
-
+  const [cart, setCart] = useState<{ [key: number]: number }>({});
+  const totalQty = Object.values(cart).reduce((sum, qty) => sum + qty, 0);
   const [activeIndex, setActiveIndex] = useState(0);
   const allCategory = category.find(item => item.name === 'All');
 
@@ -62,7 +63,6 @@ const HomeScreen = () => {
       duration: 100,
       useNativeDriver: false,
     }).start(() => {
-      
       setIsPanelOpen(false);
     });
   };
@@ -271,7 +271,7 @@ const HomeScreen = () => {
                   <Text
                     style={{
                       fontSize: fp(14),
-                      fontWeight:activeCategoryId === item.id ? '500' : '400',
+                      fontWeight: activeCategoryId === item.id ? '500' : '400',
                       color:
                         activeCategoryId === item.id ? '#FFF' : '#FFFFFF99',
                     }}
@@ -285,10 +285,11 @@ const HomeScreen = () => {
         </View>
 
         {/* <HomeScreen2 /> */}
-        <BestSellers />
-        <QuickPicks />
+        <BestSellers cart={cart} setCart={setCart} />
+        <QuickPicks cart={cart} setCart={setCart} />
       </ScrollView>
-      <MyRequestBar/>
+      {totalQty > 0 && <MyRequestBar quantity={totalQty} cart={cart} />}
+
       {/* <TrackOrderBar /> */}
 
       {!isPanelOpen && (
